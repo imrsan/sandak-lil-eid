@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>سندك للعيد ✨ — حوّل صورتك إلى تهنئة بالذكاء الاصطناعي</title>
+  <meta name="description" content="ارفع صورتك، اكتب معايدتك، وسندك يولّد تهنئة عيد فريدة بالذكاء الاصطناعي في ثوانٍ">
+  <meta name="theme-color" content="#07071a">
+  <meta property="og:title" content="سندك للعيد ✨">
+  <meta property="og:description" content="حوّل صورتك إلى تهنئة عيد فريدة بالذكاء الاصطناعي">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://san-eid.netlify.app">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   DESIGN TOKENS
+================================================================ */
+:root {
+  --c-void:       #04040f;
+  --c-base:       #07071a;
+  --c-raised:     #0d0d26;
+  --c-card:       #111130;
+  --c-card2:      #16163a;
+  --c-glass:      rgba(17,17,48,.84);
+  --c-glass-lt:   rgba(255,255,255,.04);
+  --c-border:     rgba(148,108,255,.18);
+  --c-border-md:  rgba(148,108,255,.32);
+  --c-border-hi:  rgba(168,85,247,.55);
+  --c-v1:         #6d28d9;
+  --c-v2:         #7c3aed;
+  --c-v3:         #a855f7;
+  --c-v4:         #c084fc;
+  --c-gold:       #f5c842;
+  --c-gold2:      #e8a020;
+  --c-gold3:      #fde68a;
+  --c-text:       #ede9fe;
+  --c-muted:      #8b83c0;
+  --c-dim:        #4c477a;
+  --c-danger:     #f87171;
+  --c-ok:         #34d399;
+  --shadow-card:  0 2px 32px rgba(109,40,217,.14), 0 1px 0 rgba(255,255,255,.04) inset;
+  --shadow-glow:  0 0 40px rgba(124,58,237,.28);
+  --shadow-gold:  0 0 28px rgba(245,200,66,.18);
+  --r-card:       22px;
+  --r-btn:        13px;
+  --r-input:      12px;
+  --font:         'Tajawal', sans-serif;
+  --nav-h:        64px;
+  --transition:   .22s cubic-bezier(.4,0,.2,1);
+}
+
+/* ================================================================
+   RESET & BASE
+================================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font);
+  background:var(--c-base);
+  color:var(--c-text);
+  min-height:100vh;
+  direction:rtl;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+button{font-family:var(--font);cursor:pointer}
+input,textarea{font-family:var(--font)}
+
+/* ================================================================
+   BACKGROUND COSMOS
+================================================================ */
+#cosmos{
+  position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+}
+#cosmos-gradient{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 55% at 15% 42%,  rgba(109,40,217,.30) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 40% at 85% 15%,  rgba(168,85,247,.18) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 35% at 60% 85%,  rgba(245,200,66,.07) 0%,transparent 45%),
+    radial-gradient(ellipse 40% 30% at 50%  5%,  rgba(168,85,247,.10) 0%,transparent 50%),
+    linear-gradient(160deg, #04040f 0%,#0b0b28 35%,#160835 60%,#04040f 100%);
+}
+/* moon */
+#cosmos::before{
+  content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);
+  width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle,rgba(245,200,66,.12) 0%,transparent 65%);
+}
+/* star layers */
+.star-layer{position:absolute;inset:0;animation:twinkle-a 8s ease-in-out infinite alternate}
+.star-layer:nth-child(2){animation:twinkle-b 11s ease-in-out infinite alternate-reverse}
+.star-layer:nth-child(3){animation:twinkle-a 14s ease-in-out infinite alternate;animation-delay:2s}
+.star-layer::before,.star-layer::after{
+  content:'';position:absolute;inset:0;
+  background-image:
+    radial-gradient(1px   1px at  7% 11%,rgba(255,255,255,.92) 0%,transparent 100%),
+    radial-gradient(1px   1px at 18%  4%,rgba(255,255,255,.70) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 31% 26%,rgba(168,85,247,.88) 0%,transparent 100%),
+    radial-gradient(1px   1px at 47%  8%,rgba(255,255,255,.62) 0%,transparent 100%),
+    radial-gradient(1px   1px at 61% 20%,rgba(255,255,255,.82) 0%,transparent 100%),
+    radial-gradient(1px   1px at 76%  6%,rgba(255,255,255,.68) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 90% 32%,rgba(245,200,66,.55) 0%,transparent 100%),
+    radial-gradient(1px   1px at  3% 44%,rgba(255,255,255,.52) 0%,transparent 100%),
+    radial-gradient(1px   1px at 22% 57%,rgba(168,85,247,.50) 0%,transparent 100%),
+    radial-gradient(1px   1px at 43% 48%,rgba(255,255,255,.72) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 57% 52%,rgba(255,255,255,.58) 0%,transparent 100%),
+    radial-gradient(1px   1px at 72% 64%,rgba(245,200,66,.38) 0%,transparent 100%),
+    radial-gradient(1px   1px at 88% 48%,rgba(255,255,255,.78) 0%,transparent 100%),
+    radial-gradient(1px   1px at 13% 73%,rgba(255,255,255,.48) 0%,transparent 100%),
+    radial-gradient(1px   1px at 28% 84%,rgba(168,85,247,.52) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 53% 78%,rgba(255,255,255,.66) 0%,transparent 100%),
+    radial-gradient(1px   1px at 67% 89%,rgba(255,255,255,.48) 0%,transparent 100%),
+    radial-gradient(1px   1px at 82% 93%,rgba(245,200,66,.42) 0%,transparent 100%),
+    radial-gradient(1px   1px at 95% 77%,rgba(255,255,255,.58) 0%,transparent 100%),
+    radial-gradient(1px   1px at 37% 97%,rgba(168,85,247,.38) 0%,transparent 100%);
+}
+.star-layer:nth-child(2)::before{
+  background-image:
+    radial-gradient(1px 1px at  5% 27%,rgba(255,255,255,.62) 0%,transparent 100%),
+    radial-gradient(1px 1px at 15% 43%,rgba(168,85,247,.48) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 26% 13%,rgba(255,255,255,.82) 0%,transparent 100%),
+    radial-gradient(1px 1px at 40% 61%,rgba(245,200,66,.38) 0%,transparent 100%),
+    radial-gradient(1px 1px at 56% 36%,rgba(255,255,255,.68) 0%,transparent 100%),
+    radial-gradient(1px 1px at 70% 74%,rgba(168,85,247,.48) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 79% 55%,rgba(255,255,255,.72) 0%,transparent 100%),
+    radial-gradient(1px 1px at 92% 18%,rgba(245,200,66,.52) 0%,transparent 100%),
+    radial-gradient(1px 1px at  1% 88%,rgba(255,255,255,.52) 0%,transparent 100%),
+    radial-gradient(1px 1px at 46% 83%,rgba(168,85,247,.55) 0%,transparent 100%);
+}
+@keyframes twinkle-a{0%{opacity:.52}100%{opacity:1}}
+@keyframes twinkle-b{0%{opacity:.38}100%{opacity:.85}}
+
+/* shooting star */
+#shoot{
+  position:absolute;top:18%;left:-10%;
+  width:2px;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.9),rgba(245,200,66,.7),transparent);
+  border-radius:2px;
+  animation:shoot 7s linear 4s infinite;
+  transform:rotate(-22deg);
+}
+@keyframes shoot{
+  0%  {left:-5%;top:18%;width:2px;opacity:0}
+  5%  {opacity:1;width:80px}
+  20% {left:110%;top:42%;width:2px;opacity:0}
+  100%{left:110%;opacity:0}
+}
+
+/* ================================================================
+   APP SHELL
+================================================================ */
+#app{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column}
+
+/* ================================================================
+   NAVBAR
+================================================================ */
+#nav{
+  position:sticky;top:0;z-index:300;height:var(--nav-h);
+  background:rgba(4,4,15,.88);
+  border-bottom:1px solid var(--c-border);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;gap:12px;
+}
+.nav-logo{
+  font-size:1.12rem;font-weight:900;
+  background:linear-gradient(135deg,var(--c-gold),var(--c-gold2),var(--c-gold3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  cursor:pointer;user-select:none;white-space:nowrap;letter-spacing:.01em;
+  transition:opacity var(--transition);
+}
+.nav-logo:hover{opacity:.82}
+.nav-links{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.nav-link{
+  background:none;border:none;color:var(--c-muted);
+  font-size:.875rem;font-weight:600;padding:8px 14px;border-radius:10px;
+  transition:color var(--transition),background var(--transition);white-space:nowrap;
+}
+.nav-link:hover{color:var(--c-text);background:rgba(255,255,255,.06)}
+.nav-link.active{color:var(--c-text)}
+.nav-cta{
+  background:linear-gradient(135deg,var(--c-v2),var(--c-v3));
+  color:#fff!important;border-radius:10px;
+  box-shadow:0 0 18px rgba(124,58,237,.32);
+  transition:box-shadow var(--transition),transform var(--transition),background var(--transition)!important;
+}
+.nav-cta:hover{
+  box-shadow:0 0 32px rgba(124,58,237,.55)!important;
+  transform:translateY(-1px);
+}
+
+/* ================================================================
+   PAGES
+================================================================ */
+.pg{display:none;animation:fadeIn .3s ease both}
+.pg.on{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ================================================================
+   HOME — HERO
+================================================================ */
+.hero{
+  max-width:680px;margin:0 auto;padding:88px 24px 72px;text-align:center;
+}
+.hero-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(124,58,237,.14);
+  border:1px solid rgba(124,58,237,.35);
+  border-radius:100px;padding:7px 20px;
+  font-size:.8rem;font-weight:700;color:var(--c-v3);
+  margin-bottom:28px;letter-spacing:.04em;text-transform:uppercase;
+  animation:fadeIn .5s .1s both;
+}
+.hero h1{
+  font-size:clamp(2.2rem,6vw,3.6rem);font-weight:900;line-height:1.18;
+  margin-bottom:20px;
+  background:linear-gradient(148deg,#ede9fe 20%,#c084fc 52%,var(--c-gold) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:fadeIn .5s .2s both;
+}
+.hero-sub{
+  color:var(--c-muted);font-size:1.05rem;line-height:1.8;
+  margin-bottom:40px;max-width:500px;margin-inline:auto;
+  animation:fadeIn .5s .3s both;
+}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,var(--c-v2),var(--c-v3));
+  color:#fff;border:none;
+  font-size:1.1rem;font-weight:800;padding:18px 56px;
+  border-radius:var(--r-btn);
+  box-shadow:0 0 32px rgba(124,58,237,.42),0 2px 0 rgba(255,255,255,.1) inset;
+  transition:all var(--transition);
+  animation:fadeIn .5s .4s both;
+}
+.hero-cta:hover{box-shadow:0 0 52px rgba(124,58,237,.65),0 2px 0 rgba(255,255,255,.1) inset;transform:translateY(-2px)}
+.hero-cta:active{transform:translateY(0)}
+
+/* stats row */
+.hero-stats{
+  display:flex;justify-content:center;gap:36px;flex-wrap:wrap;
+  margin-top:52px;padding-top:36px;
+  border-top:1px solid var(--c-border);
+  animation:fadeIn .5s .5s both;
+}
+.stat-n{font-size:1.8rem;font-weight:900;color:var(--c-text);line-height:1}
+.stat-l{font-size:.78rem;color:var(--c-muted);margin-top:4px}
+
+/* features */
+.features{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:16px;max-width:680px;margin:48px auto 0;padding:0 24px 80px;
+}
+.feat{
+  background:var(--c-glass);
+  border:1px solid var(--c-border);
+  backdrop-filter:blur(10px);
+  border-radius:18px;padding:28px 20px;text-align:center;
+  transition:border-color var(--transition),transform var(--transition),box-shadow var(--transition);
+  animation:fadeIn .5s both;
+}
+.feat:nth-child(1){animation-delay:.15s}
+.feat:nth-child(2){animation-delay:.25s}
+.feat:nth-child(3){animation-delay:.35s}
+.feat:nth-child(4){animation-delay:.45s}
+.feat:hover{border-color:var(--c-border-md);transform:translateY(-3px);box-shadow:var(--shadow-glow)}
+.feat-ico{font-size:2rem;margin-bottom:12px}
+.feat-t{font-size:.9rem;font-weight:800;color:var(--c-text);margin-bottom:5px}
+.feat-d{font-size:.78rem;color:var(--c-muted);line-height:1.55}
+
+/* ================================================================
+   HOW IT WORKS
+================================================================ */
+.how{
+  max-width:720px;margin:0 auto;padding:0 24px 80px;text-align:center;
+}
+.section-title{
+  font-size:1.6rem;font-weight:900;
+  background:linear-gradient(135deg,var(--c-text),var(--c-v3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:8px;
+}
+.section-sub{color:var(--c-muted);font-size:.9rem;margin-bottom:36px}
+.steps-how{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px}
+.step-how{
+  background:var(--c-glass);border:1px solid var(--c-border);
+  border-radius:18px;padding:28px 18px;position:relative;overflow:hidden;
+}
+.step-how::before{
+  content:attr(data-n);
+  position:absolute;top:-8px;right:-6px;
+  font-size:5rem;font-weight:900;
+  color:rgba(124,58,237,.07);line-height:1;pointer-events:none;
+}
+.step-how-ico{font-size:1.8rem;margin-bottom:12px}
+.step-how-t{font-size:.88rem;font-weight:800;margin-bottom:6px}
+.step-how-d{font-size:.76rem;color:var(--c-muted);line-height:1.5}
+
+/* ================================================================
+   GENERATOR PAGE
+================================================================ */
+#gen-main{max-width:660px;width:100%;margin:0 auto;padding:32px 20px 60px}
+
+/* ── step progress bar ── */
+#step-bar{
+  display:flex;align-items:center;justify-content:center;
+  gap:0;margin-bottom:32px;
+  direction:rtl;
+}
+.sb-item{display:flex;align-items:center;gap:7px}
+.sb-dot{
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.8rem;font-weight:800;flex-shrink:0;
+  transition:all .35s cubic-bezier(.4,0,.2,1);
+  border:2px solid transparent;
+}
+.sb-dot.idle{background:rgba(148,108,255,.1);border-color:var(--c-border);color:var(--c-dim)}
+.sb-dot.done{
+  background:linear-gradient(135deg,var(--c-v1),var(--c-v2));
+  color:#fff;box-shadow:0 0 14px rgba(109,40,217,.4);
+}
+.sb-dot.cur{
+  background:linear-gradient(135deg,var(--c-v2),var(--c-v3));
+  color:#fff;
+  box-shadow:0 0 22px rgba(124,58,237,.55),0 0 0 4px rgba(124,58,237,.15);
+}
+.sb-lbl{font-size:.76rem;color:var(--c-dim);white-space:nowrap;font-weight:600;transition:color .3s}
+.sb-lbl.cur{color:var(--c-text);font-weight:700}
+.sb-lbl.done{color:var(--c-v3)}
+.sb-line{flex:1;height:1px;min-width:20px;max-width:48px;background:var(--c-border);transition:background .4s}
+.sb-line.done{background:var(--c-v2)}
+
+/* ── card ── */
+.card{
+  background:var(--c-glass);
+  border:1px solid var(--c-border);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-radius:var(--r-card);padding:32px;
+  box-shadow:var(--shadow-card);
+  animation:slideCard .38s cubic-bezier(.4,0,.2,1) both;
+}
+@keyframes slideCard{
+  from{opacity:0;transform:translateY(22px) scale(.98)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+.card-title{font-size:1.32rem;font-weight:900;color:var(--c-text);margin-bottom:4px}
+.card-sub{font-size:.84rem;color:var(--c-muted);margin-bottom:24px;line-height:1.5}
+
+/* ── upload zone ── */
+.upload-zone{
+  position:relative;border:2px dashed var(--c-border);
+  border-radius:18px;padding:56px 24px;text-align:center;
+  cursor:pointer;overflow:hidden;
+  transition:border-color var(--transition),background var(--transition),box-shadow var(--transition);
+}
+.upload-zone:hover,.upload-zone.drag{
+  border-color:var(--c-border-hi);
+  background:rgba(124,58,237,.06);
+  box-shadow:0 0 32px rgba(124,58,237,.14);
+}
+.upload-zone input[type=file]{
+  position:absolute;inset:0;opacity:0;cursor:pointer;
+  width:100%;height:100%;
+  z-index:10;          /* must sit above all child text/icons */
+  font-size:16px;      /* prevents iOS zoom on tap            */
+}
+.upload-ico{font-size:3.4rem;margin-bottom:16px;display:block;
+  filter:drop-shadow(0 0 12px rgba(168,85,247,.4));
+}
+.upload-title{font-size:1.05rem;font-weight:800;margin-bottom:8px}
+.upload-hint{font-size:.8rem;color:var(--c-muted);line-height:1.6}
+.upload-badges{
+  display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:14px;
+}
+.badge{
+  background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.22);
+  border-radius:100px;padding:3px 10px;font-size:.72rem;color:var(--c-v3);font-weight:700;
+}
+
+/* ── preview ── */
+.preview-box{
+  position:relative;border-radius:16px;overflow:hidden;margin-bottom:22px;
+  border:2px solid var(--c-border);box-shadow:0 4px 24px rgba(109,40,217,.16);
+}
+.preview-box img{width:100%;max-height:280px;object-fit:cover;display:block}
+.preview-overlay{
+  position:absolute;inset:0;background:linear-gradient(to top,rgba(4,4,15,.7),transparent 45%);
+  display:flex;align-items:flex-end;justify-content:flex-start;padding:14px 16px;
+}
+.preview-tag{
+  background:rgba(124,58,237,.75);backdrop-filter:blur(8px);
+  border-radius:100px;padding:5px 14px;font-size:.76rem;font-weight:700;color:#fff;
+}
+.btn-reup{
+  display:block;width:100%;background:none;border:1px dashed var(--c-border);
+  border-radius:10px;padding:9px;font-size:.8rem;font-weight:600;color:var(--c-muted);
+  margin-bottom:22px;transition:all var(--transition);
+}
+.btn-reup:hover{border-color:var(--c-border-hi);color:var(--c-v3);background:rgba(124,58,237,.06)}
+
+/* ── style picker ── */
+.styles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
+.style-btn{
+  background:rgba(17,17,48,.65);border:2px solid var(--c-border);
+  border-radius:14px;padding:14px 8px;text-align:center;
+  transition:all var(--transition);
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+}
+.style-btn:hover{border-color:var(--c-border-md);background:rgba(124,58,237,.09);transform:translateY(-1px)}
+.style-btn.sel{
+  border-color:var(--c-v3);background:rgba(124,58,237,.16);
+  box-shadow:0 0 16px rgba(124,58,237,.20),0 0 0 1px rgba(168,85,247,.18) inset;
+}
+.style-emo{font-size:1.6rem;line-height:1}
+.style-name{font-size:.75rem;font-weight:700;color:var(--c-muted)}
+.style-btn.sel .style-name{color:var(--c-text)}
+
+/* ── labels ── */
+.label{display:block;font-size:.83rem;font-weight:700;color:var(--c-muted);margin-bottom:9px;margin-top:18px}
+.label:first-child{margin-top:0}
+
+/* ── inputs ── */
+textarea,input[type=text]{
+  width:100%;background:rgba(4,4,15,.75);
+  border:1px solid var(--c-border);border-radius:var(--r-input);
+  padding:14px 16px;color:var(--c-text);
+  font-size:.97rem;direction:rtl;outline:none;
+  transition:border-color var(--transition),box-shadow var(--transition);
+  -webkit-appearance:none;
+}
+textarea{resize:vertical;min-height:90px}
+textarea:focus,input[type=text]:focus{
+  border-color:var(--c-v3);
+  box-shadow:0 0 0 3px rgba(168,85,247,.14);
+}
+textarea::placeholder,input::placeholder{color:rgba(140,130,192,.4)}
+
+/* char counter */
+.char-count{text-align:left;font-size:.74rem;color:var(--c-dim);margin-top:5px}
+.char-count.warn{color:#fb923c}
+
+/* ── buttons ── */
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  width:100%;padding:16px 28px;
+  font-size:1rem;font-weight:800;border-radius:var(--r-btn);
+  border:none;transition:all var(--transition);
+  letter-spacing:.01em;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--c-v2) 0%,var(--c-v3) 100%);
+  color:#fff;
+  box-shadow:0 0 24px rgba(124,58,237,.38),0 2px 0 rgba(255,255,255,.08) inset;
+}
+.btn-primary:hover:not(:disabled){
+  box-shadow:0 0 40px rgba(124,58,237,.58),0 2px 0 rgba(255,255,255,.08) inset;
+  transform:translateY(-2px);
+}
+.btn-primary:active:not(:disabled){transform:translateY(0)}
+.btn-primary:disabled{opacity:.38;cursor:not-allowed;transform:none!important}
+.btn-ghost{
+  background:transparent;color:var(--c-muted);
+  border:1px solid var(--c-border);
+}
+.btn-ghost:hover{border-color:var(--c-border-md);color:var(--c-text);background:rgba(255,255,255,.03)}
+.btn-gold{
+  background:linear-gradient(135deg,var(--c-gold),var(--c-gold2));
+  color:#180900;font-weight:900;
+  box-shadow:var(--shadow-gold),0 2px 0 rgba(255,255,255,.15) inset;
+}
+.btn-gold:hover{box-shadow:0 0 42px rgba(245,200,66,.45),0 2px 0 rgba(255,255,255,.15) inset;transform:translateY(-2px)}
+.btn-danger{background:rgba(248,113,113,.15);color:var(--c-danger);border:1px solid rgba(248,113,113,.28)}
+.btn-danger:hover{background:rgba(248,113,113,.22);border-color:rgba(248,113,113,.45)}
+.btn-row{display:flex;gap:10px}
+.btn-row .btn{flex:1;width:auto}
+.mt1{margin-top:10px}
+.mt2{margin-top:14px}
+.mt3{margin-top:20px}
+
+/* ── generating ── */
+.gen-wrap{text-align:center;padding:52px 24px}
+.spinner-ring{
+  width:68px;height:68px;margin:0 auto 28px;border-radius:50%;
+  border:3px solid rgba(124,58,237,.16);
+  border-top-color:var(--c-v3);
+  border-right-color:var(--c-v4);
+  animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.gen-title{font-size:1.3rem;font-weight:900;margin-bottom:8px}
+.gen-sub{color:var(--c-muted);font-size:.88rem;min-height:22px;transition:all .3s}
+.dots{display:flex;justify-content:center;gap:7px;margin-top:24px}
+.dots span{
+  width:9px;height:9px;border-radius:50%;
+  background:linear-gradient(135deg,var(--c-v2),var(--c-v3));
+  animation:dot-pulse 1.4s ease-in-out infinite;
+}
+.dots span:nth-child(2){animation-delay:.18s}
+.dots span:nth-child(3){animation-delay:.36s}
+@keyframes dot-pulse{0%,100%{transform:scale(.65);opacity:.38}50%{transform:scale(1.2);opacity:1}}
+
+/* ── result ── */
+.result-img-wrap{
+  border-radius:18px;overflow:hidden;
+  border:2px solid rgba(245,200,66,.22);
+  box-shadow:0 8px 40px rgba(109,40,217,.28),0 0 60px rgba(245,200,66,.06);
+  margin-bottom:22px;position:relative;
+}
+.result-img-wrap img{width:100%;display:block}
+.result-share-badge{
+  position:absolute;top:14px;right:14px;
+  background:rgba(245,200,66,.88);backdrop-filter:blur(8px);
+  border-radius:100px;padding:6px 14px;
+  font-size:.76rem;font-weight:800;color:#180900;
+}
+
+/* ── error box ── */
+.err-box{
+  background:rgba(248,113,113,.08);
+  border:1px solid rgba(248,113,113,.25);
+  border-radius:14px;padding:22px;text-align:center;
+  margin-bottom:18px;
+}
+.err-ico{font-size:2rem;margin-bottom:10px}
+.err-title{font-size:1rem;font-weight:800;color:var(--c-danger);margin-bottom:5px}
+.err-msg{font-size:.84rem;color:rgba(248,113,113,.78);line-height:1.55}
+
+/* ── success toast ── */
+#toast{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.3);
+  border-radius:100px;padding:12px 24px;
+  font-size:.86rem;font-weight:700;color:var(--c-ok);
+  backdrop-filter:blur(12px);z-index:999;
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .4s;
+  opacity:0;white-space:nowrap;
+}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* ================================================================
+   LIBRARY PAGE
+================================================================ */
+.library-empty{
+  max-width:400px;margin:80px auto;text-align:center;padding:0 24px;
+}
+.library-empty-ico{font-size:4rem;margin-bottom:20px;opacity:.6}
+.library-empty-t{font-size:1.1rem;font-weight:800;margin-bottom:8px}
+.library-empty-d{color:var(--c-muted);font-size:.88rem}
+
+/* ================================================================
+   FOOTER
+================================================================ */
+#footer{
+  position:relative;z-index:1;
+  background:rgba(4,4,15,.72);
+  border-top:1px solid var(--c-border);
+  padding:24px 28px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+}
+.footer-brand{
+  font-weight:900;font-size:.9rem;
+  background:linear-gradient(135deg,var(--c-gold),var(--c-gold2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.footer-copy{color:var(--c-dim);font-size:.78rem}
+.footer-links{display:flex;gap:16px}
+.footer-link{color:var(--c-dim);font-size:.78rem;text-decoration:none;transition:color .2s}
+.footer-link:hover{color:var(--c-muted)}
+
+/* ================================================================
+   RESPONSIVE
+================================================================ */
+@media(max-width:520px){
+  #nav{padding:0 16px}
+  .nav-link:not(.nav-cta){display:none}
+  .hero{padding:60px 18px 48px}
+  .hero h1{font-size:2rem}
+  .features{padding:0 18px 60px;gap:12px}
+  #gen-main{padding:24px 14px 48px}
+  .card{padding:22px 16px}
+  .styles-grid{grid-template-columns:repeat(2,1fr)}
+  .sb-lbl{display:none}
+  .sb-line{min-width:14px;max-width:24px}
+  .btn-row{flex-direction:column}
+  #footer{justify-content:center;text-align:center}
+  .footer-links{display:none}
+}
+@media(max-width:380px){
+  .styles-grid{grid-template-columns:repeat(2,1fr)}
+  .sb-dot{width:30px;height:30px;font-size:.72rem}
+}
+</style>
+</head>
+<body>
+
+<!-- COSMOS BACKGROUND -->
+<div id="cosmos">
+  <div id="cosmos-gradient"></div>
+  <div class="star-layer"></div>
+  <div class="star-layer"></div>
+  <div class="star-layer"></div>
+  <div id="shoot"></div>
+</div>
+
+<div id="app">
+
+  <!-- ═══════ NAVBAR ═══════ -->
+  <nav id="nav">
+    <div class="nav-logo" onclick="goPage('home')">سندك للعيد ✨</div>
+    <div class="nav-links">
+      <button type="button" class="nav-link" id="nl-home"    onclick="goPage('home')">الرئيسية</button>
+      <button type="button" class="nav-link" id="nl-library" onclick="goPage('library')">مكتبتي 📚</button>
+      <button type="button" class="nav-link nav-cta"         onclick="goPage('generate')">ولّد تهنئة ✨</button>
+    </div>
+  </nav>
+
+  <!-- ═══════ HOME PAGE ═══════ -->
+  <div id="pg-home" class="pg on">
+
+    <div class="hero">
+      <div class="hero-pill">✨ مدعوم بالذكاء الاصطناعي</div>
+      <h1>هنّئ أحبابك<br>بطريقة لا تُنسى</h1>
+      <p class="hero-sub">
+        ارفع صورتك، اكتب معايدتك، واختر أسلوبك —
+        وسندك يحوّلها إلى تهنئة عيد استثنائية في ثوانٍ ✨
+      </p>
+      <button type="button" class="hero-cta" onclick="goPage('generate')">
+        🎉 ولّد تهنئتك الآن
+      </button>
+
+      <div class="hero-stats">
+        <div>
+          <div class="stat-n">6</div>
+          <div class="stat-l">أساليب فنية</div>
+        </div>
+        <div>
+          <div class="stat-n">20<span style="font-size:1rem">MB</span></div>
+          <div class="stat-l">حد الصورة</div>
+        </div>
+        <div>
+          <div class="stat-n">30<span style="font-size:1rem">ث</span></div>
+          <div class="stat-l">وقت التوليد</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="features">
+      <div class="feat">
+        <div class="feat-ico">📸</div>
+        <div class="feat-t">ارفع صورتك</div>
+        <div class="feat-d">PNG · JPG · HEIC حتى 20MB — تُضغط تلقائياً</div>
+      </div>
+      <div class="feat">
+        <div class="feat-ico">🎨</div>
+        <div class="feat-t">6 أساليب فنية</div>
+        <div class="feat-d">كلاسيكي، ذهبي، ورود، هندسي، طبيعة، احتفالي</div>
+      </div>
+      <div class="feat">
+        <div class="feat-ico">✍️</div>
+        <div class="feat-t">معايدتك بلغتك</div>
+        <div class="feat-d">اكتب نص عيدك بالعربي وأضف اسمك</div>
+      </div>
+      <div class="feat">
+        <div class="feat-ico">⬇️</div>
+        <div class="feat-t">تنزيل فوري</div>
+        <div class="feat-d">احفظ تهنئتك بجودة عالية وشاركها</div>
+      </div>
+    </div>
+
+    <div class="how">
+      <h2 class="section-title">كيف يعمل سندك؟</h2>
+      <p class="section-sub">أربع خطوات بسيطة وتهنئتك جاهزة</p>
+      <div class="steps-how">
+        <div class="step-how" data-n="1">
+          <div class="step-how-ico">📤</div>
+          <div class="step-how-t">ارفع صورتك</div>
+          <div class="step-how-d">اختر صورة واضحة منك أو من أحبابك</div>
+        </div>
+        <div class="step-how" data-n="2">
+          <div class="step-how-ico">🎨</div>
+          <div class="step-how-t">اختر الأسلوب</div>
+          <div class="step-how-d">6 أساليب فنية راقية تناسب ذوقك</div>
+        </div>
+        <div class="step-how" data-n="3">
+          <div class="step-how-ico">✍️</div>
+          <div class="step-how-t">أضف معايدتك</div>
+          <div class="step-how-d">اكتب كلماتك المميزة واسمك</div>
+        </div>
+        <div class="step-how" data-n="4">
+          <div class="step-how-ico">✨</div>
+          <div class="step-how-t">احصل على تهنئتك</div>
+          <div class="step-how-d">الذكاء الاصطناعي يولّد تهنئتك خلال ثوانٍ</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /home -->
+
+  <!-- ═══════ GENERATE PAGE ═══════ -->
+  <div id="pg-generate" class="pg">
+    <main id="gen-main">
+
+      <!-- step bar -->
+      <div id="step-bar"></div>
+
+      <!-- UPLOAD -->
+      <div id="ui-upload">
+        <div class="card">
+          <div class="card-title">📸 ارفع صورتك</div>
+          <div class="card-sub">صورة واضحة لك أو لمن تريد تهنئته — PNG · JPG · HEIC حتى 20MB</div>
+          <div class="upload-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+            <input type="file" id="file-input" accept="image/*,.heic,.heif" style="display:none">
+            <span class="upload-ico">🖼️</span>
+            <div class="upload-title">ارفع صورتك هنا</div>
+            <div class="upload-hint">اسحب وأفلت · أو اضغط للاختيار من هاتفك أو جهازك</div>
+            <div class="upload-badges">
+              <span class="badge">PNG</span>
+              <span class="badge">JPG</span>
+              <span class="badge">HEIC</span>
+              <span class="badge">حتى 20MB</span>
+              <span class="badge">ضغط تلقائي ✨</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETUP -->
+      <div id="ui-setup" style="display:none">
+        <div class="card">
+          <div class="card-title">✍️ خصّص تهنئتك</div>
+          <div class="card-sub">اختر الأسلوب الفني واكتب كلماتك المميزة</div>
+
+          <!-- image preview -->
+          <div class="preview-box">
+            <img id="preview-img" src="" alt="صورتك">
+            <div class="preview-overlay">
+              <span class="preview-tag">📸 صورتك جاهزة</span>
+            </div>
+          </div>
+          <button type="button" class="btn-reup" id="btn-reup">🔄 تغيير الصورة</button>
+
+          <!-- styles -->
+          <span class="label">اختر الأسلوب الفني 🎨</span>
+          <div class="styles-grid" id="styles-grid"></div>
+
+          <!-- greeting -->
+          <span class="label">نص المعايدة ✨</span>
+          <textarea
+            id="greeting-ta"
+            dir="rtl" lang="ar"
+            autocomplete="off" spellcheck="false"
+            maxlength="280"
+            placeholder="مثال: عيد مبارك وكل عام وأنتم بخير، أسأل الله أن يعيده عليكم بالخير واليُمن والبركات 🌙"
+          ></textarea>
+          <div class="char-count" id="greeting-count">0 / 280</div>
+
+          <!-- name -->
+          <span class="label">اسمك (اختياري)</span>
+          <input
+            type="text"
+            id="name-in"
+            dir="rtl" lang="ar"
+            autocomplete="off" spellcheck="false"
+            maxlength="60"
+            placeholder="مثال: سند"
+          >
+
+          <button type="button" class="btn btn-primary mt3" id="btn-gen">
+            🎨 ولّد التهنئة
+          </button>
+        </div>
+      </div>
+
+      <!-- GENERATING -->
+      <div id="ui-gen" style="display:none">
+        <div class="card">
+          <div class="gen-wrap">
+            <div class="spinner-ring"></div>
+            <div class="gen-title">جاري إنشاء تهنئتك...</div>
+            <div class="gen-sub" id="gen-sub-txt">يرجى الانتظار لحظات ✨</div>
+            <div class="dots"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div id="ui-result" style="display:none">
+        <div class="card">
+          <div class="card-title">🎉 تهنئتك جاهزة!</div>
+          <div class="card-sub">شارك تهنئتك مع أحبابك وأسعدهم في العيد 🌙</div>
+          <div class="result-img-wrap">
+            <img id="result-img" src="" alt="تهنئة العيد">
+            <div class="result-share-badge">✨ عيد مبارك</div>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-gold"    id="btn-dl">⬇️ تنزيل</button>
+            <button type="button" class="btn btn-primary" id="btn-regen">🔄 جديدة</button>
+          </div>
+          <button type="button" class="btn btn-ghost mt2" id="btn-edit">✏️ تعديل النص والأسلوب</button>
+          <button type="button" class="btn btn-ghost mt1" id="btn-new">🏠 بداية جديدة</button>
+        </div>
+      </div>
+
+      <!-- ERROR -->
+      <div id="ui-err" style="display:none">
+        <div class="card">
+          <div class="err-box">
+            <div class="err-ico">⚠️</div>
+            <div class="err-title">تعذّر إنشاء التهنئة</div>
+            <div class="err-msg" id="err-msg-txt">حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.</div>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" id="btn-retry">🔄 إعادة المحاولة</button>
+            <button type="button" class="btn btn-ghost"   id="btn-err-back">✏️ رجوع للتعديل</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div><!-- /generate -->
+
+  <!-- ═══════ LIBRARY PAGE ═══════ -->
+  <div id="pg-library" class="pg">
+    <div class="library-empty">
+      <div class="library-empty-ico">📚</div>
+      <div class="library-empty-t">مكتبتك فارغة</div>
+      <div class="library-empty-d">ستظهر هنا تهانيك المُولَّدة قريباً بعد تسجيل الدخول</div>
+      <button type="button" class="btn btn-primary mt3" onclick="goPage('generate')" style="max-width:240px;margin-inline:auto">
+        ✨ ولّد أول تهنئة
+      </button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-brand">سندك للعيد ✨</div>
+    <div class="footer-copy">© 2026 جميع الحقوق محفوظة — صُمّم بالذكاء الاصطناعي</div>
+    <div class="footer-links">
+      <a href="#" class="footer-link">الخصوصية</a>
+      <a href="#" class="footer-link">الشروط</a>
+    </div>
+  </footer>
+
+</div><!-- /#app -->
+
+<!-- TOAST -->
+<div id="toast">✅ تم بنجاح!</div>
+
+<script>
+/* ================================================================
+   ⚙️  CONFIG — Edit this section only when changing API/styles
+================================================================ */
+const CFG = {
+  API: '/api/generate',          // → netlify/functions/generate.js
+  MAX_MB: 20,
+  COMPRESS_DIM: 1500,
+  COMPRESS_Q:   0.88,
+  STYLES: [
+    { id:'classic',   e:'🌙', n:'كلاسيكي' },
+    { id:'golden',    e:'✨', n:'ذهبي'    },
+    { id:'floral',    e:'🌸', n:'ورود'    },
+    { id:'geometric', e:'✦',  n:'هندسي'  },
+    { id:'nature',    e:'🌿', n:'طبيعة'  },
+    { id:'festive',   e:'🎆', n:'احتفالي' },
+  ]
+};
+
+/* ================================================================
+   🗂️  PURE STATE MACHINE
+   Only `dispatch(type, payload?)` can change state.
+================================================================ */
+const STEPS = ['upload','setup','gen','result','err'];
+
+const initState = {
+  page:     'home',   // home | generate | library
+  step:     'upload', // upload | setup | gen | result | err
+  file:     null,
+  blobUrl:  null,
+  style:    'classic',
+  greeting: '',
+  name:     '',
+  result:   null,
+  errMsg:   '',
+};
+
+let S = { ...initState };
+
+const REDUCERS = {
+  GO_PAGE:    (s,{page})        => ({...s, page}),
+  FILE_SET:   (s,{file,url})    => ({...s, file, blobUrl:url, step:'setup', result:null}),
+  FILE_CLEAR: (s)               => ({...s, file:null, blobUrl:null, step:'upload', result:null}),
+  STYLE_SET:  (s,{style})       => ({...s, style}),
+  GREET_SET:  (s,{v})           => ({...s, greeting:v}),
+  NAME_SET:   (s,{v})           => ({...s, name:v}),
+  GEN_START:  (s)               => ({...s, step:'gen', result:null, errMsg:''}),
+  GEN_OK:     (s,{url})         => ({...s, step:'result', result:url}),
+  GEN_FAIL:   (s,{msg})         => ({...s, step:'err', errMsg:msg}),
+  EDIT_BACK:  (s)               => ({...s, step:'setup', errMsg:''}),
+  RESET:      ()                => ({...initState}),
+};
+
+function dispatch(type, payload={}) {
+  const fn = REDUCERS[type];
+  if (!fn) return;
+  S = fn(S, payload);
+  render();
+}
+
+/* ================================================================
+   🎭  RENDER — reads S, updates DOM
+================================================================ */
+function render() {
+  // ── pages ──
+  ['home','generate','library'].forEach(id => {
+    const el = document.getElementById('pg-'+id);
+    if (el) el.classList.toggle('on', S.page === id);
+  });
+
+  // ── nav active ──
+  ['home','library'].forEach(id => {
+    const el = document.getElementById('nl-'+id);
+    if (el) el.classList.toggle('active', S.page === id);
+  });
+
+  if (S.page !== 'generate') return;
+
+  // ── generator panels ──
+  const panels = {upload:'ui-upload',setup:'ui-setup',gen:'ui-gen',result:'ui-result',err:'ui-err'};
+  Object.entries(panels).forEach(([k,id]) => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = S.step === k ? '' : 'none';
+  });
+
+  // ── step bar ──
+  renderStepBar();
+
+  // ── preview ──
+  if (S.blobUrl) {
+    const p = document.getElementById('preview-img');
+    if (p && p.src !== S.blobUrl) p.src = S.blobUrl;
+  }
+
+  // ── inputs: only sync when not focused ──
+  syncEl('greeting-ta', S.greeting);
+  syncEl('name-in',     S.name);
+
+  // ── styles grid ──
+  if (S.step === 'setup') renderStyles();
+
+  // ── char counter ──
+  const cc = document.getElementById('greeting-count');
+  if (cc) {
+    cc.textContent = `${S.greeting.length} / 280`;
+    cc.classList.toggle('warn', S.greeting.length > 240);
+  }
+
+  // ── result image ──
+  if (S.result) {
+    const ri = document.getElementById('result-img');
+    if (ri && ri.src !== S.result) ri.src = S.result;
+  }
+
+  // ── error text ──
+  const em = document.getElementById('err-msg-txt');
+  if (em) em.textContent = S.errMsg || 'حدث خطأ غير متوقع.';
+
+  // ── scroll to top of generator ──
+  const main = document.getElementById('gen-main');
+  if (main) main.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function syncEl(id, val) {
+  const el = document.getElementById(id);
+  if (el && document.activeElement !== el && el.value !== val) el.value = val;
+}
+
+function renderStepBar() {
+  const bar = document.getElementById('step-bar');
+  if (!bar) return;
+  const order = ['upload','setup','gen','result'];
+  const labels = { upload:'ارفع الصورة', setup:'التفاصيل', gen:'التوليد', result:'النتيجة' };
+  const cur = S.step === 'err' ? 'setup' : S.step;
+  const curI = order.indexOf(cur);
+
+  bar.innerHTML = order.map((k,i) => {
+    const isDone = i < curI;
+    const isCur  = i === curI;
+    const dc = isDone ? 'done' : isCur ? 'cur' : 'idle';
+    const lc = isDone ? 'done' : isCur ? 'cur' : '';
+    const mark = isDone ? '✓' : i+1;
+    return `
+      ${i > 0 ? `<div class="sb-line${isDone ? ' done' : ''}"></div>` : ''}
+      <div class="sb-item">
+        <div class="sb-dot ${dc}">${mark}</div>
+        <span class="sb-lbl ${lc}">${labels[k]}</span>
+      </div>`;
+  }).join('');
+}
+
+function renderStyles() {
+  const g = document.getElementById('styles-grid');
+  if (!g || g.dataset.built) return; // only build once unless style changes
+  g.dataset.built = '1';
+  g.innerHTML = CFG.STYLES.map(st =>
+    `<button type="button" class="style-btn${S.style===st.id?' sel':''}"
+      onclick="dispatch('STYLE_SET',{style:'${st.id}'});document.getElementById('styles-grid').dataset.built='';renderStyles()">
+      <span class="style-emo">${st.e}</span>
+      <span class="style-name">${st.n}</span>
+    </button>`
+  ).join('');
+}
+
+/* ================================================================
+   📂  FILE HANDLING
+================================================================ */
+const MAX_BYTES = CFG.MAX_MB * 1024 * 1024;
+
+function handleFile(file) {
+  if (!file) return;
+  if (!file.type.startsWith('image/') && !/\.(heic|heif)$/i.test(file.name)) {
+    showToast('⚠️ يرجى اختيار ملف صورة (PNG, JPG, HEIC)', true); return;
+  }
+  if (file.size > MAX_BYTES) {
+    showToast(`⚠️ حجم الصورة ${(file.size/1024/1024).toFixed(1)}MB يتجاوز ${CFG.MAX_MB}MB`, true); return;
+  }
+  // revoke old
+  if (S.blobUrl && S.blobUrl.startsWith('blob:')) URL.revokeObjectURL(S.blobUrl);
+  const url = URL.createObjectURL(file);
+  dispatch('FILE_SET', { file, url });
+}
+
+document.getElementById('file-input').addEventListener('change', e => {
+  const f = e.target.files?.[0];
+  if (f) handleFile(f);
+});
+
+const dz = document.getElementById('drop-zone');
+dz.addEventListener('dragover',  e => { e.preventDefault(); dz.classList.add('drag'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('drag'));
+dz.addEventListener('drop', e => {
+  e.preventDefault(); dz.classList.remove('drag');
+  const f = e.dataTransfer.files?.[0];
+  if (f) handleFile(f);
+});
+
+/* ================================================================
+   ⌨️  INPUT HANDLERS — direct mutation (no dispatch to avoid re-render)
+================================================================ */
+document.getElementById('greeting-ta').addEventListener('input', function() {
+  S.greeting = this.value;
+  // update char counter directly
+  const cc = document.getElementById('greeting-count');
+  if (cc) {
+    cc.textContent = `${this.value.length} / 280`;
+    cc.classList.toggle('warn', this.value.length > 240);
+  }
+});
+
+document.getElementById('name-in').addEventListener('input', function() {
+  S.name = this.value;
+});
+
+// Prevent Enter on single-line input from triggering anything
+document.getElementById('name-in').addEventListener('keydown', e => {
+  if (e.key === 'Enter') e.preventDefault();
+});
+
+/* ================================================================
+   🎛️  BUTTON WIRING
+================================================================ */
+document.getElementById('btn-reup').addEventListener('click', () => {
+  if (S.blobUrl?.startsWith('blob:')) URL.revokeObjectURL(S.blobUrl);
+  dispatch('FILE_CLEAR');
+  document.getElementById('file-input').value = '';
+});
+
+document.getElementById('btn-gen').addEventListener('click', () => {
+  if (!S.file) { showToast('⚠️ يرجى رفع صورة أولاً', true); return; }
+  // snapshot inputs before transition
+  S.greeting = document.getElementById('greeting-ta').value;
+  S.name      = document.getElementById('name-in').value;
+  dispatch('GEN_START');
+  generate();
+});
+
+document.getElementById('btn-dl').addEventListener('click', () => {
+  if (!S.result) return;
+  const a = document.createElement('a');
+  a.href = S.result;
+  a.download = `سندك-للعيد-${Date.now()}.jpg`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  showToast('✅ تم التنزيل بنجاح!');
+});
+
+document.getElementById('btn-regen').addEventListener('click', () => {
+  dispatch('GEN_START');
+  generate();
+});
+
+document.getElementById('btn-edit').addEventListener('click', () => {
+  dispatch('EDIT_BACK');
+  document.getElementById('styles-grid').removeAttribute('data-built');
+});
+
+document.getElementById('btn-new').addEventListener('click', () => {
+  if (S.blobUrl?.startsWith('blob:')) URL.revokeObjectURL(S.blobUrl);
+  dispatch('RESET');
+  document.getElementById('file-input').value = '';
+  document.getElementById('styles-grid').removeAttribute('data-built');
+});
+
+document.getElementById('btn-retry').addEventListener('click', () => {
+  dispatch('GEN_START');
+  generate();
+});
+
+document.getElementById('btn-err-back').addEventListener('click', () => {
+  dispatch('EDIT_BACK');
+  document.getElementById('styles-grid').removeAttribute('data-built');
+});
+
+/* ================================================================
+   🗺️  PAGE NAV
+================================================================ */
+function goPage(page) {
+  dispatch('GO_PAGE', { page });
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+/* ================================================================
+   🗜️  IMAGE COMPRESSION
+================================================================ */
+function compressImage(file) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const tmp = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(tmp);
+      let {width: w, height: h} = img;
+      const M = CFG.COMPRESS_DIM;
+      if (w > M || h > M) {
+        if (w >= h) { h = Math.round(h/w*M); w = M; }
+        else        { w = Math.round(w/h*M); h = M; }
+      }
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      c.getContext('2d').drawImage(img, 0, 0, w, h);
+      const b64 = c.toDataURL('image/jpeg', CFG.COMPRESS_Q);
+      console.log(`[COMPRESS] ${(file.size/1024/1024).toFixed(1)}MB → ~${Math.round(b64.length*.75/1024)}KB (${w}×${h})`);
+      resolve(b64);
+    };
+    img.onerror = () => { URL.revokeObjectURL(tmp); reject(new Error('فشل قراءة الصورة')); };
+    img.src = tmp;
+  });
+}
+
+/* ================================================================
+   🤖  GENERATION
+================================================================ */
+function setGenSub(txt) {
+  const el = document.getElementById('gen-sub-txt');
+  if (el) el.textContent = txt;
+}
+
+async function generate() {
+  if (S.step !== 'gen') return;
+  try {
+    setGenSub('جاري تحضير وضغط الصورة... 🗜️');
+    const b64 = await compressImage(S.file);
+
+    setGenSub('جاري إرسال الصورة للذكاء الاصطناعي... 🚀');
+    const res = await fetch(CFG.API, {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json' },
+      body: JSON.stringify({
+        imageBase64: b64,
+        imageType:  'image/jpeg',
+        style:       S.style,
+        greeting:    S.greeting,
+        name:        S.name,
+      })
+    });
+
+    if (!res.ok) {
+      const e = await res.json().catch(() => ({}));
+      throw new Error(e.error || `خطأ في الخادم (${res.status})`);
+    }
+
+    setGenSub('الذكاء الاصطناعي يرسم تهنئتك... ✨');
+    const data = await res.json();
+    const url = data.imageUrl || data.url || data.image || data.imageBase64;
+    if (!url) throw new Error('لم يُستلم رابط الصورة من الخادم');
+
+    dispatch('GEN_OK', { url });
+    showToast('🎉 تهنئتك جاهزة!');
+
+  } catch(e) {
+    console.error('[GEN]', e);
+    dispatch('GEN_FAIL', { msg: e.message || 'حدث خطأ. يرجى المحاولة مرة أخرى.' });
+  }
+}
+
+/* ================================================================
+   🍞  TOAST
+================================================================ */
+let toastTimer;
+function showToast(msg, isWarn=false) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.style.background = isWarn
+    ? 'rgba(251,146,60,.15)'  : 'rgba(52,211,153,.15)';
+  el.style.borderColor = isWarn
+    ? 'rgba(251,146,60,.3)'   : 'rgba(52,211,153,.3)';
+  el.style.color = isWarn ? '#fb923c' : 'var(--c-ok)';
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3200);
+}
+
+/* ================================================================
+   🚀  BOOT
+================================================================ */
+render();
+</script>
+</body>
+</html>
