@@ -216,7 +216,7 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--t4);border-top:
   <div class="rw">
     <div class="rt">🎉 تهنئتك جاهزة!</div>
     <div class="rs">شارك مع أحبابك في العيد 🌙</div>
-    <div class="rf"><canvas id="rc"></canvas></div>
+    <div class="rf" id="rfwrap"><img id="rimg" src="" alt="" style="display:block;width:100%;height:auto"><canvas id="rc" style="display:none;position:absolute;top:0;left:0;width:100%;height:auto"></canvas></div>
     <div class="ract">
       <button class="bdl" onclick="dlResult()">⬇️ تحميل الصورة</button>
       <button class="brg" onclick="regen()">🔄 توليد أخرى</button>
@@ -409,13 +409,11 @@ const S={
 
 // HISTORY
 function saveHist(){
-  const cv=document.getElementById('rc');
-  try{
-    const d=cv.toDataURL('image/jpeg',.65);
-    S.hist.unshift({u:d,n:S.th?.n,t:Date.now()});
-    S.hist=S.hist.slice(0,6);
-    localStorage.setItem('s5',JSON.stringify(S.hist));
-  }catch(e){}
+  // Use the direct image URL instead of canvas toDataURL (avoids tainted canvas)
+  const entry={u:S.lastUrl,n:S.th?.n,t:Date.now()};
+  S.hist.unshift(entry);
+  S.hist=S.hist.slice(0,6);
+  try{localStorage.setItem('s5',JSON.stringify(S.hist));}catch(e){}
   renderHist();
 }
 function renderHist(){
@@ -484,7 +482,7 @@ function buildUrl(seed){
   // Prompt: SHORT + quality tag, encoded into path
   const prompt = S.th.p + ', ' + (LUX[S.sty]||'');
   const encoded = encodeURIComponent(prompt);
-  // URL format per brief: https://image.pollinations.ai/prompt/{text}?width=...&height=...&model=flux
+  // URL format per brief: https://image.pollinations.ai/prompt/{text}?width=...&height=...&model=turbo
   const url='https://image.pollinations.ai/prompt/'+encoded+'?width='+W+'&height='+H+'&model=flux&nologo=true&seed='+seed;
   return {url,W,H};
 }
@@ -528,11 +526,18 @@ function generate(){
   },120000);
 
   const img=new Image();
-  img.crossOrigin='anonymous';
+  // crossOrigin removed - causes CORS failure with pollinations
   img.onload=()=>{
     clean();pb.style.width='100%';
     S._img=img;
-    setTimeout(()=>{showOnly('s-result');setStepper(4);drawCV(false);saveHist();},350);
+    setTimeout(()=>{
+    // Show image directly via <img> tag - no CORS issues
+    const rimg=document.getElementById('rimg');
+    if(rimg){rimg.src=S.lastUrl;rimg.style.display='block';}
+    const cv=document.getElementById('rc');
+    if(cv){cv.style.display='none';}
+    showOnly('s-result');setStepper(4);saveHist();
+  },350);
   };
   img.onerror=()=>{
     // RETRY with different seed automatically
@@ -543,8 +548,15 @@ function generate(){
       const {url:u2,W:W2,H:H2}=buildUrl(S.seed);
       S.lastUrl=u2;S._W=W2;S._H=H2;
       const img2=new Image();
-      img2.crossOrigin='anonymous';
-      img2.onload=()=>{clean();pb.style.width='100%';S._img=img2;setTimeout(()=>{showOnly('s-result');setStepper(4);drawCV(false);saveHist();},350);};
+      // no crossOrigin
+      img2.onload=()=>{clean();pb.style.width='100%';S._img=img2;setTimeout(()=>{
+    // Show image directly via <img> tag - no CORS issues
+    const rimg=document.getElementById('rimg');
+    if(rimg){rimg.src=S.lastUrl;rimg.style.display='block';}
+    const cv=document.getElementById('rc');
+    if(cv){cv.style.display='none';}
+    showOnly('s-result');setStepper(4);saveHist();
+  },350);};
       img2.onerror=()=>{clean();showErr('تعذّر التوليد. تحقق من اتصالك بالإنترنت وأعد المحاولة.');};
       img2.src=u2;
     } else {
@@ -563,10 +575,23 @@ function clean(){
 // CANVAS — draw image + optional text overlay
 function drawCV(withOv){
   const cv=document.getElementById('rc');
-  cv.width=S._W;cv.height=S._H;
+  const rimg=document.getElementById('rimg');
+  if(!withOv){
+    // Just show the img tag
+    if(rimg){rimg.style.display='block';}
+    if(cv){cv.style.display='none';}
+    return;
+  }
+  // Text overlay mode: use canvas
+  cv.width=S._W;cv.height=S._H;cv.style.display='block';cv.style.position='relative';
+  if(rimg){rimg.style.display='none';}
   const ctx=cv.getContext('2d');
   if(!S._img)return;
-  ctx.drawImage(S._img,0,0,S._W,S._H);
+  try{ctx.drawImage(S._img,0,0,S._W,S._H);}catch(e){
+    // Tainted canvas — draw background color instead
+    ctx.fillStyle='#0f0f1e';ctx.fillRect(0,0,S._W,S._H);
+    ctx.fillStyle='rgba(124,58,237,0.3)';ctx.fillRect(0,0,S._W,S._H);
+  }
   if(!withOv)return;
 
   const txt=(S.gr||'')+(S.nm?' — '+S.nm:'');
@@ -614,14 +639,20 @@ function applyText(){drawCV(true);}
 // DOWNLOAD
 function dlResult(){
   const cv=document.getElementById('rc');
-  try{
-    const a=document.createElement('a');
-    a.download='سندك-للعيد-'+S.th.n+'-'+Date.now()+'.png';
-    a.href=cv.toDataURL('image/png',1);a.click();
-  }catch(e){
-    window.open(S.lastUrl,'_blank');
-    setTimeout(()=>alert('انقر يمين على الصورة التي فتحت ← "حفظ الصورة"'),400);
+  const isCanvas = cv && cv.style.display==='block';
+  if(isCanvas){
+    try{
+      const a=document.createElement('a');
+      a.download='سندك-للعيد-'+S.th.n+'-'+Date.now()+'.png';
+      a.href=cv.toDataURL('image/png',1);a.click();return;
+    }catch(e){}
   }
+  // Direct download from source
+  const a=document.createElement('a');
+  a.href=S.lastUrl;
+  a.download='سندك-للعيد-'+S.th.n+'-'+Date.now()+'.jpg';
+  a.target='_blank';a.rel='noopener';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
 }
 
 // ACTIONS
