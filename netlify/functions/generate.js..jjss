@@ -1,0 +1,35 @@
+'use strict';
+const CORS={'Content-Type':'application/json','Access-Control-Allow-Origin':'*','Access-Control-Allow-Methods':'POST, OPTIONS','Access-Control-Allow-Headers':'Content-Type'};
+const SIZE_MAP={sq:'square_hd',st:'portrait_16_9',cd:'landscape_4_3'};
+exports.handler=async(event)=>{
+  if(event.httpMethod==='OPTIONS')return{statusCode:200,headers:CORS,body:''};
+  if(event.httpMethod!=='POST')return{statusCode:405,headers:CORS,body:''};
+  const FAL_KEY=process.env.FAL_KEY;
+  if(!FAL_KEY)return{statusCode:500,headers:CORS,body:JSON.stringify({error:'خدمة غير مهيأة'})};
+  let body;
+  try{body=JSON.parse(event.body||'{}');}catch{return{statusCode:400,headers:CORS,body:JSON.stringify({error:'طلب غير صالح'})};}
+  const{prompt,size='sq',seed}=body;
+  if(!prompt)return{statusCode:400,headers:CORS,body:JSON.stringify({error:'لا يوجد برومبت'})};
+  const falSize=SIZE_MAP[size]||'square_hd';
+  try{
+    const falRes=await fetch('https://fal.run/fal-ai/flux/schnell',{
+      method:'POST',
+      headers:{'Authorization':'Key '+FAL_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({prompt,image_size:falSize,num_inference_steps:4,num_images:1,enable_safety_checker:false,sync_mode:true,seed:seed||Math.floor(Math.random()*9999999)})
+    });
+    if(!falRes.ok){
+      const txt=await falRes.text().catch(()=>'');
+      let msg='فشل توليد الصورة';
+      if(falRes.status===402)msg='رصيد FAL نفد';
+      if(falRes.status===401)msg='خطأ في مفتاح FAL';
+      if(falRes.status===503)msg='خادم FAL مشغول';
+      return{statusCode:200,headers:CORS,body:JSON.stringify({error:msg})};
+    }
+    const result=await falRes.json();
+    const imageUrl=result?.images?.[0]?.url;
+    if(!imageUrl)return{statusCode:502,headers:CORS,body:JSON.stringify({error:'لم تُستلم الصورة'})};
+    return{statusCode:200,headers:CORS,body:JSON.stringify({imageUrl})};
+  }catch(err){
+    return{statusCode:503,headers:CORS,body:JSON.stringify({error:'خطأ في الاتصال بـ FAL'})};
+  }
+};
