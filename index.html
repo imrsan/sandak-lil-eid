@@ -483,12 +483,10 @@ function setSz(el){
 
 // BUILD URL — exact format per brief
 function buildUrl(){
-  const [W,H]=DIMS[S.fmt]||[1024,1024];
-  const prompt=S.th.p+' '+(LUX[S.sty]||'');
-  // Clean prompt: no commas, no special chars, spaces become +
-  const clean=prompt.trim().replace(/[,،؛]/g,' ').replace(/s+/g,'+');
-  const url='https://image.pollinations.ai/prompt/'+clean+'?width='+W+'&height='+H+'&model=flux&nologo=true&seed='+S.seed;
-  return{url,W,H};
+  const W=S._W||512, H=S._H||512;
+  const prompt = S.th.p + ' ' + (LUX[S.sty]||'');
+  const url='https://image.pollinations.ai/prompt/'+encodeURIComponent(prompt)+'?width='+W+'&height='+H+'&model=flux&nologo=true&seed='+S.seed;
+  return{url};
 }
 
 // GENERATE
