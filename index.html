@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>سندك للعيد ✨</title>
+<title>سندك للعيد ✨ — تهنئة العيد بالذكاء الاصطناعي</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -19,11 +19,14 @@ html{scroll-behavior:smooth}
 body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t);min-height:100vh;overflow-x:hidden}
 #stars{position:fixed;inset:0;pointer-events:none;z-index:0}
 .s{position:absolute;border-radius:50%;background:#fff;animation:tw var(--d) ease-in-out infinite var(--dl)}
-@keyframes tw{0%,100%{opacity:.08;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
+@keyframes tw{0%,100%{opacity:.08}50%{opacity:.6;transform:scale(1.3)}}
 nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(4,4,15,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--b)}
 .logo{font-size:18px;font-weight:900;color:var(--g);display:flex;align-items:center;gap:6px}
 .logo span{color:var(--t)}
+.barq-link{font-size:11px;color:var(--t3);text-decoration:none;display:flex;align-items:center;gap:4px;transition:color .2s}
+.barq-link:hover{color:var(--g)}
 .nbtn{background:linear-gradient(135deg,var(--v2),var(--v1));color:#fff;border:none;padding:8px 18px;border-radius:50px;font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;cursor:pointer}
+.credits-badge{display:flex;align-items:center;gap:6px;background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.2);padding:6px 12px;border-radius:50px;font-size:12px;font-weight:700;color:var(--g);cursor:pointer}
 .screen{display:none;position:relative;z-index:1}
 #sh{display:block;text-align:center;padding:56px 20px 80px}
 .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.2);color:var(--g);padding:7px 16px;border-radius:50px;font-size:12px;font-weight:600;margin-bottom:24px}
@@ -44,6 +47,9 @@ h1{font-size:clamp(32px,7vw,64px);font-weight:900;line-height:1.1;margin-bottom:
 .ex{flex-shrink:0;width:140px;height:180px;border-radius:var(--r);border:1px solid var(--b);overflow:hidden;position:relative}
 .ex .ol{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:10px;background:linear-gradient(to top,rgba(0,0,0,.85),transparent 50%)}
 .ex .ol span{font-size:11px;color:#fff;font-weight:700}
+.barq-section{margin-top:60px;padding:24px 20px;background:rgba(124,58,237,.06);border:1px solid rgba(124,58,237,.15);border-radius:var(--r);max-width:400px;margin-left:auto;margin-right:auto;text-align:center}
+.barq-section p{font-size:13px;color:var(--t3);margin-top:6px}
+.barq-section a{color:var(--v3);text-decoration:none;font-weight:700}
 #sc{padding:0 0 80px}
 .stepper{display:flex;align-items:center;justify-content:center;padding:18px;gap:0}
 .sp{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid var(--b2);background:var(--card);color:var(--t3);transition:all .3s;flex-shrink:0}
@@ -59,8 +65,7 @@ h1{font-size:clamp(32px,7vw,64px);font-weight:900;line-height:1.1;margin-bottom:
 .tc:hover{border-color:var(--v3);transform:translateY(-2px)}
 .tc.sel{border-color:var(--g);box-shadow:0 0 0 3px rgba(245,200,66,.2)}
 .tb{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:8px}
-.te{font-size:28px}
-.tn{font-size:10px;font-weight:700;color:#fff;text-align:center;text-shadow:0 1px 4px rgba(0,0,0,.9)}
+.te{font-size:28px}.tn{font-size:10px;font-weight:700;color:#fff;text-align:center;text-shadow:0 1px 4px rgba(0,0,0,.9)}
 .ts{font-size:8px;color:rgba(255,255,255,.6);text-align:center}
 .tchk{position:absolute;top:6px;left:6px;width:18px;height:18px;border-radius:50%;background:var(--g);display:none;align-items:center;justify-content:center;font-size:9px;color:#000}
 .tc.sel .tchk{display:flex}
@@ -68,8 +73,7 @@ h1{font-size:clamp(32px,7vw,64px);font-weight:900;line-height:1.1;margin-bottom:
 .f label{display:block;font-size:11px;font-weight:600;color:var(--t2);margin-bottom:5px}
 .f input,.f textarea,.f select{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--b2);border-radius:8px;padding:10px 12px;font-family:'Tajawal',sans-serif;font-size:14px;color:var(--t);outline:none;transition:border-color .2s;resize:vertical}
 .f input:focus,.f textarea:focus,.f select:focus{border-color:var(--v3)}
-.f textarea{min-height:70px}
-.f select{appearance:none;cursor:pointer}
+.f textarea{min-height:70px}.f select{appearance:none;cursor:pointer}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .chip{padding:5px 10px;border-radius:50px;font-size:11px;font-weight:600;background:rgba(255,255,255,.06);border:1px solid var(--b);color:var(--t2);cursor:pointer}
 .chip:hover{background:rgba(124,58,237,.2);border-color:var(--v3);color:var(--t)}
@@ -98,21 +102,34 @@ h1{font-size:clamp(32px,7vw,64px);font-weight:900;line-height:1.1;margin-bottom:
 #rimg{display:block;width:100%;height:auto}
 .ract{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 .bdl{padding:13px;border-radius:var(--r2);border:none;background:linear-gradient(135deg,var(--g2),var(--g));color:#000;font-family:'Tajawal',sans-serif;font-size:14px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.bdl:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(245,200,66,.35)}
 .brg{padding:13px;border-radius:var(--r2);border:1px solid var(--v3);background:rgba(124,58,237,.12);color:var(--t);font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
 .brg:hover{background:rgba(124,58,237,.28)}
 .bnw{grid-column:span 2;padding:12px;border-radius:var(--r2);border:1px solid var(--b);background:rgba(255,255,255,.02);color:var(--t3);font-family:'Tajawal',sans-serif;font-size:12px;font-weight:600;cursor:pointer}
 .bnw:hover{background:rgba(255,255,255,.06);color:var(--t)}
-.hw{margin-top:20px}
-.ht{font-size:12px;font-weight:700;color:var(--t3);margin-bottom:8px}
-.hg{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:7px}
-.hi{border-radius:8px;overflow:hidden;cursor:pointer;border:1px solid var(--b);aspect-ratio:1;background:var(--card)}
-.hi img{width:100%;height:100%;object-fit:cover;display:block}
 #se{display:none;padding:40px 16px;text-align:center}
-.ei{font-size:48px;margin-bottom:12px}
-.etitle{font-size:19px;font-weight:800;color:#f87171;margin-bottom:6px}
+.ei{font-size:48px;margin-bottom:12px}.etitle{font-size:19px;font-weight:800;color:#f87171;margin-bottom:6px}
 .emsg{font-size:13px;color:var(--t3);margin-bottom:24px;max-width:360px;margin-left:auto;margin-right:auto;line-height:1.6}
 .eact{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+/* PAYWALL MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px)}
+.modal-bg.show{display:flex}
+.modal{background:var(--card);border:1px solid var(--b2);border-radius:20px;max-width:420px;width:100%;padding:32px 24px;text-align:center;position:relative}
+.modal-close{position:absolute;top:14px;left:14px;background:none;border:none;color:var(--t3);font-size:20px;cursor:pointer}
+.modal-icon{font-size:48px;margin-bottom:16px}
+.modal-title{font-size:22px;font-weight:900;margin-bottom:8px}
+.modal-sub{font-size:14px;color:var(--t3);margin-bottom:24px;line-height:1.6}
+.price-box{background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.2);border-radius:12px;padding:16px;margin-bottom:20px}
+.price-main{font-size:36px;font-weight:900;color:var(--g)}
+.price-desc{font-size:13px;color:var(--t3);margin-top:4px}
+.price-features{display:flex;flex-direction:column;gap:6px;margin:16px 0;text-align:right}
+.price-features li{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--t2);list-style:none}
+.pay-btn{width:100%;padding:16px;border-radius:50px;border:none;background:linear-gradient(135deg,var(--g2),var(--g));color:#000;font-family:'Tajawal',sans-serif;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 6px 24px rgba(245,200,66,.35);margin-bottom:10px}
+.pay-btn:disabled{opacity:.5;cursor:not-allowed}
+.pay-methods{display:flex;align-items:center;justify-content:center;gap:8px;font-size:11px;color:var(--t4)}
 footer{text-align:center;padding:20px;font-size:11px;color:var(--t4);border-top:1px solid var(--b);position:relative;z-index:1}
+.footer-barq{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:6px;font-size:12px;color:var(--t3)}
+.footer-barq a{color:var(--v3);text-decoration:none;font-weight:700}
 .hidden{display:none!important}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--v1);border-radius:2px}
 @media(max-width:480px){.tg{grid-template-columns:repeat(3,1fr)}.ract{grid-template-columns:1fr}.bnw{grid-column:span 1}}
@@ -120,23 +137,35 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--t4);border-top:
 </head>
 <body>
 <div id="stars"></div>
+
 <nav>
   <div class="logo">✦ <span>سندك للعيد</span></div>
-  <button class="nbtn" onclick="goCreate()">✦ ولّد تهنئة</button>
+  <div style="display:flex;align-items:center;gap:12px">
+    <a href="https://barq-studio.com" target="_blank" class="barq-link">⚡ Barq Studio</a>
+    <div class="credits-badge" id="credits-nav" onclick="showPaywall()">🎨 <span id="credits-count">2</span> تهنئة متبقية</div>
+  </div>
 </nav>
+
+<!-- HOME -->
 <div id="sh" class="screen">
-  <div class="badge">🎊 مجاني 100% · Pollinations FLUX · بدون تسجيل</div>
+  <div class="badge">🎊 تجربتان مجانيتان · FAL.ai FLUX · ثم 5 تهنئات بـ 2 JD</div>
   <h1><span class="l1">صمّم تهنئة العيد<br></span><span class="l2">بالذكاء الاصطناعي</span></h1>
-  <p class="sub">20 ثيماً فاخراً — اكتب اسمك ورسالتك — ولّد صورة عيد احترافية مجاناً</p>
-  <button class="hbtn" onclick="goCreate()">✦ ابدأ الآن — مجاناً</button>
+  <p class="sub">20 ثيماً فاخراً — اكتب اسمك ورسالتك — ولّد صورة احترافية جاهزة للمشاركة</p>
+  <button class="hbtn" onclick="goCreate()">✦ ابدأ الآن</button>
   <div class="stats">
-    <div class="stat"><div class="n">20</div><div class="l">ثيماً</div></div>
-    <div class="stat"><div class="n">∞</div><div class="l">توليد بلا حدود</div></div>
-    <div class="stat"><div class="n">0﷼</div><div class="l">مجاني</div></div>
+    <div class="stat"><div class="n">20</div><div class="l">ثيماً فاخراً</div></div>
+    <div class="stat"><div class="n">FAL</div><div class="l">FLUX AI</div></div>
+    <div class="stat"><div class="n">2 JD</div><div class="l">5 تهنئات</div></div>
     <div class="stat"><div class="n">HD</div><div class="l">جودة عالية</div></div>
   </div>
   <div class="strip"><div class="track" id="track"></div></div>
+  <div class="barq-section">
+    <div style="font-size:20px;font-weight:900;color:var(--v3)">⚡ Barq Studio</div>
+    <p>تصوير المنتجات بالذكاء الاصطناعي للعلامات التجارية الخليجية<br><a href="https://barq-studio.com" target="_blank">barq-studio.com</a></p>
+  </div>
 </div>
+
+<!-- CREATE -->
 <div id="sc" class="screen">
   <div class="stepper">
     <div class="sp active" id="sp1">1</div><div class="sl" id="sl1"></div>
@@ -183,18 +212,22 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--t4);border-top:
     </div>
     <div style="display:flex;gap:10px">
       <button class="ghost" style="flex:0 0 auto" onclick="goStep1()">← رجوع</button>
-      <button class="gbtn" style="flex:1" onclick="generate()">✦ ولّد التهنئة الآن</button>
+      <button class="gbtn" style="flex:1" onclick="tryGenerate()">✦ ولّد التهنئة الآن</button>
     </div>
   </div>
 </div>
+
+<!-- GENERATING -->
 <div id="sg" class="screen">
   <div class="orb">✦</div>
   <div class="gbadge" id="gbadge">⏳ جاري التوليد...</div>
   <div class="gt">الذكاء الاصطناعي يبدع لك...</div>
-  <div class="gsub">FLUX · 20 إلى 60 ثانية</div>
+  <div class="gsub">FAL FLUX · 5 إلى 15 ثانية</div>
   <div class="pbw"><div class="pb" id="pb"></div></div>
-  <div class="gst" id="gst">⏳ جاري الإرسال...</div>
+  <div class="gst" id="gst">⏳ إرسال الطلب...</div>
 </div>
+
+<!-- RESULT -->
 <div id="sr" class="screen">
   <div class="rw">
     <div class="rt">🎉 تهنئتك جاهزة!</div>
@@ -205,83 +238,128 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--t4);border-top:
       <button class="brg" onclick="regen()">🔄 توليد أخرى</button>
       <button class="bnw" onclick="newCard()">✦ تهنئة جديدة</button>
     </div>
-    <div class="hw">
-      <div class="ht hidden" id="htitle">🕐 آخر التهاني</div>
-      <div class="hg" id="hgrid"></div>
+    <div style="margin-top:16px;text-align:center;padding:14px;background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.15);border-radius:var(--r2)">
+      <div style="font-size:12px;color:var(--t3);margin-bottom:6px">رصيدك المتبقي: <strong id="credits-result" style="color:var(--g)">-</strong> تهنئة</div>
+      <button onclick="showPaywall()" style="padding:8px 18px;border-radius:50px;border:none;background:linear-gradient(135deg,var(--v2),var(--v1));color:#fff;font-family:'Tajawal',sans-serif;font-size:12px;font-weight:700;cursor:pointer">✦ احصل على المزيد — 2 JD</button>
     </div>
   </div>
 </div>
+
+<!-- ERROR -->
 <div id="se" class="screen">
   <div class="ei">⚠️</div>
   <div class="etitle">تعذّر التوليد</div>
-  <div class="emsg" id="emsg">الخادم مشغول. انتظر دقيقة وأعد المحاولة.</div>
+  <div class="emsg" id="emsg">حدث خطأ. يرجى المحاولة مجدداً.</div>
   <div class="eact">
     <button class="gbtn" style="width:auto;padding:12px 24px" onclick="regen()">🔄 إعادة المحاولة</button>
     <button class="ghost" onclick="goStep2()">← تعديل</button>
   </div>
 </div>
-<footer>سندك للعيد ✦ · Pollinations.ai FLUX · مجاني للجميع</footer>
+
+<!-- PAYWALL MODAL -->
+<div class="modal-bg" id="paywall">
+  <div class="modal">
+    <button class="modal-close" onclick="hidePaywall()">✕</button>
+    <div class="modal-icon">🎨</div>
+    <div class="modal-title">استمر في التوليد</div>
+    <div class="modal-sub">نفدت تهنئاتك المجانية — احصل على المزيد الآن</div>
+    <div class="price-box">
+      <div class="price-main">2 JD</div>
+      <div class="price-desc">دفعة واحدة</div>
+    </div>
+    <ul class="price-features">
+      <li>✅ 5 تهنئات بجودة HD عالية</li>
+      <li>✅ جميع الثيمات الـ 20</li>
+      <li>✅ تحميل فوري</li>
+      <li>✅ دفع آمن عبر MyFatoorah</li>
+    </ul>
+    <button class="pay-btn" id="pay-btn" onclick="startPayment()">💳 ادفع الآن — 2 JD</button>
+    <div class="pay-methods">🔒 مدى · Visa · Mastercard · مدعوم بـ MyFatoorah</div>
+    <div id="pay-msg" style="margin-top:12px;font-size:12px;color:var(--t3);min-height:16px"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-barq">مدعوم بـ <a href="https://barq-studio.com" target="_blank">⚡ Barq Studio</a> — تصوير المنتجات بالذكاء الاصطناعي</div>
+  <div>سندك للعيد ✦ · FAL.ai FLUX</div>
+</footer>
+
 <script>
 'use strict';
 const TH=[
-  {id:'mosque',n:'أمام المسجد',e:'🕌',s:'ليلي فاخر',g:'linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)',tc:'#fde68a',p:'mosque night golden minarets crescent moon Arabic lanterns Eid celebration cinematic'},
-  {id:'lanterns',n:'فوانيس رمضان',e:'🪔',s:'دافئ غامض',g:'linear-gradient(135deg,#2d1b00,#5c3400,#2d1b00)',tc:'#fde68a',p:'Arabic fanoos lanterns glowing Ramadan alley night amber bokeh warm magical'},
-  {id:'crescent',n:'هلال العيد',e:'🌙',s:'سينمائي',g:'linear-gradient(135deg,#0f0c29,#302b63,#24243e)',tc:'#fff',p:'giant golden crescent moon Arabian cityscape minarets Eid fireworks indigo sky dramatic'},
-  {id:'golden',n:'ذهبي فاخر',e:'✨',s:'راقٍ ملكي',g:'linear-gradient(135deg,#1a0a00,#3d1a00,#1a0a00)',tc:'#fde68a',p:'luxury gold Islamic arabesque patterns black velvet golden ornate 8K royal'},
-  {id:'heritage',n:'الحارة التراثية',e:'🏛',s:'تراثي أصيل',g:'linear-gradient(135deg,#1c1407,#3d2d0a,#1c1407)',tc:'#fde68a',p:'traditional Arabian old quarter Eid celebration lanterns stone architecture golden hour'},
-  {id:'fireworks',n:'ألعاب نارية',e:'🎆',s:'احتفالي',g:'linear-gradient(135deg,#0a0a1a,#1a0a2e,#0a0a1a)',tc:'#fff',p:'Eid fireworks night Arabian city skyline minarets gold fireworks cinematic panoramic'},
-  {id:'dawn',n:'فجر العيد',e:'🌅',s:'روحاني هادئ',g:'linear-gradient(135deg,#1a0a00,#4a2000,#c50)',tc:'#fff',p:'Eid dawn sunrise pink gold orange sky Arabian minarets flowers divine light'},
-  {id:'garden',n:'حديقة العيد',e:'🌸',s:'رومانسي',g:'linear-gradient(135deg,#0a1a0a,#0d2d0d,#1a4a0a)',tc:'#fde68a',p:'Arabian Eid garden jasmine roses palm trees golden fairy lights fountain dreamy bokeh'},
-  {id:'family',n:'بيت العيد',e:'🏠',s:'عائلي دافئ',g:'linear-gradient(135deg,#1a0e00,#3d2200,#1a0e00)',tc:'#fde68a',p:'traditional Arabian majlis Eid colorful lights dates coffee tray cushions warm cozy'},
-  {id:'riyadh',n:'ليل الرياض',e:'🏙',s:'سعودي معاصر',g:'linear-gradient(135deg,#050510,#0a0a2a,#050510)',tc:'#fff',p:'Riyadh night skyline Kingdom Tower skyscrapers Eid lights fireworks aerial cinematic'},
-  {id:'kids',n:'عيد الأطفال',e:'🎈',s:'بهيج مفرح',g:'linear-gradient(135deg,#1a002a,#2a0050,#1a002a)',tc:'#fde68a',p:'Eid celebration colorful balloons lanterns Arabic sweets festive joyful vibrant warm'},
-  {id:'makkah',n:'مكة المكرمة',e:'🕋',s:'روحاني مبارك',g:'linear-gradient(135deg,#0a0015,#15002a,#0a0015)',tc:'#fde68a',p:'Grand Mosque illuminated night golden minarets crescent moon divine rays of light sacred'},
-  {id:'couples',n:'لمّة العيد',e:'👫',s:'عاطفي ليلي',g:'linear-gradient(135deg,#020215,#050530,#020215)',tc:'#c084fc',p:'couple silhouette rooftop night Riyadh skyline Eid fireworks romantic cinematic'},
-  {id:'trad',n:'تهنئة رجالية',e:'🧔',s:'فخمة راقية',g:'linear-gradient(135deg,#0f0f00,#2a2800,#0f0f00)',tc:'#fde68a',p:'Saudi man thobe ghutrah silhouette Eid venue golden palm trees professional cinematic'},
-  {id:'minimal',n:'مينيمال نظيف',e:'⬜',s:'بسيط فاخر',g:'linear-gradient(135deg,#0a0a0a,#1a1a1a,#0a0a0a)',tc:'#f5c842',p:'minimalist Eid card golden crescent moon stars black background Islamic gold geometry'},
-  {id:'business',n:'تجاري احترافي',e:'💼',s:'للعلامات التجارية',g:'linear-gradient(135deg,#000a1a,#00142e,#000a1a)',tc:'#f5c842',p:'corporate Eid navy blue gold Islamic geometric patterns luxury brand professional'},
-  {id:'dates',n:'معمول وتمر',e:'🍬',s:'تراثي شهي',g:'linear-gradient(135deg,#1a0800,#3d1800,#1a0800)',tc:'#fde68a',p:'mamoul cookies golden tray Medjool dates Arabic coffee warm candlelight rose petals'},
-  {id:'girl',n:'تهنئة نسائية',e:'🌺',s:'ناعم رقيق',g:'linear-gradient(135deg,#1a001a,#300030,#1a001a)',tc:'#f9a8d4',p:'elegant abaya embroidery jasmine flowers golden lanterns purple gold bokeh dreamy'},
-  {id:'stars_n',n:'ليل النجوم',e:'🌌',s:'كوني غامض',g:'linear-gradient(135deg,#000008,#000418,#000008)',tc:'#c4b5fd',p:'Arabian desert Milky Way night golden Eid lanterns Bedouin tent crescent moon stars'},
-  {id:'drive',n:'جولة العيد',e:'🚗',s:'سعودي عصري',g:'linear-gradient(135deg,#050510,#0a0a20,#050510)',tc:'#fff',p:'luxury SUV sunroof view night Saudi city Eid fireworks cinematic wide shot'},
+  {id:'mosque',n:'أمام المسجد',e:'🕌',s:'ليلي فاخر',g:'linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)',p:'mosque night golden minarets crescent moon Arabic lanterns Eid celebration cinematic'},
+  {id:'lanterns',n:'فوانيس رمضان',e:'🪔',s:'دافئ غامض',g:'linear-gradient(135deg,#2d1b00,#5c3400,#2d1b00)',p:'Arabic fanoos lanterns glowing Ramadan alley night amber bokeh warm magical'},
+  {id:'crescent',n:'هلال العيد',e:'🌙',s:'سينمائي',g:'linear-gradient(135deg,#0f0c29,#302b63,#24243e)',p:'giant golden crescent moon Arabian cityscape minarets Eid fireworks indigo sky dramatic'},
+  {id:'golden',n:'ذهبي فاخر',e:'✨',s:'راقٍ ملكي',g:'linear-gradient(135deg,#1a0a00,#3d1a00,#1a0a00)',p:'luxury gold Islamic arabesque patterns black velvet golden ornate 8K royal'},
+  {id:'heritage',n:'الحارة التراثية',e:'🏛',s:'تراثي أصيل',g:'linear-gradient(135deg,#1c1407,#3d2d0a,#1c1407)',p:'traditional Arabian old quarter Eid celebration lanterns stone architecture golden hour'},
+  {id:'fireworks',n:'ألعاب نارية',e:'🎆',s:'احتفالي',g:'linear-gradient(135deg,#0a0a1a,#1a0a2e,#0a0a1a)',p:'Eid fireworks night Arabian city skyline minarets gold fireworks cinematic panoramic'},
+  {id:'dawn',n:'فجر العيد',e:'🌅',s:'روحاني هادئ',g:'linear-gradient(135deg,#1a0a00,#4a2000,#c50)',p:'Eid dawn sunrise pink gold orange sky Arabian minarets flowers divine light'},
+  {id:'garden',n:'حديقة العيد',e:'🌸',s:'رومانسي',g:'linear-gradient(135deg,#0a1a0a,#0d2d0d,#1a4a0a)',p:'Arabian Eid garden jasmine roses palm trees golden fairy lights fountain dreamy bokeh'},
+  {id:'family',n:'بيت العيد',e:'🏠',s:'عائلي دافئ',g:'linear-gradient(135deg,#1a0e00,#3d2200,#1a0e00)',p:'traditional Arabian majlis Eid colorful lights dates coffee tray cushions warm cozy'},
+  {id:'riyadh',n:'ليل الرياض',e:'🏙',s:'سعودي معاصر',g:'linear-gradient(135deg,#050510,#0a0a2a,#050510)',p:'Riyadh night skyline Kingdom Tower skyscrapers Eid lights fireworks aerial cinematic'},
+  {id:'kids',n:'عيد الأطفال',e:'🎈',s:'بهيج مفرح',g:'linear-gradient(135deg,#1a002a,#2a0050,#1a002a)',p:'Eid celebration colorful balloons lanterns Arabic sweets festive joyful vibrant warm'},
+  {id:'makkah',n:'مكة المكرمة',e:'🕋',s:'روحاني مبارك',g:'linear-gradient(135deg,#0a0015,#15002a,#0a0015)',p:'Grand Mosque illuminated night golden minarets crescent moon divine rays of light sacred'},
+  {id:'couples',n:'لمّة العيد',e:'👫',s:'عاطفي ليلي',g:'linear-gradient(135deg,#020215,#050530,#020215)',p:'couple silhouette rooftop night Riyadh skyline Eid fireworks romantic cinematic'},
+  {id:'trad',n:'تهنئة رجالية',e:'🧔',s:'فخمة راقية',g:'linear-gradient(135deg,#0f0f00,#2a2800,#0f0f00)',p:'Saudi man thobe ghutrah silhouette Eid venue golden palm trees professional cinematic'},
+  {id:'minimal',n:'مينيمال نظيف',e:'⬜',s:'بسيط فاخر',g:'linear-gradient(135deg,#0a0a0a,#1a1a1a,#0a0a0a)',p:'minimalist Eid card golden crescent moon stars black background Islamic gold geometry'},
+  {id:'business',n:'تجاري احترافي',e:'💼',s:'للعلامات التجارية',g:'linear-gradient(135deg,#000a1a,#00142e,#000a1a)',p:'corporate Eid navy blue gold Islamic geometric patterns luxury brand professional'},
+  {id:'dates',n:'معمول وتمر',e:'🍬',s:'تراثي شهي',g:'linear-gradient(135deg,#1a0800,#3d1800,#1a0800)',p:'mamoul cookies golden tray Medjool dates Arabic coffee warm candlelight rose petals'},
+  {id:'girl',n:'تهنئة نسائية',e:'🌺',s:'ناعم رقيق',g:'linear-gradient(135deg,#1a001a,#300030,#1a001a)',p:'elegant abaya embroidery jasmine flowers golden lanterns purple gold bokeh dreamy'},
+  {id:'stars_n',n:'ليل النجوم',e:'🌌',s:'كوني غامض',g:'linear-gradient(135deg,#000008,#000418,#000008)',p:'Arabian desert Milky Way night golden Eid lanterns Bedouin tent crescent moon stars'},
+  {id:'drive',n:'جولة العيد',e:'🚗',s:'سعودي عصري',g:'linear-gradient(135deg,#050510,#0a0a20,#050510)',p:'luxury SUV sunroof view night Saudi city Eid fireworks cinematic wide shot'},
 ];
 const GREET=['عيد مبارك وكل عام وأنتم بخير 🌙','تقبّل الله منا ومنكم صالح الأعمال','كل عام وأنتم بألف خير وصحة وسلامة','أعاده الله عليكم بالخير واليُمن والبركات','عيد سعيد وأيام مليئة بالفرح والهناء','بارك الله فيكم وجمعكم دائماً بخير'];
-const COLORS=[{c:'#fff',l:'أبيض'},{c:'#fde68a',l:'ذهبي'},{c:'#f5c842',l:'عسلي'},{c:'#c084fc',l:'بنفسجي'},{c:'#86efac',l:'أخضر'},{c:'#000',l:'أسود'}];
 const DIMS={sq:[512,512],st:[512,768],cd:[768,512]};
-const LUX={prem:'ultra high quality photorealistic',cls:'classic warm artistic',mod:'clean modern minimalist',fest:'vibrant colorful festive'};
+const LUX={prem:'ultra high quality photorealistic cinematic',cls:'classic warm artistic',mod:'clean modern minimalist',fest:'vibrant colorful festive joyful'};
+const FREE_LIMIT=2;
 
-const S={th:null,nm:'',gr:'',fmt:'sq',sty:'prem',tc:'#fff',tsz:'md',seed:0,url:'',_atm:0,
-  hist:(()=>{try{return JSON.parse(localStorage.getItem('sv6')||'[]')}catch(e){return[]}})()
+const S={
+  th:null,nm:'',gr:'',fmt:'sq',sty:'prem',
+  seed:0,url:'',_atm:0,
+  credits: (()=>{
+    const s=localStorage.getItem('sandak_credits');
+    if(s){const p=JSON.parse(s);if(p.exp>Date.now())return p;}
+    return{free:FREE_LIMIT,paid:0,exp:Date.now()+30*24*60*60*1000};
+  })(),
 };
 
+function saveCredits(){localStorage.setItem('sandak_credits',JSON.stringify(S.credits));}
+function getTotalCredits(){return S.credits.free+S.credits.paid;}
+function updateCreditsUI(){
+  const total=getTotalCredits();
+  document.getElementById('credits-count').textContent=total;
+  document.getElementById('credits-result').textContent=total;
+}
+
+// Stars
 (()=>{const el=document.getElementById('stars');for(let i=0;i<60;i++){const s=document.createElement('div');s.className='s';const sz=Math.random()*2+.8;s.style.cssText='width:'+sz+'px;height:'+sz+'px;top:'+Math.random()*100+'%;left:'+Math.random()*100+'%;--d:'+(2+Math.random()*4)+'s;--dl:'+(-Math.random()*6)+'s';el.appendChild(s);}})();
 
+// Themes grid
 (()=>{const g=document.getElementById('tg');TH.forEach(t=>{const d=document.createElement('div');d.className='tc';d.innerHTML='<div class="tb" style="background:'+t.g+'"><span class="te">'+t.e+'</span><span class="tn">'+t.n+'</span><span class="ts">'+t.s+'</span></div><div class="tchk">✓</div>';d.onclick=()=>{document.querySelectorAll('.tc').forEach(c=>c.classList.remove('sel'));d.classList.add('sel');S.th=t;document.getElementById('bs1').disabled=false;};g.appendChild(d);});})();
 
+// Chips
 (()=>{const c=document.getElementById('chips');GREET.forEach(gr=>{const ch=document.createElement('div');ch.className='chip';ch.textContent=gr;ch.onclick=()=>{document.getElementById('igreet').value=gr;};c.appendChild(ch);});})();
 
+// Strip
 (()=>{const t=document.getElementById('track');[...TH,...TH].forEach(th=>{const d=document.createElement('div');d.className='ex';d.style.background=th.g;d.innerHTML='<div class="ol"><span>'+th.e+' '+th.n+'</span></div>';t.appendChild(d);});})();
 
-function saveHist(){S.hist.unshift({u:S.url,n:S.th?.n});S.hist=S.hist.slice(0,6);try{localStorage.setItem('sv6',JSON.stringify(S.hist));}catch(e){}renderHist();}
-function renderHist(){const g=document.getElementById('hgrid');const t=document.getElementById('htitle');g.innerHTML='';if(!S.hist.length){t.classList.add('hidden');return;}t.classList.remove('hidden');S.hist.forEach(h=>{const d=document.createElement('div');d.className='hi';d.innerHTML='<img src="'+h.u+'" alt="'+(h.n||'')+'">'; g.appendChild(d);});}
-renderHist();
-
+// Screens
 function showOnly(id){['sh','sc','sg','sr','se'].forEach(x=>{document.getElementById(x).style.display='none';});const el=document.getElementById(id);el.style.display=(id==='sg')?'flex':'block';window.scrollTo({top:0,behavior:'smooth'});}
 function setStepper(n){for(let i=1;i<=4;i++){const c=document.getElementById('sp'+i);const l=document.getElementById('sl'+i);if(!c)continue;c.classList.remove('active','done');c.textContent=i;if(i<n){c.classList.add('done');c.textContent='✓';}else if(i===n)c.classList.add('active');if(l)l.classList.toggle('done',i<n);}}
 function goCreate(){showOnly('sc');document.getElementById('st1').classList.remove('hidden');document.getElementById('st2').classList.add('hidden');setStepper(1);}
 function goStep1(){document.getElementById('st1').classList.remove('hidden');document.getElementById('st2').classList.add('hidden');setStepper(1);}
 function goStep2(){if(!S.th)return;document.getElementById('st1').classList.add('hidden');document.getElementById('st2').classList.remove('hidden');setStepper(2);window.scrollTo({top:0,behavior:'smooth'});}
 function setFmt(el){document.querySelectorAll('.fmt').forEach(b=>b.classList.remove('act'));el.classList.add('act');S.fmt=el.dataset.f;}
-function setSz(el){document.querySelectorAll('.sz').forEach(b=>b.classList.remove('act'));el.classList.add('act');S.tsz=el.dataset.s;}
+function showPaywall(){document.getElementById('paywall').classList.add('show');}
+function hidePaywall(){document.getElementById('paywall').classList.remove('show');}
 
-// ══ BUILD URL — CORRECT: encodeURIComponent only, no regex ══
-function buildUrl(){
-  const[W,H]=DIMS[S.fmt]||[512,512];
-  const p=S.th.p+' '+(LUX[S.sty]||'');
-  // encodeURIComponent correctly encodes spaces as %20, not +
-  return 'https://image.pollinations.ai/prompt/'+encodeURIComponent(p)+'?width='+W+'&height='+H+'&model=flux&nologo=true&seed='+S.seed;
+// Check credits before generating
+function tryGenerate(){
+  if(getTotalCredits()<=0){showPaywall();return;}
+  generate();
 }
 
+// GENERATE via backend function
 let _gt=null,_pi=null;
 function generate(){
   S.nm=document.getElementById('iname').value.trim();
@@ -293,52 +371,94 @@ function generate(){
   document.getElementById('gbadge').textContent=S.th.e+' '+S.th.n;
   const pb=document.getElementById('pb');
   const gst=document.getElementById('gst');
-  const msgs=['⏳ إرسال الطلب...','🎨 رسم الخلفية...','✨ إضافة التفاصيل...','🌙 تحسين الإضاءة...','📸 الإنهاء...'];
+  const msgs=['⏳ إرسال الطلب لـ FAL...','🎨 رسم الخلفية...','✨ إضافة التفاصيل...','🌙 تحسين الإضاءة...','📸 الإنهاء...'];
   let pct=0,mi=0;
   if(_pi)clearInterval(_pi);
-  _pi=setInterval(()=>{pct=Math.min(pct+(Math.random()*2),85);pb.style.width=pct+'%';if(pct>(mi+1)*17&&mi<msgs.length-1){mi++;gst.textContent=msgs[mi];}},1000);
+  _pi=setInterval(()=>{pct=Math.min(pct+Math.random()*6,87);pb.style.width=pct+'%';if(pct>(mi+1)*17&&mi<msgs.length-1){mi++;gst.textContent=msgs[mi];}},500);
   if(_gt)clearTimeout(_gt);
-  _gt=setTimeout(()=>{clean();showErr('انتهت المهلة. الخادم مشغول — انتظر دقيقة وأعد المحاولة.');},150000);
-  doLoad();
+  _gt=setTimeout(()=>{clean();showErr('انتهت مهلة التوليد. يرجى المحاولة مجدداً.');},90000);
+  doGenerate();
 }
 
-function doLoad(){
-  const url=buildUrl();
-  S.url=url;
+async function doGenerate(){
+  const[W,H]=DIMS[S.fmt]||[512,512];
+  const prompt=S.th.p+' '+(LUX[S.sty]||'');
   const gst=document.getElementById('gst');
-  if(S._atm>0) gst.textContent='🔄 محاولة '+(S._atm+1)+' من 5...';
-  const img=new Image();
-  // NO crossOrigin — causes CORS failure with Pollinations
-  img.onload=()=>{
+  if(S._atm>0)gst.textContent='🔄 محاولة '+(S._atm+1)+'/3...';
+  try{
+    const res=await fetch('/.netlify/functions/generate',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({prompt,size:S.fmt,seed:S.seed})
+    });
+    const data=await res.json();
+    if(data.error){
+      S._atm++;
+      if(S._atm<3){S.seed=Math.floor(Math.random()*999999)+1;setTimeout(doGenerate,3000);return;}
+      clean();showErr(data.error);return;
+    }
     clean();
     document.getElementById('pb').style.width='100%';
-    document.getElementById('rimg').src=url;
-    setTimeout(()=>{showOnly('sr');setStepper(4);saveHist();},300);
-  };
-  img.onerror=()=>{
+    S.url=data.imageUrl;
+    // Deduct credit
+    if(S.credits.paid>0)S.credits.paid--;
+    else if(S.credits.free>0)S.credits.free--;
+    saveCredits();updateCreditsUI();
+    setTimeout(()=>{
+      document.getElementById('rimg').src=S.url;
+      showOnly('sr');setStepper(4);
+    },300);
+  }catch(err){
     S._atm++;
-    if(S._atm<5){
-      const wait=S._atm*5000;
-      gst.textContent='⏳ الخادم مشغول — انتظار '+(wait/1000)+' ث قبل المحاولة '+(S._atm+1)+'...';
-      S.seed=Math.floor(Math.random()*999999)+1;
-      setTimeout(doLoad,wait);
-    } else {
-      clean();showErr('الخادم مشغول جداً الآن. انتظر دقيقتين ثم اضغط "إعادة المحاولة".');
-    }
-  };
-  img.src=url;
+    if(S._atm<3){S.seed=Math.floor(Math.random()*999999)+1;setTimeout(doGenerate,4000);}
+    else{clean();showErr('خطأ في الاتصال. تحقق من الإنترنت.');}
+  }
 }
 
 function clean(){if(_pi){clearInterval(_pi);_pi=null;}if(_gt){clearTimeout(_gt);_gt=null;}}
-
-function dlResult(){
-  const a=document.createElement('a');
-  a.href=S.url;a.target='_blank';a.rel='noopener';
-  document.body.appendChild(a);a.click();document.body.removeChild(a);
-}
-function regen(){if(!S.th)return;S.seed=Math.floor(Math.random()*999999)+1;S._atm=0;generate();}
+function dlResult(){const a=document.createElement('a');a.href=S.url;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();document.body.removeChild(a);}
+function regen(){if(!S.th)return;if(getTotalCredits()<=0){showPaywall();return;}S.seed=Math.floor(Math.random()*999999)+1;S._atm=0;generate();}
 function newCard(){goCreate();document.getElementById('iname').value='';document.getElementById('igreet').value='';S.th=null;document.querySelectorAll('.tc').forEach(c=>c.classList.remove('sel'));document.getElementById('bs1').disabled=true;goStep1();}
 function showErr(msg){clean();showOnly('se');document.getElementById('emsg').textContent=msg;setStepper(3);}
+
+// PAYMENT — MyFatoorah
+async function startPayment(){
+  const btn=document.getElementById('pay-btn');
+  const msg=document.getElementById('pay-msg');
+  btn.disabled=true;btn.textContent='⏳ جاري المعالجة...';msg.textContent='';
+  try{
+    const res=await fetch('/.netlify/functions/create-payment',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({amount:2,currency:'KWD',description:'سندك للعيد — 5 تهنئات',redirectUrl:window.location.origin+'/?payment=success'})
+    });
+    const data=await res.json();
+    if(data.paymentUrl){
+      window.location.href=data.paymentUrl;
+    } else {
+      msg.textContent='خطأ: '+(data.error||'حدث خطأ');
+      btn.disabled=false;btn.textContent='💳 ادفع الآن — 2 JD';
+    }
+  }catch(e){
+    msg.textContent='خطأ في الاتصال. يرجى المحاولة مجدداً.';
+    btn.disabled=false;btn.textContent='💳 ادفع الآن — 2 JD';
+  }
+}
+
+// Check payment success on load
+(()=>{
+  const p=new URLSearchParams(window.location.search);
+  if(p.get('payment')==='success'){
+    const payId=p.get('paymentId')||p.get('Id');
+    if(payId){
+      // Add 5 paid credits
+      S.credits.paid=(S.credits.paid||0)+5;
+      saveCredits();
+    }
+    window.history.replaceState({},'','/');
+  }
+  updateCreditsUI();
+})();
 </script>
 </body>
 </html>
