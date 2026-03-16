@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>سندك للعيد ✨ — تهنئة بالذكاء الاصطناعي</title>
+<title>سندك للعيد ✨</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#04040f;--card:#0f0f1e;--card2:#161626;
-  --glass:rgba(15,15,30,0.9);--b:rgba(255,255,255,0.08);--b2:rgba(255,255,255,0.14);
+  --glass:rgba(15,15,30,0.92);--b:rgba(255,255,255,0.08);--b2:rgba(255,255,255,0.14);
   --v1:#5b21b6;--v2:#7c3aed;--v3:#a855f7;
   --g:#f5c842;--g2:#e8a020;--g3:#fde68a;
   --t:#ede9fe;--t2:#c4b5fd;--t3:#8b7fa8;--t4:#4a4466;
@@ -19,8 +19,8 @@ html{scroll-behavior:smooth}
 body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t);min-height:100vh;overflow-x:hidden}
 #stars{position:fixed;inset:0;pointer-events:none;z-index:0}
 .s{position:absolute;border-radius:50%;background:#fff;animation:tw var(--d) ease-in-out infinite var(--dl)}
-@keyframes tw{0%,100%{opacity:.1;transform:scale(1)}50%{opacity:.7;transform:scale(1.3)}}
-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(4,4,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--b)}
+@keyframes tw{0%,100%{opacity:.08;transform:scale(1)}50%{opacity:.65;transform:scale(1.3)}}
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(4,4,15,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--b)}
 .logo{font-size:18px;font-weight:900;color:var(--g);display:flex;align-items:center;gap:6px}
 .logo span{color:var(--t)}
 .nbtn{background:linear-gradient(135deg,var(--v2),var(--v1));color:#fff;border:none;padding:8px 18px;border-radius:50px;font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
@@ -28,7 +28,7 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .screen{display:none;position:relative;z-index:1}
 #s-home{display:block;text-align:center;padding:56px 20px 80px}
 .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.2);color:var(--g);padding:7px 16px;border-radius:50px;font-size:12px;font-weight:600;margin-bottom:24px}
-h1{font-size:clamp(32px,7vw,66px);font-weight:900;line-height:1.1;margin-bottom:18px;letter-spacing:-1px}
+h1{font-size:clamp(32px,7vw,64px);font-weight:900;line-height:1.1;margin-bottom:18px;letter-spacing:-1px}
 h1 .l1{color:var(--t)}
 h1 .l2{background:linear-gradient(135deg,var(--g),var(--v3) 60%,var(--g3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .sub{font-size:16px;color:var(--t2);max-width:500px;margin:0 auto 36px;line-height:1.7}
@@ -92,14 +92,15 @@ h1 .l2{background:linear-gradient(135deg,var(--g),var(--v3) 60%,var(--g3));-webk
 .gsub{font-size:13px;color:var(--t3);margin-bottom:24px}
 .pbw{width:240px;height:4px;background:var(--b);border-radius:2px;overflow:hidden;margin:0 auto 12px}
 .pb{height:100%;background:linear-gradient(90deg,var(--v2),var(--g));border-radius:2px;width:0;transition:width .5s ease}
-.gst{font-size:12px;color:var(--t3)}
+.gst{font-size:13px;color:var(--t3);margin-bottom:8px;min-height:20px}
 .gbadge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid var(--b);padding:7px 14px;border-radius:50px;font-size:12px;font-weight:600;color:var(--t2);margin-bottom:18px}
 #s-result{display:none;padding:16px 16px 80px}
 .rw{max-width:560px;margin:0 auto}
 .rt{text-align:center;font-size:20px;font-weight:800;margin-bottom:3px}
 .rs{text-align:center;font-size:12px;color:var(--t3);margin-bottom:18px}
-.rf{border-radius:var(--r);overflow:hidden;border:1px solid var(--b2);background:var(--card);box-shadow:0 16px 56px rgba(0,0,0,.6)}
-#rc{display:block;width:100%;height:auto}
+.rf{border-radius:var(--r);overflow:hidden;border:1px solid var(--b2);background:var(--card);box-shadow:0 16px 56px rgba(0,0,0,.6);position:relative}
+#rimg{display:block;width:100%;height:auto}
+#rc{display:none;width:100%;height:auto}
 .ract{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 .bdl{padding:13px;border-radius:var(--r2);border:none;background:linear-gradient(135deg,var(--g2),var(--g));color:#000;font-family:'Tajawal',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px}
 .bdl:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(245,200,66,.38)}
@@ -141,10 +142,11 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--t4);border-top:
   <div class="logo">✦ <span>سندك للعيد</span></div>
   <button class="nbtn" onclick="goCreate()">✦ ولّد تهنئة</button>
 </nav>
+
 <div id="s-home" class="screen">
   <div class="badge">🎊 مجاني 100% · Pollinations FLUX · بدون تسجيل</div>
   <h1><span class="l1">صمّم تهنئة العيد<br></span><span class="l2">بالذكاء الاصطناعي</span></h1>
-  <p class="sub">20 ثيماً فاخراً — اكتب اسمك ورسالتك — ولّد صورة احترافية في ثوانٍ مجاناً</p>
+  <p class="sub">20 ثيماً فاخراً — اكتب اسمك ورسالتك — ولّد صورة عيد احترافية مجاناً</p>
   <button class="hbtn" onclick="goCreate()">✦ ابدأ الآن — مجاناً</button>
   <div class="stats">
     <div class="stat"><div class="n">20</div><div class="l">ثيماً فاخراً</div></div>
@@ -154,6 +156,7 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--t4);border-top:
   </div>
   <div class="strip"><div class="track" id="track"></div></div>
 </div>
+
 <div id="s-create" class="screen">
   <div class="stepper">
     <div class="sc active" id="sc1">1</div><div class="sl" id="sl1"></div>
@@ -191,10 +194,10 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--t4);border-top:
       <div class="f">
         <label>الأسلوب البصري</label>
         <select id="istyle">
-          <option value="prem">✨ فاخر سينمائي — 8K جودة عالية</option>
-          <option value="cls">🏛 كلاسيكي تراثي — دافئ أصيل</option>
-          <option value="mod">⬜ معاصر عصري — نظيف حديث</option>
-          <option value="fest">🎊 احتفالي ملوّن — فرحان مشرق</option>
+          <option value="prem">✨ فاخر سينمائي</option>
+          <option value="cls">🏛 كلاسيكي تراثي</option>
+          <option value="mod">⬜ معاصر عصري</option>
+          <option value="fest">🎊 احتفالي ملوّن</option>
         </select>
       </div>
     </div>
@@ -204,19 +207,24 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--t4);border-top:
     </div>
   </div>
 </div>
+
 <div id="s-gen" class="screen">
   <div class="orb">✦</div>
   <div class="gbadge" id="gbadge">⏳ جاري التوليد...</div>
   <div class="gt">الذكاء الاصطناعي يبدع لك...</div>
-  <div class="gsub">FLUX يرسم مشهد العيد — يستغرق 20 إلى 45 ثانية</div>
+  <div class="gsub">FLUX · يستغرق من 20 إلى 60 ثانية</div>
   <div class="pbw"><div class="pb" id="pb"></div></div>
-  <div class="gst" id="gst">⏳ جاري البدء...</div>
+  <div class="gst" id="gst">⏳ إرسال الطلب...</div>
 </div>
+
 <div id="s-result" class="screen">
   <div class="rw">
     <div class="rt">🎉 تهنئتك جاهزة!</div>
     <div class="rs">شارك مع أحبابك في العيد 🌙</div>
-    <div class="rf" id="rfwrap"><img id="rimg" src="" alt="" style="display:block;width:100%;height:auto"><canvas id="rc" style="display:none;position:absolute;top:0;left:0;width:100%;height:auto"></canvas></div>
+    <div class="rf">
+      <img id="rimg" src="" alt="تهنئة العيد" style="display:block;width:100%;height:auto">
+      <canvas id="rc" style="display:none;position:absolute;top:0;left:0;width:100%"></canvas>
+    </div>
     <div class="ract">
       <button class="bdl" onclick="dlResult()">⬇️ تحميل الصورة</button>
       <button class="brg" onclick="regen()">🔄 توليد أخرى</button>
@@ -240,83 +248,83 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--t4);border-top:
     </div>
   </div>
 </div>
+
 <div id="s-err" class="screen">
   <div class="ei">⚠️</div>
   <div class="etitle">تعذّر التوليد</div>
-  <div class="emsg" id="emsg">حدث خطأ. يرجى المحاولة مرة أخرى.</div>
+  <div class="emsg" id="emsg">الخادم مشغول. يرجى الانتظار ثم المحاولة مجدداً.</div>
   <div class="eact">
     <button class="gbtn" style="width:auto;padding:12px 24px" onclick="regen()">🔄 إعادة المحاولة</button>
     <button class="ghost" onclick="goStep2()">← تعديل الإعدادات</button>
   </div>
 </div>
+
 <footer>سندك للعيد ✦ · Pollinations.ai FLUX · مجاني للجميع</footer>
+
 <script>
 'use strict';
 
-// ═══════════════════════════════════════
-// THEMES — prompts مختصرة تعمل مع Pollinations
-// ═══════════════════════════════════════
 const TH=[
   {id:'mosque',n:'أمام المسجد',e:'🕌',s:'ليلي فاخر',
    g:'linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)',tc:'#fde68a',
-   p:'illuminated mosque night, golden minarets, crescent moon, Arabic lanterns, Eid celebration, cinematic 8K, no text'},
+   p:'illuminated mosque at night golden minarets crescent moon stars Eid celebration cinematic'},
   {id:'lanterns',n:'فوانيس رمضان',e:'🪔',s:'دافئ غامض',
    g:'linear-gradient(135deg,#2d1b00,#5c3400,#2d1b00)',tc:'#fde68a',
-   p:'Arabic fanoos lanterns glowing, Ramadan alley night, amber bokeh, mashrabiya windows, rose petals, cinematic 8K, no text'},
+   p:'Arabic fanoos lanterns glowing Ramadan alley night amber bokeh warm light'},
   {id:'crescent',n:'هلال العيد',e:'🌙',s:'سينمائي درامي',
    g:'linear-gradient(135deg,#0f0c29,#302b63,#24243e)',tc:'#ffffff',
-   p:'giant golden crescent moon, Arabian city silhouette, minarets, Eid fireworks, deep indigo sky, dramatic 8K, no text'},
+   p:'giant golden crescent moon Arabian cityscape minarets Eid fireworks deep indigo sky dramatic'},
   {id:'golden',n:'ذهبي فاخر',e:'✨',s:'راقٍ ملكي',
    g:'linear-gradient(135deg,#1a0a00,#3d1a00,#1a0a00)',tc:'#fde68a',
-   p:'luxury gold Islamic arabesque patterns, black velvet background, gold coins pearls, 8K studio photography, no text'},
+   p:'luxury gold Islamic arabesque patterns black velvet golden coins pearls ornate 8K'},
   {id:'heritage',n:'الحارة التراثية',e:'🏛',s:'تراثي أصيل',
    g:'linear-gradient(135deg,#1c1407,#3d2d0a,#1c1407)',tc:'#fde68a',
-   p:'traditional Arabian old quarter, Eid celebration, golden lanterns, stone architecture, warm golden hour, 8K, no text'},
+   p:'traditional Arabian old quarter Eid celebration golden lanterns stone architecture warm golden hour'},
   {id:'fireworks',n:'ألعاب نارية',e:'🎆',s:'احتفالي',
    g:'linear-gradient(135deg,#0a0a1a,#1a0a2e,#0a0a1a)',tc:'#ffffff',
-   p:'spectacular Eid fireworks night, Arabian city skyline, minarets, gold green white fireworks, cinematic 8K, no text'},
+   p:'spectacular Eid fireworks night Arabian city skyline minarets gold green fireworks cinematic'},
   {id:'dawn',n:'فجر العيد',e:'🌅',s:'روحاني هادئ',
    g:'linear-gradient(135deg,#1a0a00,#4a2000,#cc5500)',tc:'#ffffff',
-   p:'Eid dawn sunrise, pink gold sky, Arabian landscape, minarets silhouette, flowers, divine light, 8K golden hour, no text'},
+   p:'Eid dawn sunrise pink gold orange sky Arabian landscape minarets flowers divine light'},
   {id:'garden',n:'حديقة العيد',e:'🌸',s:'رومانسي',
    g:'linear-gradient(135deg,#0a1a0a,#0d2d0d,#1a4a0a)',tc:'#fde68a',
-   p:'Arabian Eid garden, jasmine roses, palm trees, golden fairy lights, marble fountain, dreamy bokeh, 8K, no text'},
+   p:'Arabian Eid garden jasmine roses palm trees golden fairy lights fountain dreamy bokeh'},
   {id:'family',n:'بيت العيد',e:'🏠',s:'عائلي دافئ',
    g:'linear-gradient(135deg,#1a0e00,#3d2200,#1a0e00)',tc:'#fde68a',
-   p:'traditional Arabian majlis Eid, colorful lights, dates coffee tray, cushions, warm indoor lighting, 8K, no text'},
+   p:'traditional Arabian majlis Eid colorful lights dates coffee tray cushions warm indoor'},
   {id:'riyadh',n:'ليل الرياض',e:'🏙',s:'سعودي معاصر',
    g:'linear-gradient(135deg,#050510,#0a0a2a,#050510)',tc:'#ffffff',
-   p:'Riyadh night skyline, Kingdom Tower, Eid lights fireworks, aerial panoramic, cinematic 8K, no text'},
+   p:'Riyadh night skyline Kingdom Tower skyscrapers Eid lights fireworks aerial panoramic'},
   {id:'kids',n:'عيد الأطفال',e:'🎈',s:'بهيج مفرح',
    g:'linear-gradient(135deg,#1a002a,#2a0050,#1a002a)',tc:'#fde68a',
-   p:'Eid celebration colorful balloons lanterns, Arabic sweets, festive joyful atmosphere, vivid colors, 8K, no text'},
+   p:'Eid celebration colorful balloons lanterns Arabic sweets festive joyful vibrant'},
   {id:'makkah',n:'مكة المكرمة',e:'🕋',s:'روحاني مبارك',
    g:'linear-gradient(135deg,#0a0015,#15002a,#0a0015)',tc:'#fde68a',
-   p:'Grand Mosque illuminated night, golden minarets, crescent moon, divine rays of light, sacred atmosphere, 8K, no text'},
+   p:'Grand Mosque illuminated night golden minarets crescent moon divine rays of light sacred'},
   {id:'couples',n:'لمّة العيد',e:'👫',s:'عاطفي ليلي',
    g:'linear-gradient(135deg,#020215,#050530,#020215)',tc:'#c084fc',
-   p:'Saudi couple silhouette rooftop night, Riyadh skyline, Eid fireworks balloons, romantic atmosphere, 8K, no text'},
+   p:'Saudi couple silhouette rooftop night Riyadh skyline Eid fireworks romantic cinematic'},
   {id:'trad',n:'تهنئة رجالية',e:'🧔',s:'فخمة راقية',
    g:'linear-gradient(135deg,#0f0f00,#2a2800,#0f0f00)',tc:'#fde68a',
-   p:'Saudi man thobe ghutrah silhouette, Eid venue golden lights, palm trees, professional cinematic 8K, no text'},
+   p:'Saudi man thobe ghutrah silhouette Eid venue golden palm trees professional cinematic'},
   {id:'minimal',n:'مينيمال نظيف',e:'⬜',s:'بسيط فاخر',
    g:'linear-gradient(135deg,#0a0a0a,#1a1a1a,#0a0a0a)',tc:'#f5c842',
-   p:'minimalist Eid card, golden crescent moon, stars, black background, Islamic geometry gold, ultra sharp 8K, no text'},
+   p:'minimalist Eid card golden crescent moon stars black background Islamic gold geometry'},
   {id:'business',n:'تجاري احترافي',e:'💼',s:'للعلامات التجارية',
    g:'linear-gradient(135deg,#000a1a,#00142e,#000a1a)',tc:'#f5c842',
-   p:'corporate Eid background, navy blue, gold Islamic geometric patterns, luxury brand aesthetic, 8K, no text'},
+   p:'corporate Eid navy blue gold Islamic geometric patterns luxury brand professional'},
   {id:'dates',n:'معمول وتمر',e:'🍬',s:'تراثي شهي',
    g:'linear-gradient(135deg,#1a0800,#3d1800,#1a0800)',tc:'#fde68a',
-   p:'mamoul cookies golden tray, Medjool dates, Arabic coffee dallah, warm candlelight, rose petals, food photography 8K, no text'},
+   p:'mamoul cookies golden tray Medjool dates Arabic coffee warm candlelight rose petals'},
   {id:'girl',n:'تهنئة نسائية',e:'🌺',s:'ناعم رقيق',
    g:'linear-gradient(135deg,#1a001a,#300030,#1a001a)',tc:'#f9a8d4',
-   p:'elegant abaya embroidery golden thread, jasmine flowers floating, golden lanterns, purple gold bokeh, dreamy 8K, no text'},
-  {id:'stars',n:'ليل النجوم',e:'🌌',s:'كوني غامض',
+   p:'elegant abaya embroidery jasmine flowers golden lanterns purple gold bokeh dreamy'},
+  {id:'stars_n',n:'ليل النجوم',e:'🌌',s:'كوني غامض',
    g:'linear-gradient(135deg,#000008,#000418,#000008)',tc:'#c4b5fd',
-   p:'Arabian desert night, Milky Way, golden Eid lanterns, Bedouin tent silhouette, crescent moon, astrophotography 8K, no text'},
+   p:'Arabian desert Milky Way night golden Eid lanterns Bedouin tent crescent moon astrophotography'},
   {id:'drive',n:'جولة العيد',e:'🚗',s:'سعودي عصري',
    g:'linear-gradient(135deg,#050510,#0a0a20,#050510)',tc:'#ffffff',
-   p:'luxury SUV sunroof view night, Saudi city Eid fireworks, cinematic interior wide shot, 8K photorealistic, no text'},
+   p:'luxury SUV sunroof night Saudi city Eid fireworks cinematic interior wide shot'},
 ];
 
 const GREET=[
@@ -333,24 +341,23 @@ const COLORS=[
 ];
 const DIMS={sq:[1024,1024],st:[683,1024],cd:[1024,683]};
 const LUX={
-  prem:'ultra high quality cinematic 8K photorealistic',
+  prem:'ultra high quality cinematic photorealistic',
   cls:'warm classic artistic style',
   mod:'clean modern minimalist',
-  fest:'vibrant colorful festive',
+  fest:'vibrant colorful festive joyful',
 };
 
-// STATE
 const S={
   th:null,nm:'',gr:'',fmt:'sq',sty:'prem',
-  tc:'#ffffff',tsz:'md',
-  seed:null,lastUrl:null,_img:null,_W:1024,_H:1024,
-  hist: (()=>{try{return JSON.parse(localStorage.getItem('s5')||'[]')}catch(e){return []}})(),
+  tc:'#ffffff',tsz:'md',seed:null,lastUrl:null,
+  _W:1024,_H:1024,_attempts:0,
+  hist:(()=>{try{return JSON.parse(localStorage.getItem('s6')||'[]')}catch(e){return[]}})(),
 };
 
-// BUILD STARS
+// STARS
 (()=>{
   const el=document.getElementById('stars');
-  for(let i=0;i<65;i++){
+  for(let i=0;i<60;i++){
     const s=document.createElement('div');s.className='s';
     const sz=Math.random()*2+.8;
     s.style.cssText='width:'+sz+'px;height:'+sz+'px;top:'+Math.random()*100+'%;left:'+Math.random()*100+'%;--d:'+(2+Math.random()*4)+'s;--dl:'+(-Math.random()*6)+'s';
@@ -358,7 +365,7 @@ const S={
   }
 })();
 
-// BUILD THEMES GRID
+// THEMES GRID
 (()=>{
   const g=document.getElementById('tg');
   TH.forEach(t=>{
@@ -373,7 +380,7 @@ const S={
   });
 })();
 
-// BUILD CHIPS
+// CHIPS
 (()=>{
   const c=document.getElementById('chips');
   GREET.forEach(gr=>{
@@ -383,7 +390,7 @@ const S={
   });
 })();
 
-// BUILD COLOR SWATCHES
+// COLORS
 (()=>{
   const r=document.getElementById('cr');
   COLORS.forEach(({c,l})=>{
@@ -397,7 +404,7 @@ const S={
   });
 })();
 
-// BUILD EXAMPLES STRIP
+// STRIP
 (()=>{
   const t=document.getElementById('track');
   [...TH,...TH].forEach(th=>{
@@ -409,11 +416,9 @@ const S={
 
 // HISTORY
 function saveHist(){
-  // Use the direct image URL instead of canvas toDataURL (avoids tainted canvas)
-  const entry={u:S.lastUrl,n:S.th?.n,t:Date.now()};
-  S.hist.unshift(entry);
+  S.hist.unshift({u:S.lastUrl,n:S.th?.n,t:Date.now()});
   S.hist=S.hist.slice(0,6);
-  try{localStorage.setItem('s5',JSON.stringify(S.hist));}catch(e){}
+  try{localStorage.setItem('s6',JSON.stringify(S.hist));}catch(e){}
   renderHist();
 }
 function renderHist(){
@@ -424,8 +429,8 @@ function renderHist(){
   t.classList.remove('hidden');
   S.hist.forEach(h=>{
     const d=document.createElement('div');d.className='hi';
-    const img=document.createElement('img');img.src=h.u;img.alt=h.n||'تهنئة';
-    d.appendChild(img);d.title=h.n||'تهنئة';g.appendChild(d);
+    d.innerHTML='<img src="'+h.u+'" alt="'+(h.n||'تهنئة')+'" loading="lazy">';
+    d.title=h.n||'تهنئة';g.appendChild(d);
   });
 }
 renderHist();
@@ -476,19 +481,19 @@ function setSz(el){
   el.classList.add('act');S.tsz=el.dataset.s;
 }
 
-// BUILD URL — exact format from brief
-function buildUrl(seed){
+// BUILD URL — exact format per brief
+function buildUrl(){
   const [W,H]=DIMS[S.fmt]||[1024,1024];
-  // Prompt: SHORT + quality tag, encoded into path
-  const prompt = S.th.p + ', ' + (LUX[S.sty]||'');
-  const encoded = encodeURIComponent(prompt);
-  // URL format per brief: https://image.pollinations.ai/prompt/{text}?width=...&height=...&model=turbo
-  const url='https://image.pollinations.ai/prompt/'+encoded+'?width='+W+'&height='+H+'&model=flux&nologo=true&seed='+seed;
-  return {url,W,H};
+  const prompt=S.th.p+' '+(LUX[S.sty]||'');
+  // Clean prompt: no commas, no special chars, spaces become +
+  const clean=prompt.trim().replace(/[,،؛]/g,' ').replace(/s+/g,'+');
+  const url='https://image.pollinations.ai/prompt/'+clean+'?width='+W+'&height='+H+'&model=flux&nologo=true&seed='+S.seed;
+  return{url,W,H};
 }
 
-// GENERATE — smart retry with 503 handling
+// GENERATE
 let _gt=null,_pi=null;
+
 function generate(){
   S.nm=document.getElementById('iname').value.trim();
   S.gr=document.getElementById('igreet').value.trim();
@@ -504,51 +509,59 @@ function generate(){
   const msgs=[
     '⏳ إرسال الطلب لـ FLUX...',
     '🎨 رسم الخلفية...',
-    '✨ إضافة التفاصيل الذهبية...',
-    '🌙 تحسين الإضاءة والألوان...',
-    '📸 الإنهاء النهائي...'
+    '✨ إضافة التفاصيل...',
+    '🌙 تحسين الإضاءة...',
+    '📸 الإنهاء...',
   ];
   let pct=0,mi=0;
   if(_pi)clearInterval(_pi);
   _pi=setInterval(()=>{
-    pct=Math.min(pct+Math.random()*2.5,87);
+    pct=Math.min(pct+(Math.random()*2),85);
     pb.style.width=pct+'%';
     if(pct>(mi+1)*17&&mi<msgs.length-1){mi++;gst.textContent=msgs[mi];}
-  },800);
+  },1000);
 
   if(_gt)clearTimeout(_gt);
-  _gt=setTimeout(()=>{clean();showErr('انتهت مهلة الانتظار (120 ثانية). الخادم مشغول — أعد المحاولة.');},120000);
+  _gt=setTimeout(()=>{
+    clean();
+    showErr('انتهت المهلة. الخادم مشغول — انتظر دقيقة وأعد المحاولة.');
+  },150000);
 
   tryLoad();
 }
 
 function tryLoad(){
-  const {url,W,H}=buildUrl(S.seed);
+  const{url,W,H}=buildUrl();
   S.lastUrl=url;S._W=W;S._H=H;
+
   const gst=document.getElementById('gst');
-  const pb=document.getElementById('pb');
+  if(S._attempts>0){
+    gst.textContent='🔄 محاولة '+(S._attempts+1)+'/5...';
+  }
 
   const img=new Image();
+  // ⚠️ NO crossOrigin — Pollinations doesn't support CORS headers
   img.onload=()=>{
-    clean();pb.style.width='100%';
-    S._img=img;
+    clean();
+    document.getElementById('pb').style.width='100%';
+    // Show via <img> tag directly (no CORS taint issue)
+    const rimg=document.getElementById('rimg');
+    rimg.src=url;
+    document.getElementById('rc').style.display='none';
     setTimeout(()=>{
-      const rimg=document.getElementById('rimg');
-      if(rimg){rimg.src=S.lastUrl;rimg.style.display='block';}
-      const cv=document.getElementById('rc');
-      if(cv){cv.style.display='none';}
       showOnly('s-result');setStepper(4);saveHist();
     },300);
   };
   img.onerror=()=>{
-    S._attempts=(S._attempts||0)+1;
-    if(S._attempts<=4){
-      const delay=S._attempts*3000;
-      gst.textContent='🔄 محاولة '+S._attempts+'/4 — انتظر '+(delay/1000)+' ث...';
+    S._attempts++;
+    if(S._attempts<5){
+      const wait=S._attempts*4000;
+      gst.textContent='⏳ الخادم مشغول — انتظر '+(wait/1000)+' ث...';
       S.seed=Math.floor(Math.random()*999999)+1;
-      setTimeout(tryLoad, delay);
+      setTimeout(tryLoad,wait);
     } else {
-      clean();showErr('الخادم مشغول حالياً. يرجى الانتظار دقيقة ثم المحاولة مجدداً.');
+      clean();
+      showErr('الخادم مشغول جداً الآن. انتظر دقيقتين وأعد المحاولة.');
     }
   };
   img.src=url;
@@ -559,91 +572,97 @@ function clean(){
   if(_gt){clearTimeout(_gt);_gt=null;}
 }
 
-// CANVAS — draw image + optional text overlay
-function drawCV(withOv){
-  const cv=document.getElementById('rc');
+// TEXT OVERLAY via canvas
+function applyText(){
   const rimg=document.getElementById('rimg');
-  if(!withOv){
-    // Just show the img tag
-    if(rimg){rimg.style.display='block';}
-    if(cv){cv.style.display='none';}
-    return;
-  }
-  // Text overlay mode: use canvas
-  cv.width=S._W;cv.height=S._H;cv.style.display='block';cv.style.position='relative';
-  if(rimg){rimg.style.display='none';}
-  const ctx=cv.getContext('2d');
-  if(!S._img)return;
-  try{ctx.drawImage(S._img,0,0,S._W,S._H);}catch(e){
-    // Tainted canvas — draw background color instead
-    ctx.fillStyle='#0f0f1e';ctx.fillRect(0,0,S._W,S._H);
-    ctx.fillStyle='rgba(124,58,237,0.3)';ctx.fillRect(0,0,S._W,S._H);
-  }
-  if(!withOv)return;
-
+  const cv=document.getElementById('rc');
   const txt=(S.gr||'')+(S.nm?' — '+S.nm:'');
-  if(!txt.trim())return;
+  if(!txt.trim()){alert('أدخل نصاً أو اسماً أولاً');return;}
 
+  // Draw on canvas using img as source
+  const W=S._W,H=S._H;
+  cv.width=W;cv.height=H;
+  const ctx=cv.getContext('2d');
+  const imgEl=new Image();
+  imgEl.crossOrigin='anonymous';
+  imgEl.onload=()=>{
+    try{
+      ctx.drawImage(imgEl,0,0,W,H);
+    }catch(e){
+      ctx.fillStyle='#0f0f1e';ctx.fillRect(0,0,W,H);
+    }
+    drawText(ctx,W,H);
+    cv.style.display='block';cv.style.position='relative';
+    rimg.style.display='none';
+    alert('✓ تم إضافة النص — اضغط تحميل للحفظ');
+  };
+  imgEl.onerror=()=>{
+    // Fallback: draw on blank bg
+    ctx.fillStyle='#0f0f1e';ctx.fillRect(0,0,W,H);
+    drawText(ctx,W,H);
+    cv.style.display='block';cv.style.position='relative';
+    rimg.style.display='none';
+  };
+  imgEl.src=S.lastUrl;
+}
+function drawText(ctx,W,H){
   const szM={sm:.055,md:.07,lg:.09};
-  const bsz=Math.round(S._W*(szM[S.tsz]||.07));
+  const bsz=Math.round(W*(szM[S.tsz]||.07));
   const nsz=Math.round(bsz*.55);
-  const pad=Math.round(S._W*.05);
-  const zone=Math.round(S._H*.30);
-
-  // Gradient at bottom
-  const gr=ctx.createLinearGradient(0,S._H-zone,0,S._H);
+  const pad=Math.round(W*.05);
+  const zone=Math.round(H*.30);
+  const gr=ctx.createLinearGradient(0,H-zone,0,H);
   gr.addColorStop(0,'rgba(0,0,0,0)');
   gr.addColorStop(.4,'rgba(0,0,0,.65)');
   gr.addColorStop(1,'rgba(0,0,0,.9)');
-  ctx.fillStyle=gr;ctx.fillRect(0,S._H-zone,S._W,zone);
-
+  ctx.fillStyle=gr;ctx.fillRect(0,H-zone,W,zone);
   ctx.textAlign='center';ctx.textBaseline='alphabetic';
-  ctx.shadowColor='rgba(0,0,0,.9)';ctx.shadowBlur=14;ctx.shadowOffsetX=2;ctx.shadowOffsetY=2;
-
+  ctx.shadowColor='rgba(0,0,0,.9)';ctx.shadowBlur=12;ctx.shadowOffsetX=2;ctx.shadowOffsetY=2;
   if(S.gr){
     ctx.font='900 '+bsz+'px Tajawal,Arial';ctx.fillStyle=S.tc;
-    const words=S.gr.split(' ');
-    const lines=[];let cur='';
+    const words=S.gr.split(' ');const lines=[];let cur='';
     for(const w of words){
       const test=cur?cur+' '+w:w;
-      if(ctx.measureText(test).width>S._W-pad*2&&cur){lines.push(cur);cur=w;}
+      if(ctx.measureText(test).width>W-pad*2&&cur){lines.push(cur);cur=w;}
       else cur=test;
     }
     if(cur)lines.push(cur);
     const lh=bsz*1.3;
     const tot=lines.length*lh+(S.nm?nsz*2:0);
-    let y=S._H-pad-tot+bsz;
-    lines.forEach(li=>{ctx.fillText(li,S._W/2,y);y+=lh;});
-    if(S.nm){ctx.font='700 '+nsz+'px Tajawal,Arial';ctx.fillStyle='rgba(255,255,255,.75)';ctx.fillText(S.nm,S._W/2,y+5);}
+    let y=H-pad-tot+bsz;
+    lines.forEach(li=>{ctx.fillText(li,W/2,y);y+=lh;});
+    if(S.nm){ctx.font='700 '+nsz+'px Tajawal,Arial';ctx.fillStyle='rgba(255,255,255,.75)';ctx.fillText(S.nm,W/2,y+5);}
   } else if(S.nm){
     ctx.font='700 '+nsz+'px Tajawal,Arial';ctx.fillStyle=S.tc;
-    ctx.fillText(S.nm,S._W/2,S._H-pad-8);
+    ctx.fillText(S.nm,W/2,H-pad-8);
   }
   ctx.shadowColor='transparent';ctx.shadowBlur=0;
 }
-function applyText(){drawCV(true);}
 
 // DOWNLOAD
 function dlResult(){
   const cv=document.getElementById('rc');
-  const isCanvas = cv && cv.style.display==='block';
-  if(isCanvas){
+  if(cv.style.display==='block'||cv.style.display==='relative'){
     try{
       const a=document.createElement('a');
       a.download='سندك-للعيد-'+S.th.n+'-'+Date.now()+'.png';
       a.href=cv.toDataURL('image/png',1);a.click();return;
     }catch(e){}
   }
-  // Direct download from source
+  // Direct open URL
   const a=document.createElement('a');
-  a.href=S.lastUrl;
-  a.download='سندك-للعيد-'+S.th.n+'-'+Date.now()+'.jpg';
-  a.target='_blank';a.rel='noopener';
+  a.href=S.lastUrl;a.target='_blank';a.rel='noopener';
+  a.download='سندك-للعيد-'+S.th.n+'.jpg';
   document.body.appendChild(a);a.click();document.body.removeChild(a);
 }
 
 // ACTIONS
-function regen(){if(!S.th)return;S.seed=Math.floor(Math.random()*99999)+1;generate();}
+function regen(){
+  if(!S.th)return;
+  S.seed=Math.floor(Math.random()*999999)+1;
+  S._attempts=0;
+  generate();
+}
 function newCard(){
   goCreate();
   document.getElementById('iname').value='';
