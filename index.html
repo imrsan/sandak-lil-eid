@@ -331,7 +331,7 @@ const COLORS=[
   {c:'#ffffff',l:'أبيض'},{c:'#fde68a',l:'ذهبي'},{c:'#f5c842',l:'عسلي'},
   {c:'#c084fc',l:'بنفسجي'},{c:'#86efac',l:'أخضر'},{c:'#000000',l:'أسود'},
 ];
-const DIMS={sq:[1024,1024],st:[768,1366],cd:[1366,768]};
+const DIMS={sq:[1024,1024],st:[683,1024],cd:[1024,683]};
 const LUX={
   prem:'ultra high quality cinematic 8K photorealistic',
   cls:'warm classic artistic style',
@@ -487,13 +487,14 @@ function buildUrl(seed){
   return {url,W,H};
 }
 
-// GENERATE
+// GENERATE — smart retry with 503 handling
 let _gt=null,_pi=null;
 function generate(){
   S.nm=document.getElementById('iname').value.trim();
   S.gr=document.getElementById('igreet').value.trim();
   S.sty=document.getElementById('istyle').value;
-  S.seed=Math.floor(Math.random()*99999)+1;
+  S.seed=Math.floor(Math.random()*999999)+1;
+  S._attempts=0;
 
   showOnly('s-gen');setStepper(3);
   document.getElementById('gbadge').textContent=S.th.e+' '+S.th.n;
@@ -510,60 +511,46 @@ function generate(){
   let pct=0,mi=0;
   if(_pi)clearInterval(_pi);
   _pi=setInterval(()=>{
-    pct=Math.min(pct+Math.random()*3.5,87);
+    pct=Math.min(pct+Math.random()*2.5,87);
     pb.style.width=pct+'%';
     if(pct>(mi+1)*17&&mi<msgs.length-1){mi++;gst.textContent=msgs[mi];}
-  },700);
+  },800);
 
+  if(_gt)clearTimeout(_gt);
+  _gt=setTimeout(()=>{clean();showErr('انتهت مهلة الانتظار (120 ثانية). الخادم مشغول — أعد المحاولة.');},120000);
+
+  tryLoad();
+}
+
+function tryLoad(){
   const {url,W,H}=buildUrl(S.seed);
   S.lastUrl=url;S._W=W;S._H=H;
-
-  // Timeout 120s
-  if(_gt)clearTimeout(_gt);
-  _gt=setTimeout(()=>{
-    clean();
-    showErr('انتهت مهلة الانتظار. يرجى تجربة ثيم آخر أو المحاولة مرة أخرى.');
-  },120000);
+  const gst=document.getElementById('gst');
+  const pb=document.getElementById('pb');
 
   const img=new Image();
-  // crossOrigin removed - causes CORS failure with pollinations
   img.onload=()=>{
     clean();pb.style.width='100%';
     S._img=img;
     setTimeout(()=>{
-    // Show image directly via <img> tag - no CORS issues
-    const rimg=document.getElementById('rimg');
-    if(rimg){rimg.src=S.lastUrl;rimg.style.display='block';}
-    const cv=document.getElementById('rc');
-    if(cv){cv.style.display='none';}
-    showOnly('s-result');setStepper(4);saveHist();
-  },350);
+      const rimg=document.getElementById('rimg');
+      if(rimg){rimg.src=S.lastUrl;rimg.style.display='block';}
+      const cv=document.getElementById('rc');
+      if(cv){cv.style.display='none';}
+      showOnly('s-result');setStepper(4);saveHist();
+    },300);
   };
   img.onerror=()=>{
-    // RETRY with different seed automatically
-    if(!S._retry){
-      S._retry=true;
-      gst.textContent='🔄 إعادة المحاولة تلقائياً...';
-      S.seed=Math.floor(Math.random()*99999)+1;
-      const {url:u2,W:W2,H:H2}=buildUrl(S.seed);
-      S.lastUrl=u2;S._W=W2;S._H=H2;
-      const img2=new Image();
-      // no crossOrigin
-      img2.onload=()=>{clean();pb.style.width='100%';S._img=img2;setTimeout(()=>{
-    // Show image directly via <img> tag - no CORS issues
-    const rimg=document.getElementById('rimg');
-    if(rimg){rimg.src=S.lastUrl;rimg.style.display='block';}
-    const cv=document.getElementById('rc');
-    if(cv){cv.style.display='none';}
-    showOnly('s-result');setStepper(4);saveHist();
-  },350);};
-      img2.onerror=()=>{clean();showErr('تعذّر التوليد. تحقق من اتصالك بالإنترنت وأعد المحاولة.');};
-      img2.src=u2;
+    S._attempts=(S._attempts||0)+1;
+    if(S._attempts<=4){
+      const delay=S._attempts*3000;
+      gst.textContent='🔄 محاولة '+S._attempts+'/4 — انتظر '+(delay/1000)+' ث...';
+      S.seed=Math.floor(Math.random()*999999)+1;
+      setTimeout(tryLoad, delay);
     } else {
-      clean();showErr('تعذّر التوليد. تحقق من اتصالك بالإنترنت وأعد المحاولة.');
+      clean();showErr('الخادم مشغول حالياً. يرجى الانتظار دقيقة ثم المحاولة مجدداً.');
     }
   };
-  S._retry=false;
   img.src=url;
 }
 
