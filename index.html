@@ -1,1235 +1,763 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <title>سندك للعيد ✨ — حوّل صورتك إلى تهنئة بالذكاء الاصطناعي</title>
-  <meta name="description" content="ارفع صورتك، اكتب معايدتك، وسندك يولّد تهنئة عيد فريدة بالذكاء الاصطناعي في ثوانٍ">
-  <meta name="theme-color" content="#07071a">
-  <meta property="og:title" content="سندك للعيد ✨">
-  <meta property="og:description" content="حوّل صورتك إلى تهنئة عيد فريدة بالذكاء الاصطناعي">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://san-eid.netlify.app">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>سندك للعيد ✨ — تهنئة بالذكاء الاصطناعي</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
-/* ================================================================
-   DESIGN TOKENS
-================================================================ */
-:root {
-  --c-void:       #04040f;
-  --c-base:       #07071a;
-  --c-raised:     #0d0d26;
-  --c-card:       #111130;
-  --c-card2:      #16163a;
-  --c-glass:      rgba(17,17,48,.84);
-  --c-glass-lt:   rgba(255,255,255,.04);
-  --c-border:     rgba(148,108,255,.18);
-  --c-border-md:  rgba(148,108,255,.32);
-  --c-border-hi:  rgba(168,85,247,.55);
-  --c-v1:         #6d28d9;
-  --c-v2:         #7c3aed;
-  --c-v3:         #a855f7;
-  --c-v4:         #c084fc;
-  --c-gold:       #f5c842;
-  --c-gold2:      #e8a020;
-  --c-gold3:      #fde68a;
-  --c-text:       #ede9fe;
-  --c-muted:      #8b83c0;
-  --c-dim:        #4c477a;
-  --c-danger:     #f87171;
-  --c-ok:         #34d399;
-  --shadow-card:  0 2px 32px rgba(109,40,217,.14), 0 1px 0 rgba(255,255,255,.04) inset;
-  --shadow-glow:  0 0 40px rgba(124,58,237,.28);
-  --shadow-gold:  0 0 28px rgba(245,200,66,.18);
-  --r-card:       22px;
-  --r-btn:        13px;
-  --r-input:      12px;
-  --font:         'Tajawal', sans-serif;
-  --nav-h:        64px;
-  --transition:   .22s cubic-bezier(.4,0,.2,1);
-}
-
-/* ================================================================
-   RESET & BASE
-================================================================ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{
-  font-family:var(--font);
-  background:var(--c-base);
-  color:var(--c-text);
-  min-height:100vh;
-  direction:rtl;
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
+:root{
+  --bg:#04040f;--card:#0f0f1e;--card2:#161626;
+  --glass:rgba(15,15,30,0.9);--b:rgba(255,255,255,0.08);--b2:rgba(255,255,255,0.14);
+  --v1:#5b21b6;--v2:#7c3aed;--v3:#a855f7;
+  --g:#f5c842;--g2:#e8a020;--g3:#fde68a;
+  --t:#ede9fe;--t2:#c4b5fd;--t3:#8b7fa8;--t4:#4a4466;
+  --r:14px;--r2:10px;
 }
-img{display:block;max-width:100%}
-button{font-family:var(--font);cursor:pointer}
-input,textarea{font-family:var(--font)}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t);min-height:100vh;overflow-x:hidden}
 
-/* ================================================================
-   BACKGROUND COSMOS
-================================================================ */
-#cosmos{
-  position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
-}
-#cosmos-gradient{
-  position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 80% 55% at 15% 42%,  rgba(109,40,217,.30) 0%,transparent 60%),
-    radial-gradient(ellipse 60% 40% at 85% 15%,  rgba(168,85,247,.18) 0%,transparent 55%),
-    radial-gradient(ellipse 50% 35% at 60% 85%,  rgba(245,200,66,.07) 0%,transparent 45%),
-    radial-gradient(ellipse 40% 30% at 50%  5%,  rgba(168,85,247,.10) 0%,transparent 50%),
-    linear-gradient(160deg, #04040f 0%,#0b0b28 35%,#160835 60%,#04040f 100%);
-}
-/* moon */
-#cosmos::before{
-  content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);
-  width:220px;height:220px;border-radius:50%;
-  background:radial-gradient(circle,rgba(245,200,66,.12) 0%,transparent 65%);
-}
-/* star layers */
-.star-layer{position:absolute;inset:0;animation:twinkle-a 8s ease-in-out infinite alternate}
-.star-layer:nth-child(2){animation:twinkle-b 11s ease-in-out infinite alternate-reverse}
-.star-layer:nth-child(3){animation:twinkle-a 14s ease-in-out infinite alternate;animation-delay:2s}
-.star-layer::before,.star-layer::after{
-  content:'';position:absolute;inset:0;
-  background-image:
-    radial-gradient(1px   1px at  7% 11%,rgba(255,255,255,.92) 0%,transparent 100%),
-    radial-gradient(1px   1px at 18%  4%,rgba(255,255,255,.70) 0%,transparent 100%),
-    radial-gradient(1.5px 1.5px at 31% 26%,rgba(168,85,247,.88) 0%,transparent 100%),
-    radial-gradient(1px   1px at 47%  8%,rgba(255,255,255,.62) 0%,transparent 100%),
-    radial-gradient(1px   1px at 61% 20%,rgba(255,255,255,.82) 0%,transparent 100%),
-    radial-gradient(1px   1px at 76%  6%,rgba(255,255,255,.68) 0%,transparent 100%),
-    radial-gradient(1.5px 1.5px at 90% 32%,rgba(245,200,66,.55) 0%,transparent 100%),
-    radial-gradient(1px   1px at  3% 44%,rgba(255,255,255,.52) 0%,transparent 100%),
-    radial-gradient(1px   1px at 22% 57%,rgba(168,85,247,.50) 0%,transparent 100%),
-    radial-gradient(1px   1px at 43% 48%,rgba(255,255,255,.72) 0%,transparent 100%),
-    radial-gradient(1.5px 1.5px at 57% 52%,rgba(255,255,255,.58) 0%,transparent 100%),
-    radial-gradient(1px   1px at 72% 64%,rgba(245,200,66,.38) 0%,transparent 100%),
-    radial-gradient(1px   1px at 88% 48%,rgba(255,255,255,.78) 0%,transparent 100%),
-    radial-gradient(1px   1px at 13% 73%,rgba(255,255,255,.48) 0%,transparent 100%),
-    radial-gradient(1px   1px at 28% 84%,rgba(168,85,247,.52) 0%,transparent 100%),
-    radial-gradient(1.5px 1.5px at 53% 78%,rgba(255,255,255,.66) 0%,transparent 100%),
-    radial-gradient(1px   1px at 67% 89%,rgba(255,255,255,.48) 0%,transparent 100%),
-    radial-gradient(1px   1px at 82% 93%,rgba(245,200,66,.42) 0%,transparent 100%),
-    radial-gradient(1px   1px at 95% 77%,rgba(255,255,255,.58) 0%,transparent 100%),
-    radial-gradient(1px   1px at 37% 97%,rgba(168,85,247,.38) 0%,transparent 100%);
-}
-.star-layer:nth-child(2)::before{
-  background-image:
-    radial-gradient(1px 1px at  5% 27%,rgba(255,255,255,.62) 0%,transparent 100%),
-    radial-gradient(1px 1px at 15% 43%,rgba(168,85,247,.48) 0%,transparent 100%),
-    radial-gradient(1.5px 1.5px at 26% 13%,rgba(255,255,255,.82) 0%,transparent 100%),
-    radial-gradient(1px 1px at 40% 61%,rgba(245,200,66,.38) 0%,transparent 100%),
-    radial-gradient(1px 1px at 56% 36%,rgba(255,255,255,.68) 0%,transparent 100%),
-    radial-gradient(1px 1px at 70% 74%,rgba(168,85,247,.48) 0%,transparent 100%),
-    radial-gradient(1.5px 1.5px at 79% 55%,rgba(255,255,255,.72) 0%,transparent 100%),
-    radial-gradient(1px 1px at 92% 18%,rgba(245,200,66,.52) 0%,transparent 100%),
-    radial-gradient(1px 1px at  1% 88%,rgba(255,255,255,.52) 0%,transparent 100%),
-    radial-gradient(1px 1px at 46% 83%,rgba(168,85,247,.55) 0%,transparent 100%);
-}
-@keyframes twinkle-a{0%{opacity:.52}100%{opacity:1}}
-@keyframes twinkle-b{0%{opacity:.38}100%{opacity:.85}}
+/* Stars */
+#stars{position:fixed;inset:0;pointer-events:none;z-index:0}
+.s{position:absolute;border-radius:50%;background:#fff;animation:tw var(--d) ease-in-out infinite var(--dl)}
+@keyframes tw{0%,100%{opacity:.1;transform:scale(1)}50%{opacity:.8;transform:scale(1.4)}}
 
-/* shooting star */
-#shoot{
-  position:absolute;top:18%;left:-10%;
-  width:2px;height:2px;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.9),rgba(245,200,66,.7),transparent);
-  border-radius:2px;
-  animation:shoot 7s linear 4s infinite;
-  transform:rotate(-22deg);
-}
-@keyframes shoot{
-  0%  {left:-5%;top:18%;width:2px;opacity:0}
-  5%  {opacity:1;width:80px}
-  20% {left:110%;top:42%;width:2px;opacity:0}
-  100%{left:110%;opacity:0}
-}
-
-/* ================================================================
-   APP SHELL
-================================================================ */
-#app{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column}
-
-/* ================================================================
-   NAVBAR
-================================================================ */
-#nav{
-  position:sticky;top:0;z-index:300;height:var(--nav-h);
-  background:rgba(4,4,15,.88);
-  border-bottom:1px solid var(--c-border);
-  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+/* Nav */
+nav{
+  position:sticky;top:0;z-index:100;
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 28px;gap:12px;
+  padding:12px 20px;
+  background:rgba(4,4,15,0.85);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--b);
 }
-.nav-logo{
-  font-size:1.12rem;font-weight:900;
-  background:linear-gradient(135deg,var(--c-gold),var(--c-gold2),var(--c-gold3));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  cursor:pointer;user-select:none;white-space:nowrap;letter-spacing:.01em;
-  transition:opacity var(--transition);
+.logo{font-size:18px;font-weight:900;color:var(--g);display:flex;align-items:center;gap:6px}
+.logo span{color:var(--t)}
+.nav-btn{
+  background:linear-gradient(135deg,var(--v2),var(--v1));
+  color:#fff;border:none;padding:8px 18px;border-radius:50px;
+  font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;cursor:pointer;
+  transition:all .2s;
 }
-.nav-logo:hover{opacity:.82}
-.nav-links{display:flex;align-items:center;gap:4px;flex-shrink:0}
-.nav-link{
-  background:none;border:none;color:var(--c-muted);
-  font-size:.875rem;font-weight:600;padding:8px 14px;border-radius:10px;
-  transition:color var(--transition),background var(--transition);white-space:nowrap;
-}
-.nav-link:hover{color:var(--c-text);background:rgba(255,255,255,.06)}
-.nav-link.active{color:var(--c-text)}
-.nav-cta{
-  background:linear-gradient(135deg,var(--c-v2),var(--c-v3));
-  color:#fff!important;border-radius:10px;
-  box-shadow:0 0 18px rgba(124,58,237,.32);
-  transition:box-shadow var(--transition),transform var(--transition),background var(--transition)!important;
-}
-.nav-cta:hover{
-  box-shadow:0 0 32px rgba(124,58,237,.55)!important;
-  transform:translateY(-1px);
-}
+.nav-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(124,58,237,.5)}
 
-/* ================================================================
-   PAGES
-================================================================ */
-.pg{display:none;animation:fadeIn .3s ease both}
-.pg.on{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+/* Screens */
+.screen{display:none;position:relative;z-index:1}
+#s-home{display:block;text-align:center;padding:56px 20px 80px}
 
-/* ================================================================
-   HOME — HERO
-================================================================ */
-.hero{
-  max-width:680px;margin:0 auto;padding:88px 24px 72px;text-align:center;
-}
-.hero-pill{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(124,58,237,.14);
-  border:1px solid rgba(124,58,237,.35);
-  border-radius:100px;padding:7px 20px;
-  font-size:.8rem;font-weight:700;color:var(--c-v3);
-  margin-bottom:28px;letter-spacing:.04em;text-transform:uppercase;
-  animation:fadeIn .5s .1s both;
-}
-.hero h1{
-  font-size:clamp(2.2rem,6vw,3.6rem);font-weight:900;line-height:1.18;
-  margin-bottom:20px;
-  background:linear-gradient(148deg,#ede9fe 20%,#c084fc 52%,var(--c-gold) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  animation:fadeIn .5s .2s both;
-}
-.hero-sub{
-  color:var(--c-muted);font-size:1.05rem;line-height:1.8;
-  margin-bottom:40px;max-width:500px;margin-inline:auto;
-  animation:fadeIn .5s .3s both;
-}
-.hero-cta{
-  display:inline-flex;align-items:center;gap:10px;
-  background:linear-gradient(135deg,var(--c-v2),var(--c-v3));
-  color:#fff;border:none;
-  font-size:1.1rem;font-weight:800;padding:18px 56px;
-  border-radius:var(--r-btn);
-  box-shadow:0 0 32px rgba(124,58,237,.42),0 2px 0 rgba(255,255,255,.1) inset;
-  transition:all var(--transition);
-  animation:fadeIn .5s .4s both;
-}
-.hero-cta:hover{box-shadow:0 0 52px rgba(124,58,237,.65),0 2px 0 rgba(255,255,255,.1) inset;transform:translateY(-2px)}
-.hero-cta:active{transform:translateY(0)}
-
-/* stats row */
-.hero-stats{
-  display:flex;justify-content:center;gap:36px;flex-wrap:wrap;
-  margin-top:52px;padding-top:36px;
-  border-top:1px solid var(--c-border);
-  animation:fadeIn .5s .5s both;
-}
-.stat-n{font-size:1.8rem;font-weight:900;color:var(--c-text);line-height:1}
-.stat-l{font-size:.78rem;color:var(--c-muted);margin-top:4px}
-
-/* features */
-.features{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:16px;max-width:680px;margin:48px auto 0;padding:0 24px 80px;
-}
-.feat{
-  background:var(--c-glass);
-  border:1px solid var(--c-border);
-  backdrop-filter:blur(10px);
-  border-radius:18px;padding:28px 20px;text-align:center;
-  transition:border-color var(--transition),transform var(--transition),box-shadow var(--transition);
-  animation:fadeIn .5s both;
-}
-.feat:nth-child(1){animation-delay:.15s}
-.feat:nth-child(2){animation-delay:.25s}
-.feat:nth-child(3){animation-delay:.35s}
-.feat:nth-child(4){animation-delay:.45s}
-.feat:hover{border-color:var(--c-border-md);transform:translateY(-3px);box-shadow:var(--shadow-glow)}
-.feat-ico{font-size:2rem;margin-bottom:12px}
-.feat-t{font-size:.9rem;font-weight:800;color:var(--c-text);margin-bottom:5px}
-.feat-d{font-size:.78rem;color:var(--c-muted);line-height:1.55}
-
-/* ================================================================
-   HOW IT WORKS
-================================================================ */
-.how{
-  max-width:720px;margin:0 auto;padding:0 24px 80px;text-align:center;
-}
-.section-title{
-  font-size:1.6rem;font-weight:900;
-  background:linear-gradient(135deg,var(--c-text),var(--c-v3));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  margin-bottom:8px;
-}
-.section-sub{color:var(--c-muted);font-size:.9rem;margin-bottom:36px}
-.steps-how{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px}
-.step-how{
-  background:var(--c-glass);border:1px solid var(--c-border);
-  border-radius:18px;padding:28px 18px;position:relative;overflow:hidden;
-}
-.step-how::before{
-  content:attr(data-n);
-  position:absolute;top:-8px;right:-6px;
-  font-size:5rem;font-weight:900;
-  color:rgba(124,58,237,.07);line-height:1;pointer-events:none;
-}
-.step-how-ico{font-size:1.8rem;margin-bottom:12px}
-.step-how-t{font-size:.88rem;font-weight:800;margin-bottom:6px}
-.step-how-d{font-size:.76rem;color:var(--c-muted);line-height:1.5}
-
-/* ================================================================
-   GENERATOR PAGE
-================================================================ */
-#gen-main{max-width:660px;width:100%;margin:0 auto;padding:32px 20px 60px}
-
-/* ── step progress bar ── */
-#step-bar{
-  display:flex;align-items:center;justify-content:center;
-  gap:0;margin-bottom:32px;
-  direction:rtl;
-}
-.sb-item{display:flex;align-items:center;gap:7px}
-.sb-dot{
-  width:36px;height:36px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.8rem;font-weight:800;flex-shrink:0;
-  transition:all .35s cubic-bezier(.4,0,.2,1);
-  border:2px solid transparent;
-}
-.sb-dot.idle{background:rgba(148,108,255,.1);border-color:var(--c-border);color:var(--c-dim)}
-.sb-dot.done{
-  background:linear-gradient(135deg,var(--c-v1),var(--c-v2));
-  color:#fff;box-shadow:0 0 14px rgba(109,40,217,.4);
-}
-.sb-dot.cur{
-  background:linear-gradient(135deg,var(--c-v2),var(--c-v3));
-  color:#fff;
-  box-shadow:0 0 22px rgba(124,58,237,.55),0 0 0 4px rgba(124,58,237,.15);
-}
-.sb-lbl{font-size:.76rem;color:var(--c-dim);white-space:nowrap;font-weight:600;transition:color .3s}
-.sb-lbl.cur{color:var(--c-text);font-weight:700}
-.sb-lbl.done{color:var(--c-v3)}
-.sb-line{flex:1;height:1px;min-width:20px;max-width:48px;background:var(--c-border);transition:background .4s}
-.sb-line.done{background:var(--c-v2)}
-
-/* ── card ── */
-.card{
-  background:var(--c-glass);
-  border:1px solid var(--c-border);
-  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-  border-radius:var(--r-card);padding:32px;
-  box-shadow:var(--shadow-card);
-  animation:slideCard .38s cubic-bezier(.4,0,.2,1) both;
-}
-@keyframes slideCard{
-  from{opacity:0;transform:translateY(22px) scale(.98)}
-  to{opacity:1;transform:translateY(0) scale(1)}
-}
-.card-title{font-size:1.32rem;font-weight:900;color:var(--c-text);margin-bottom:4px}
-.card-sub{font-size:.84rem;color:var(--c-muted);margin-bottom:24px;line-height:1.5}
-
-/* ── upload zone ── */
-.upload-zone{
-  position:relative;border:2px dashed var(--c-border);
-  border-radius:18px;padding:56px 24px;text-align:center;
-  cursor:pointer;overflow:hidden;
-  transition:border-color var(--transition),background var(--transition),box-shadow var(--transition);
-}
-.upload-zone:hover,.upload-zone.drag{
-  border-color:var(--c-border-hi);
-  background:rgba(124,58,237,.06);
-  box-shadow:0 0 32px rgba(124,58,237,.14);
-}
-.upload-zone input[type=file]{
-  position:absolute;inset:0;opacity:0;cursor:pointer;
-  width:100%;height:100%;
-  z-index:10;          /* must sit above all child text/icons */
-  font-size:16px;      /* prevents iOS zoom on tap            */
-}
-.upload-ico{font-size:3.4rem;margin-bottom:16px;display:block;
-  filter:drop-shadow(0 0 12px rgba(168,85,247,.4));
-}
-.upload-title{font-size:1.05rem;font-weight:800;margin-bottom:8px}
-.upload-hint{font-size:.8rem;color:var(--c-muted);line-height:1.6}
-.upload-badges{
-  display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:14px;
-}
+/* Hero */
 .badge{
-  background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.22);
-  border-radius:100px;padding:3px 10px;font-size:.72rem;color:var(--c-v3);font-weight:700;
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.2);
+  color:var(--g);padding:7px 16px;border-radius:50px;
+  font-size:12px;font-weight:600;margin-bottom:24px;
+}
+h1{font-size:clamp(32px,7vw,66px);font-weight:900;line-height:1.1;margin-bottom:18px;letter-spacing:-1px}
+h1 .l1{color:var(--t)}
+h1 .l2{background:linear-gradient(135deg,var(--g),var(--v3) 60%,var(--g3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sub{font-size:16px;color:var(--t2);max-width:500px;margin:0 auto 36px;line-height:1.7}
+.hero-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--g2),var(--g));
+  color:#000;border:none;padding:15px 34px;border-radius:50px;
+  font-family:'Tajawal',sans-serif;font-size:17px;font-weight:800;
+  cursor:pointer;transition:all .3s;box-shadow:0 6px 28px rgba(245,200,66,.3);
+}
+.hero-btn:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(245,200,66,.5)}
+.stats{display:flex;justify-content:center;gap:32px;margin-top:44px;flex-wrap:wrap}
+.stat .n{font-size:26px;font-weight:900;color:var(--g)}
+.stat .l{font-size:11px;color:var(--t3);margin-top:2px}
+
+/* Strip */
+.strip{margin-top:52px;overflow:hidden;position:relative}
+.strip::before,.strip::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+.strip::before{right:0;background:linear-gradient(to left,var(--bg),transparent)}
+.strip::after{left:0;background:linear-gradient(to right,var(--bg),transparent)}
+.track{display:flex;gap:12px;animation:sx 40s linear infinite}
+@keyframes sx{to{transform:translateX(-50%)}}
+.ex{flex-shrink:0;width:140px;height:180px;border-radius:var(--r);border:1px solid var(--b);overflow:hidden;position:relative}
+.ex .ol{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:10px;background:linear-gradient(to top,rgba(0,0,0,.85),transparent 50%)}
+.ex .ol span{font-size:11px;color:#fff;font-weight:700}
+
+/* Create screen */
+#s-create{padding:0 0 80px}
+.stepper{display:flex;align-items:center;justify-content:center;padding:18px;gap:0}
+.sc{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;
+  border:2px solid var(--b2);background:var(--card);color:var(--t3);
+  transition:all .3s;flex-shrink:0;
+}
+.sc.active{background:linear-gradient(135deg,var(--v2),var(--v1));color:#fff;border-color:transparent;box-shadow:0 0 0 3px rgba(124,58,237,.25)}
+.sc.done{background:linear-gradient(135deg,#10b981,#059669);color:#fff;border-color:transparent}
+.sl{width:36px;height:2px;background:var(--b);margin:0 3px;transition:background .3s}
+.sl.done{background:var(--v2)}
+.fc{max-width:720px;margin:0 auto;padding:0 14px}
+.card{background:var(--glass);border:1px solid var(--b);border-radius:var(--r);padding:22px;backdrop-filter:blur(12px);margin-bottom:12px}
+.ctitle{font-size:14px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:7px}
+.ctitle .ic{font-size:18px}
+
+/* Themes */
+.tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}
+.tc{border-radius:var(--r2);overflow:hidden;cursor:pointer;border:2px solid var(--b);transition:all .2s;position:relative;aspect-ratio:3/4}
+.tc:hover{border-color:var(--v3);transform:translateY(-2px)}
+.tc.sel{border-color:var(--g);box-shadow:0 0 0 3px rgba(245,200,66,.2)}
+.tb{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:8px}
+.te{font-size:28px}
+.tn{font-size:10px;font-weight:700;color:#fff;text-align:center;text-shadow:0 1px 4px rgba(0,0,0,.9)}
+.ts{font-size:8px;color:rgba(255,255,255,.6);text-align:center}
+.tchk{position:absolute;top:6px;left:6px;width:18px;height:18px;border-radius:50%;background:var(--g);display:none;align-items:center;justify-content:center;font-size:9px;color:#000}
+.tc.sel .tchk{display:flex}
+
+/* Fields */
+.f{margin-bottom:12px}
+.f label{display:block;font-size:11px;font-weight:600;color:var(--t2);margin-bottom:5px}
+.f input,.f textarea,.f select{
+  width:100%;background:rgba(255,255,255,.05);border:1px solid var(--b2);
+  border-radius:8px;padding:10px 12px;
+  font-family:'Tajawal',sans-serif;font-size:14px;color:var(--t);
+  outline:none;transition:border-color .2s;resize:vertical;
+}
+.f input:focus,.f textarea:focus,.f select:focus{border-color:var(--v3)}
+.f textarea{min-height:70px}
+.f select{appearance:none;cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{
+  padding:5px 10px;border-radius:50px;font-size:11px;font-weight:600;
+  background:rgba(255,255,255,.06);border:1px solid var(--b);
+  color:var(--t2);cursor:pointer;transition:all .15s;
+}
+.chip:hover{background:rgba(124,58,237,.2);border-color:var(--v3);color:var(--t)}
+.fmts{display:flex;gap:8px}
+.fmt{
+  flex:1;padding:10px 4px;border-radius:8px;border:2px solid var(--b);
+  background:var(--card);cursor:pointer;transition:all .2s;text-align:center;
+}
+.fmt.act{border-color:var(--v3);background:rgba(124,58,237,.15)}
+.fi{font-size:18px;display:block;margin-bottom:2px}
+.fl{font-size:10px;font-weight:700;color:var(--t2)}
+
+/* Buttons */
+.gbtn{
+  width:100%;padding:15px;border-radius:50px;border:none;
+  background:linear-gradient(135deg,var(--g2),var(--g));
+  color:#000;font-family:'Tajawal',sans-serif;font-size:16px;font-weight:800;
+  cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 5px 24px rgba(245,200,66,.28);
+}
+.gbtn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 32px rgba(245,200,66,.42)}
+.gbtn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.ghost{
+  padding:12px 20px;border-radius:50px;border:1px solid var(--b2);
+  background:transparent;color:var(--t2);font-family:'Tajawal',sans-serif;
+  font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;
+}
+.ghost:hover{background:rgba(255,255,255,.06)}
+
+/* Generating */
+#s-gen{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;padding:40px 20px;text-align:center}
+.orb{
+  width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle,var(--v2),var(--v1) 55%,transparent 75%);
+  display:flex;align-items:center;justify-content:center;font-size:40px;
+  margin:0 auto 24px;animation:po 2s ease-in-out infinite;
+  box-shadow:0 0 56px rgba(124,58,237,.45);
+}
+@keyframes po{0%,100%{transform:scale(1);box-shadow:0 0 40px rgba(124,58,237,.35)}50%{transform:scale(1.08);box-shadow:0 0 80px rgba(124,58,237,.65)}}
+.gt{font-size:21px;font-weight:800;margin-bottom:6px}
+.gsub{font-size:13px;color:var(--t3);margin-bottom:24px}
+.pbw{width:240px;height:4px;background:var(--b);border-radius:2px;overflow:hidden;margin:0 auto 12px}
+.pb{height:100%;background:linear-gradient(90deg,var(--v2),var(--g));border-radius:2px;width:0;transition:width .5s ease}
+.gst{font-size:12px;color:var(--t3)}
+.gbadge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.06);border:1px solid var(--b);
+  padding:7px 14px;border-radius:50px;font-size:12px;font-weight:600;
+  color:var(--t2);margin-bottom:18px;
 }
 
-/* ── preview ── */
-.preview-box{
-  position:relative;border-radius:16px;overflow:hidden;margin-bottom:22px;
-  border:2px solid var(--c-border);box-shadow:0 4px 24px rgba(109,40,217,.16);
+/* Result */
+#s-result{display:none;padding:16px 16px 80px}
+.rw{max-width:560px;margin:0 auto}
+.rt{text-align:center;font-size:20px;font-weight:800;margin-bottom:3px}
+.rs{text-align:center;font-size:12px;color:var(--t3);margin-bottom:18px}
+.rf{border-radius:var(--r);overflow:hidden;border:1px solid var(--b2);background:var(--card);box-shadow:0 16px 56px rgba(0,0,0,.6);position:relative}
+#rc{display:block;width:100%;height:auto}
+.ract{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.bdl{
+  padding:13px;border-radius:var(--r2);border:none;
+  background:linear-gradient(135deg,var(--g2),var(--g));
+  color:#000;font-family:'Tajawal',sans-serif;font-size:14px;font-weight:800;
+  cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;
 }
-.preview-box img{width:100%;max-height:280px;object-fit:cover;display:block}
-.preview-overlay{
-  position:absolute;inset:0;background:linear-gradient(to top,rgba(4,4,15,.7),transparent 45%);
-  display:flex;align-items:flex-end;justify-content:flex-start;padding:14px 16px;
+.bdl:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(245,200,66,.38)}
+.brg{
+  padding:13px;border-radius:var(--r2);border:1px solid var(--v3);
+  background:rgba(124,58,237,.12);color:var(--t);
+  font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;
+  cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;
 }
-.preview-tag{
-  background:rgba(124,58,237,.75);backdrop-filter:blur(8px);
-  border-radius:100px;padding:5px 14px;font-size:.76rem;font-weight:700;color:#fff;
+.brg:hover{background:rgba(124,58,237,.28)}
+.bnw{
+  grid-column:span 2;padding:12px;border-radius:var(--r2);
+  border:1px solid var(--b);background:rgba(255,255,255,.02);
+  color:var(--t3);font-family:'Tajawal',sans-serif;font-size:12px;font-weight:600;
+  cursor:pointer;transition:all .2s;
 }
-.btn-reup{
-  display:block;width:100%;background:none;border:1px dashed var(--c-border);
-  border-radius:10px;padding:9px;font-size:.8rem;font-weight:600;color:var(--c-muted);
-  margin-bottom:22px;transition:all var(--transition);
-}
-.btn-reup:hover{border-color:var(--c-border-hi);color:var(--c-v3);background:rgba(124,58,237,.06)}
+.bnw:hover{background:rgba(255,255,255,.06);color:var(--t)}
 
-/* ── style picker ── */
-.styles-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:24px}
-.style-btn{
-  background:rgba(17,17,48,.65);border:2px solid var(--c-border);
-  border-radius:14px;padding:14px 8px;text-align:center;
-  transition:all var(--transition);
-  display:flex;flex-direction:column;align-items:center;gap:5px;
-}
-.style-btn:hover{border-color:var(--c-border-md);background:rgba(124,58,237,.09);transform:translateY(-1px)}
-.style-btn.sel{
-  border-color:var(--c-v3);background:rgba(124,58,237,.16);
-  box-shadow:0 0 16px rgba(124,58,237,.20),0 0 0 1px rgba(168,85,247,.18) inset;
-}
-.style-emo{font-size:1.6rem;line-height:1}
-.style-name{font-size:.75rem;font-weight:700;color:var(--c-muted)}
-.style-btn.sel .style-name{color:var(--c-text)}
+/* Text overlay */
+.ov{background:var(--glass);border:1px solid var(--b);border-radius:var(--r2);padding:16px;margin-top:10px;backdrop-filter:blur(12px)}
+.ovt{font-size:12px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.cr{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:9px}
+.cs{width:24px;height:24px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all .15s}
+.cs.act{border-color:#fff;transform:scale(1.18)}
+.szr{display:flex;gap:6px;margin-bottom:10px}
+.sz{padding:5px 12px;border-radius:50px;font-size:10px;font-weight:700;background:var(--card2);border:1px solid var(--b);color:var(--t3);cursor:pointer;font-family:'Tajawal',sans-serif}
+.sz.act{background:rgba(124,58,237,.22);border-color:var(--v3);color:var(--t)}
+.abtn{width:100%;padding:10px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--v2),var(--v1));color:#fff;font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;cursor:pointer}
 
-/* ── labels ── */
-.label{display:block;font-size:.83rem;font-weight:700;color:var(--c-muted);margin-bottom:9px;margin-top:18px}
-.label:first-child{margin-top:0}
+/* History */
+.hw{margin-top:20px}
+.ht{font-size:12px;font-weight:700;color:var(--t3);margin-bottom:8px}
+.hg{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:7px}
+.hi{border-radius:8px;overflow:hidden;cursor:pointer;border:1px solid var(--b);transition:all .2s;aspect-ratio:1;background:var(--card)}
+.hi img{width:100%;height:100%;object-fit:cover;display:block}
+.hi:hover{border-color:var(--v3);transform:scale(1.03)}
 
-/* ── inputs ── */
-textarea,input[type=text]{
-  width:100%;background:rgba(4,4,15,.75);
-  border:1px solid var(--c-border);border-radius:var(--r-input);
-  padding:14px 16px;color:var(--c-text);
-  font-size:.97rem;direction:rtl;outline:none;
-  transition:border-color var(--transition),box-shadow var(--transition);
-  -webkit-appearance:none;
-}
-textarea{resize:vertical;min-height:90px}
-textarea:focus,input[type=text]:focus{
-  border-color:var(--c-v3);
-  box-shadow:0 0 0 3px rgba(168,85,247,.14);
-}
-textarea::placeholder,input::placeholder{color:rgba(140,130,192,.4)}
+/* Error */
+#s-err{display:none;padding:40px 16px;text-align:center}
+.ei{font-size:48px;margin-bottom:12px}
+.etitle{font-size:19px;font-weight:800;color:#f87171;margin-bottom:6px}
+.emsg{font-size:13px;color:var(--t3);margin-bottom:24px;max-width:360px;margin-left:auto;margin-right:auto;line-height:1.6}
+.eact{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 
-/* char counter */
-.char-count{text-align:left;font-size:.74rem;color:var(--c-dim);margin-top:5px}
-.char-count.warn{color:#fb923c}
-
-/* ── buttons ── */
-.btn{
-  display:flex;align-items:center;justify-content:center;gap:9px;
-  width:100%;padding:16px 28px;
-  font-size:1rem;font-weight:800;border-radius:var(--r-btn);
-  border:none;transition:all var(--transition);
-  letter-spacing:.01em;
-}
-.btn-primary{
-  background:linear-gradient(135deg,var(--c-v2) 0%,var(--c-v3) 100%);
-  color:#fff;
-  box-shadow:0 0 24px rgba(124,58,237,.38),0 2px 0 rgba(255,255,255,.08) inset;
-}
-.btn-primary:hover:not(:disabled){
-  box-shadow:0 0 40px rgba(124,58,237,.58),0 2px 0 rgba(255,255,255,.08) inset;
-  transform:translateY(-2px);
-}
-.btn-primary:active:not(:disabled){transform:translateY(0)}
-.btn-primary:disabled{opacity:.38;cursor:not-allowed;transform:none!important}
-.btn-ghost{
-  background:transparent;color:var(--c-muted);
-  border:1px solid var(--c-border);
-}
-.btn-ghost:hover{border-color:var(--c-border-md);color:var(--c-text);background:rgba(255,255,255,.03)}
-.btn-gold{
-  background:linear-gradient(135deg,var(--c-gold),var(--c-gold2));
-  color:#180900;font-weight:900;
-  box-shadow:var(--shadow-gold),0 2px 0 rgba(255,255,255,.15) inset;
-}
-.btn-gold:hover{box-shadow:0 0 42px rgba(245,200,66,.45),0 2px 0 rgba(255,255,255,.15) inset;transform:translateY(-2px)}
-.btn-danger{background:rgba(248,113,113,.15);color:var(--c-danger);border:1px solid rgba(248,113,113,.28)}
-.btn-danger:hover{background:rgba(248,113,113,.22);border-color:rgba(248,113,113,.45)}
-.btn-row{display:flex;gap:10px}
-.btn-row .btn{flex:1;width:auto}
-.mt1{margin-top:10px}
-.mt2{margin-top:14px}
-.mt3{margin-top:20px}
-
-/* ── generating ── */
-.gen-wrap{text-align:center;padding:52px 24px}
-.spinner-ring{
-  width:68px;height:68px;margin:0 auto 28px;border-radius:50%;
-  border:3px solid rgba(124,58,237,.16);
-  border-top-color:var(--c-v3);
-  border-right-color:var(--c-v4);
-  animation:spin .8s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-.gen-title{font-size:1.3rem;font-weight:900;margin-bottom:8px}
-.gen-sub{color:var(--c-muted);font-size:.88rem;min-height:22px;transition:all .3s}
-.dots{display:flex;justify-content:center;gap:7px;margin-top:24px}
-.dots span{
-  width:9px;height:9px;border-radius:50%;
-  background:linear-gradient(135deg,var(--c-v2),var(--c-v3));
-  animation:dot-pulse 1.4s ease-in-out infinite;
-}
-.dots span:nth-child(2){animation-delay:.18s}
-.dots span:nth-child(3){animation-delay:.36s}
-@keyframes dot-pulse{0%,100%{transform:scale(.65);opacity:.38}50%{transform:scale(1.2);opacity:1}}
-
-/* ── result ── */
-.result-img-wrap{
-  border-radius:18px;overflow:hidden;
-  border:2px solid rgba(245,200,66,.22);
-  box-shadow:0 8px 40px rgba(109,40,217,.28),0 0 60px rgba(245,200,66,.06);
-  margin-bottom:22px;position:relative;
-}
-.result-img-wrap img{width:100%;display:block}
-.result-share-badge{
-  position:absolute;top:14px;right:14px;
-  background:rgba(245,200,66,.88);backdrop-filter:blur(8px);
-  border-radius:100px;padding:6px 14px;
-  font-size:.76rem;font-weight:800;color:#180900;
-}
-
-/* ── error box ── */
-.err-box{
-  background:rgba(248,113,113,.08);
-  border:1px solid rgba(248,113,113,.25);
-  border-radius:14px;padding:22px;text-align:center;
-  margin-bottom:18px;
-}
-.err-ico{font-size:2rem;margin-bottom:10px}
-.err-title{font-size:1rem;font-weight:800;color:var(--c-danger);margin-bottom:5px}
-.err-msg{font-size:.84rem;color:rgba(248,113,113,.78);line-height:1.55}
-
-/* ── success toast ── */
-#toast{
-  position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);
-  background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.3);
-  border-radius:100px;padding:12px 24px;
-  font-size:.86rem;font-weight:700;color:var(--c-ok);
-  backdrop-filter:blur(12px);z-index:999;
-  transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .4s;
-  opacity:0;white-space:nowrap;
-}
-#toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-
-/* ================================================================
-   LIBRARY PAGE
-================================================================ */
-.library-empty{
-  max-width:400px;margin:80px auto;text-align:center;padding:0 24px;
-}
-.library-empty-ico{font-size:4rem;margin-bottom:20px;opacity:.6}
-.library-empty-t{font-size:1.1rem;font-weight:800;margin-bottom:8px}
-.library-empty-d{color:var(--c-muted);font-size:.88rem}
-
-/* ================================================================
-   FOOTER
-================================================================ */
-#footer{
-  position:relative;z-index:1;
-  background:rgba(4,4,15,.72);
-  border-top:1px solid var(--c-border);
-  padding:24px 28px;
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
-}
-.footer-brand{
-  font-weight:900;font-size:.9rem;
-  background:linear-gradient(135deg,var(--c-gold),var(--c-gold2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.footer-copy{color:var(--c-dim);font-size:.78rem}
-.footer-links{display:flex;gap:16px}
-.footer-link{color:var(--c-dim);font-size:.78rem;text-decoration:none;transition:color .2s}
-.footer-link:hover{color:var(--c-muted)}
-
-/* ================================================================
-   RESPONSIVE
-================================================================ */
-@media(max-width:520px){
-  #nav{padding:0 16px}
-  .nav-link:not(.nav-cta){display:none}
-  .hero{padding:60px 18px 48px}
-  .hero h1{font-size:2rem}
-  .features{padding:0 18px 60px;gap:12px}
-  #gen-main{padding:24px 14px 48px}
-  .card{padding:22px 16px}
-  .styles-grid{grid-template-columns:repeat(2,1fr)}
-  .sb-lbl{display:none}
-  .sb-line{min-width:14px;max-width:24px}
-  .btn-row{flex-direction:column}
-  #footer{justify-content:center;text-align:center}
-  .footer-links{display:none}
-}
-@media(max-width:380px){
-  .styles-grid{grid-template-columns:repeat(2,1fr)}
-  .sb-dot{width:30px;height:30px;font-size:.72rem}
+footer{text-align:center;padding:20px;font-size:11px;color:var(--t4);border-top:1px solid var(--b);position:relative;z-index:1}
+.hidden{display:none!important}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--v1);border-radius:2px}
+@media(max-width:480px){
+  .tg{grid-template-columns:repeat(3,1fr)}
+  .ract{grid-template-columns:1fr}
+  .bnw{grid-column:span 1}
 }
 </style>
 </head>
 <body>
 
-<!-- COSMOS BACKGROUND -->
-<div id="cosmos">
-  <div id="cosmos-gradient"></div>
-  <div class="star-layer"></div>
-  <div class="star-layer"></div>
-  <div class="star-layer"></div>
-  <div id="shoot"></div>
+<div id="stars"></div>
+
+<nav>
+  <div class="logo">✦ <span>سندك للعيد</span></div>
+  <button class="nav-btn" onclick="goCreate()">✦ ولّد تهنئة</button>
+</nav>
+
+<!-- HOME -->
+<div id="s-home" class="screen">
+  <div class="badge">🎊 مجاني 100% · Pollinations.ai · بدون تسجيل</div>
+  <h1>
+    <span class="l1">صمّم تهنئة العيد<br></span>
+    <span class="l2">بالذكاء الاصطناعي</span>
+  </h1>
+  <p class="sub">20 ثيماً فاخراً، اكتب اسمك ورسالتك، وولّد صورة تهنئة عيد احترافية في ثوانٍ — مجاناً</p>
+  <button class="hero-btn" onclick="goCreate()">✦ ابدأ الآن — مجاناً</button>
+  <div class="stats">
+    <div class="stat"><div class="n">20</div><div class="l">ثيماً فاخراً</div></div>
+    <div class="stat"><div class="n">∞</div><div class="l">توليد بلا حدود</div></div>
+    <div class="stat"><div class="n">0﷼</div><div class="l">مجاني تماماً</div></div>
+    <div class="stat"><div class="n">1024p</div><div class="l">جودة عالية</div></div>
+  </div>
+  <div class="strip"><div class="track" id="track"></div></div>
 </div>
 
-<div id="app">
-
-  <!-- ═══════ NAVBAR ═══════ -->
-  <nav id="nav">
-    <div class="nav-logo" onclick="goPage('home')">سندك للعيد ✨</div>
-    <div class="nav-links">
-      <button type="button" class="nav-link" id="nl-home"    onclick="goPage('home')">الرئيسية</button>
-      <button type="button" class="nav-link" id="nl-library" onclick="goPage('library')">مكتبتي 📚</button>
-      <button type="button" class="nav-link nav-cta"         onclick="goPage('generate')">ولّد تهنئة ✨</button>
-    </div>
-  </nav>
-
-  <!-- ═══════ HOME PAGE ═══════ -->
-  <div id="pg-home" class="pg on">
-
-    <div class="hero">
-      <div class="hero-pill">✨ مدعوم بالذكاء الاصطناعي</div>
-      <h1>هنّئ أحبابك<br>بطريقة لا تُنسى</h1>
-      <p class="hero-sub">
-        ارفع صورتك، اكتب معايدتك، واختر أسلوبك —
-        وسندك يحوّلها إلى تهنئة عيد استثنائية في ثوانٍ ✨
-      </p>
-      <button type="button" class="hero-cta" onclick="goPage('generate')">
-        🎉 ولّد تهنئتك الآن
-      </button>
-
-      <div class="hero-stats">
-        <div>
-          <div class="stat-n">6</div>
-          <div class="stat-l">أساليب فنية</div>
-        </div>
-        <div>
-          <div class="stat-n">20<span style="font-size:1rem">MB</span></div>
-          <div class="stat-l">حد الصورة</div>
-        </div>
-        <div>
-          <div class="stat-n">30<span style="font-size:1rem">ث</span></div>
-          <div class="stat-l">وقت التوليد</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="features">
-      <div class="feat">
-        <div class="feat-ico">📸</div>
-        <div class="feat-t">ارفع صورتك</div>
-        <div class="feat-d">PNG · JPG · HEIC حتى 20MB — تُضغط تلقائياً</div>
-      </div>
-      <div class="feat">
-        <div class="feat-ico">🎨</div>
-        <div class="feat-t">6 أساليب فنية</div>
-        <div class="feat-d">كلاسيكي، ذهبي، ورود، هندسي، طبيعة، احتفالي</div>
-      </div>
-      <div class="feat">
-        <div class="feat-ico">✍️</div>
-        <div class="feat-t">معايدتك بلغتك</div>
-        <div class="feat-d">اكتب نص عيدك بالعربي وأضف اسمك</div>
-      </div>
-      <div class="feat">
-        <div class="feat-ico">⬇️</div>
-        <div class="feat-t">تنزيل فوري</div>
-        <div class="feat-d">احفظ تهنئتك بجودة عالية وشاركها</div>
-      </div>
-    </div>
-
-    <div class="how">
-      <h2 class="section-title">كيف يعمل سندك؟</h2>
-      <p class="section-sub">أربع خطوات بسيطة وتهنئتك جاهزة</p>
-      <div class="steps-how">
-        <div class="step-how" data-n="1">
-          <div class="step-how-ico">📤</div>
-          <div class="step-how-t">ارفع صورتك</div>
-          <div class="step-how-d">اختر صورة واضحة منك أو من أحبابك</div>
-        </div>
-        <div class="step-how" data-n="2">
-          <div class="step-how-ico">🎨</div>
-          <div class="step-how-t">اختر الأسلوب</div>
-          <div class="step-how-d">6 أساليب فنية راقية تناسب ذوقك</div>
-        </div>
-        <div class="step-how" data-n="3">
-          <div class="step-how-ico">✍️</div>
-          <div class="step-how-t">أضف معايدتك</div>
-          <div class="step-how-d">اكتب كلماتك المميزة واسمك</div>
-        </div>
-        <div class="step-how" data-n="4">
-          <div class="step-how-ico">✨</div>
-          <div class="step-how-t">احصل على تهنئتك</div>
-          <div class="step-how-d">الذكاء الاصطناعي يولّد تهنئتك خلال ثوانٍ</div>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /home -->
-
-  <!-- ═══════ GENERATE PAGE ═══════ -->
-  <div id="pg-generate" class="pg">
-    <main id="gen-main">
-
-      <!-- step bar -->
-      <div id="step-bar"></div>
-
-      <!-- UPLOAD -->
-      <div id="ui-upload">
-        <div class="card">
-          <div class="card-title">📸 ارفع صورتك</div>
-          <div class="card-sub">صورة واضحة لك أو لمن تريد تهنئته — PNG · JPG · HEIC حتى 20MB</div>
-          <div class="upload-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
-            <input type="file" id="file-input" accept="image/*,.heic,.heif" style="display:none">
-            <span class="upload-ico">🖼️</span>
-            <div class="upload-title">ارفع صورتك هنا</div>
-            <div class="upload-hint">اسحب وأفلت · أو اضغط للاختيار من هاتفك أو جهازك</div>
-            <div class="upload-badges">
-              <span class="badge">PNG</span>
-              <span class="badge">JPG</span>
-              <span class="badge">HEIC</span>
-              <span class="badge">حتى 20MB</span>
-              <span class="badge">ضغط تلقائي ✨</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SETUP -->
-      <div id="ui-setup" style="display:none">
-        <div class="card">
-          <div class="card-title">✍️ خصّص تهنئتك</div>
-          <div class="card-sub">اختر الأسلوب الفني واكتب كلماتك المميزة</div>
-
-          <!-- image preview -->
-          <div class="preview-box">
-            <img id="preview-img" src="" alt="صورتك">
-            <div class="preview-overlay">
-              <span class="preview-tag">📸 صورتك جاهزة</span>
-            </div>
-          </div>
-          <button type="button" class="btn-reup" id="btn-reup">🔄 تغيير الصورة</button>
-
-          <!-- styles -->
-          <span class="label">اختر الأسلوب الفني 🎨</span>
-          <div class="styles-grid" id="styles-grid"></div>
-
-          <!-- greeting -->
-          <span class="label">نص المعايدة ✨</span>
-          <textarea
-            id="greeting-ta"
-            dir="rtl" lang="ar"
-            autocomplete="off" spellcheck="false"
-            maxlength="280"
-            placeholder="مثال: عيد مبارك وكل عام وأنتم بخير، أسأل الله أن يعيده عليكم بالخير واليُمن والبركات 🌙"
-          ></textarea>
-          <div class="char-count" id="greeting-count">0 / 280</div>
-
-          <!-- name -->
-          <span class="label">اسمك (اختياري)</span>
-          <input
-            type="text"
-            id="name-in"
-            dir="rtl" lang="ar"
-            autocomplete="off" spellcheck="false"
-            maxlength="60"
-            placeholder="مثال: سند"
-          >
-
-          <button type="button" class="btn btn-primary mt3" id="btn-gen">
-            🎨 ولّد التهنئة
-          </button>
-        </div>
-      </div>
-
-      <!-- GENERATING -->
-      <div id="ui-gen" style="display:none">
-        <div class="card">
-          <div class="gen-wrap">
-            <div class="spinner-ring"></div>
-            <div class="gen-title">جاري إنشاء تهنئتك...</div>
-            <div class="gen-sub" id="gen-sub-txt">يرجى الانتظار لحظات ✨</div>
-            <div class="dots"><span></span><span></span><span></span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- RESULT -->
-      <div id="ui-result" style="display:none">
-        <div class="card">
-          <div class="card-title">🎉 تهنئتك جاهزة!</div>
-          <div class="card-sub">شارك تهنئتك مع أحبابك وأسعدهم في العيد 🌙</div>
-          <div class="result-img-wrap">
-            <img id="result-img" src="" alt="تهنئة العيد">
-            <div class="result-share-badge">✨ عيد مبارك</div>
-          </div>
-          <div class="btn-row">
-            <button type="button" class="btn btn-gold"    id="btn-dl">⬇️ تنزيل</button>
-            <button type="button" class="btn btn-primary" id="btn-regen">🔄 جديدة</button>
-          </div>
-          <button type="button" class="btn btn-ghost mt2" id="btn-edit">✏️ تعديل النص والأسلوب</button>
-          <button type="button" class="btn btn-ghost mt1" id="btn-new">🏠 بداية جديدة</button>
-        </div>
-      </div>
-
-      <!-- ERROR -->
-      <div id="ui-err" style="display:none">
-        <div class="card">
-          <div class="err-box">
-            <div class="err-ico">⚠️</div>
-            <div class="err-title">تعذّر إنشاء التهنئة</div>
-            <div class="err-msg" id="err-msg-txt">حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.</div>
-          </div>
-          <div class="btn-row">
-            <button type="button" class="btn btn-primary" id="btn-retry">🔄 إعادة المحاولة</button>
-            <button type="button" class="btn btn-ghost"   id="btn-err-back">✏️ رجوع للتعديل</button>
-          </div>
-        </div>
-      </div>
-
-    </main>
-  </div><!-- /generate -->
-
-  <!-- ═══════ LIBRARY PAGE ═══════ -->
-  <div id="pg-library" class="pg">
-    <div class="library-empty">
-      <div class="library-empty-ico">📚</div>
-      <div class="library-empty-t">مكتبتك فارغة</div>
-      <div class="library-empty-d">ستظهر هنا تهانيك المُولَّدة قريباً بعد تسجيل الدخول</div>
-      <button type="button" class="btn btn-primary mt3" onclick="goPage('generate')" style="max-width:240px;margin-inline:auto">
-        ✨ ولّد أول تهنئة
-      </button>
-    </div>
+<!-- CREATE -->
+<div id="s-create" class="screen">
+  <div class="stepper">
+    <div class="sc active" id="sc1">1</div><div class="sl" id="sl1"></div>
+    <div class="sc" id="sc2">2</div><div class="sl" id="sl2"></div>
+    <div class="sc" id="sc3">3</div><div class="sl" id="sl3"></div>
+    <div class="sc" id="sc4">4</div>
   </div>
 
-  <!-- FOOTER -->
-  <footer id="footer">
-    <div class="footer-brand">سندك للعيد ✨</div>
-    <div class="footer-copy">© 2026 جميع الحقوق محفوظة — صُمّم بالذكاء الاصطناعي</div>
-    <div class="footer-links">
-      <a href="#" class="footer-link">الخصوصية</a>
-      <a href="#" class="footer-link">الشروط</a>
+  <!-- Step 1 -->
+  <div id="st1" class="fc">
+    <div class="card">
+      <div class="ctitle"><span class="ic">🎨</span> اختر الثيم</div>
+      <div class="tg" id="tg"></div>
     </div>
-  </footer>
+    <button class="gbtn" onclick="goStep2()" id="bs1" disabled>التالي ← تخصيص النص</button>
+  </div>
 
-</div><!-- /#app -->
+  <!-- Step 2 -->
+  <div id="st2" class="fc hidden">
+    <div class="card">
+      <div class="ctitle"><span class="ic">✍️</span> خصّص تهنئتك</div>
+      <div class="f">
+        <label>الاسم أو المُهدى إليه (اختياري)</label>
+        <input type="text" id="iname" placeholder="أبوي، عائلتي، أم خالد..." maxlength="50">
+      </div>
+      <div class="f">
+        <label>رسالة التهنئة (اختياري)</label>
+        <textarea id="igreet" placeholder="اكتب رسالتك أو اختر من الاقتراحات أدناه..." maxlength="180" rows="3"></textarea>
+        <div class="chips" id="chips"></div>
+      </div>
+      <div class="f">
+        <label>النوع</label>
+        <div class="fmts">
+          <div class="fmt act" data-f="sq" onclick="setFmt(this)"><span class="fi">▪️</span><span class="fl">بوست</span></div>
+          <div class="fmt" data-f="st" onclick="setFmt(this)"><span class="fi">📱</span><span class="fl">ستوري</span></div>
+          <div class="fmt" data-f="cd" onclick="setFmt(this)"><span class="fi">🃏</span><span class="fl">بطاقة</span></div>
+        </div>
+      </div>
+      <div class="f">
+        <label>الأسلوب</label>
+        <select id="istyle">
+          <option value="prem">فاخر سينمائي — 8K جودة عالية</option>
+          <option value="cls">كلاسيكي تراثي — دافئ أصيل</option>
+          <option value="mod">معاصر عصري — نظيف حديث</option>
+          <option value="fest">احتفالي ملوّن — فرحان مشرق</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button class="ghost" style="flex:0 0 auto" onclick="goStep1()">← رجوع</button>
+      <button class="gbtn" style="flex:1" onclick="generate()">✦ ولّد التهنئة الآن</button>
+    </div>
+  </div>
+</div>
 
-<!-- TOAST -->
-<div id="toast">✅ تم بنجاح!</div>
+<!-- GENERATING -->
+<div id="s-gen" class="screen">
+  <div class="orb">✦</div>
+  <div class="gbadge" id="gbadge">⏳ جاري التوليد...</div>
+  <div class="gt">الذكاء الاصطناعي يبدع لك...</div>
+  <div class="gsub">FLUX يرسم مشهد العيد — يستغرق 20-40 ثانية</div>
+  <div class="pbw"><div class="pb" id="pb"></div></div>
+  <div class="gst" id="gst">⏳ جاري البدء...</div>
+</div>
+
+<!-- RESULT -->
+<div id="s-result" class="screen">
+  <div class="rw">
+    <div class="rt">🎉 تهنئتك جاهزة!</div>
+    <div class="rs">شارك مع أحبابك في العيد 🌙</div>
+    <div class="rf"><canvas id="rc"></canvas></div>
+    <div class="ract">
+      <button class="bdl" onclick="dlResult()">⬇️ تحميل الصورة</button>
+      <button class="brg" onclick="regen()">🔄 توليد أخرى</button>
+      <button class="bnw" onclick="newCard()">✦ تهنئة جديدة بثيم مختلف</button>
+    </div>
+    <div class="ov">
+      <div class="ovt">✍️ إضافة نص على الصورة</div>
+      <div style="font-size:11px;color:var(--t3);margin-bottom:7px">لون النص:</div>
+      <div class="cr" id="cr"></div>
+      <div style="font-size:11px;color:var(--t3);margin:7px 0 5px">الحجم:</div>
+      <div class="szr">
+        <button class="sz" data-s="sm" onclick="setSz(this)">صغير</button>
+        <button class="sz act" data-s="md" onclick="setSz(this)">وسط</button>
+        <button class="sz" data-s="lg" onclick="setSz(this)">كبير</button>
+      </div>
+      <button class="abtn" onclick="applyText()">✓ تطبيق النص على الصورة</button>
+    </div>
+    <div class="hw">
+      <div class="ht hidden" id="htitle">🕐 آخر التهاني</div>
+      <div class="hg" id="hgrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ERROR -->
+<div id="s-err" class="screen">
+  <div class="ei">⚠️</div>
+  <div class="etitle">تعذّر التوليد</div>
+  <div class="emsg" id="emsg">حدث خطأ. يرجى المحاولة مرة أخرى.</div>
+  <div class="eact">
+    <button class="gbtn" style="width:auto;padding:12px 24px" onclick="regen()">🔄 إعادة المحاولة</button>
+    <button class="ghost" onclick="goStep2()">← تعديل الإعدادات</button>
+  </div>
+</div>
+
+<footer>سندك للعيد ✦ — مدعوم بـ Pollinations.ai · FLUX Model · مجاني للجميع</footer>
 
 <script>
-/* ================================================================
-   ⚙️  CONFIG — Edit this section only when changing API/styles
-================================================================ */
-const CFG = {
-  API: '/api/generate',          // → netlify/functions/generate.js
-  MAX_MB: 20,
-  COMPRESS_DIM: 1500,
-  COMPRESS_Q:   0.88,
-  STYLES: [
-    { id:'mosque',   e:'🕌', n:'أمام المسجد'       },
-    { id:'lanterns', e:'🪔', n:'فوانيس رمضان'     },
-    { id:'iftar',    e:'🍽', n:'مائدة الإفطار'    },
-    { id:'crescent', e:'🌙', n:'هلال العيد'        },
-    { id:'heritage', e:'🏛', n:'الحارة التراثية'  },
-    { id:'garden',   e:'🌸', n:'حديقة العيد'      },
-    { id:'fireworks',e:'🎆', n:'احتفال الألعاب'   },
-    { id:'makkah',   e:'🌅', n:'فجر العيد'         },
-    { id:'golden',   e:'✨', n:'تهنئة ذهبية'       },
-    { id:'family',   e:'🏠', n:'بيت العيد'         },
-  ]
+'use strict';
+
+/* ── THEMES DATA ── */
+const TH=[
+  {id:'mosque',n:'أمام المسجد',e:'🕌',s:'ليلي فاخر',g:'linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)',tc:'#fde68a',
+   p:'Grand illuminated mosque at night with glowing golden minarets and crescent moon, traditional Arabic lanterns, deep blue sky with stars, warm cinematic golden light, Eid celebration, dramatic sacred architecture, ultra photorealistic 8K, no text, no people'},
+  {id:'lanterns',n:'فوانيس رمضان',e:'🪔',s:'دافئ غامض',g:'linear-gradient(135deg,#2d1b00,#5c3400,#2d1b00)',tc:'#fde68a',
+   p:'Hundreds of glowing golden copper Arabic fanoos lanterns floating in atmospheric traditional alley at night, warm amber bokeh light, mashrabiya wooden windows, rose petals, magical Ramadan Eid atmosphere, cinematic 8K photorealistic, no text, no people'},
+  {id:'crescent',n:'هلال العيد',e:'🌙',s:'سينمائي درامي',g:'linear-gradient(135deg,#0f0c29,#302b63,#24243e)',tc:'#ffffff',
+   p:'Giant glowing golden crescent moon over silhouetted Arabian cityscape with tall minarets, thousands of stars in deep indigo sky, colorful Eid fireworks and glowing balloons, golden sparkles falling, ultra dramatic cinematic wide shot 8K, no text'},
+  {id:'golden',n:'ذهبي فاخر',e:'✨',s:'راقٍ ملكي',g:'linear-gradient(135deg,#1a0a00,#3d1a00,#1a0a00)',tc:'#fde68a',
+   p:'Opulent luxury gold Islamic arabesque geometric patterns, intricate ornamental design, gold coins and pearls on black velvet background, golden rays of light, premium fine texture, glamorous regal royal aesthetic, 8K studio photography macro detail, no text, no people'},
+  {id:'heritage',n:'الحارة التراثية',e:'🏛',s:'تراثي أصيل',g:'linear-gradient(135deg,#1c1407,#3d2d0a,#1c1407)',tc:'#fde68a',
+   p:'Beautiful traditional Arabian old quarter during Eid celebration at golden hour, ancient stone architecture, wooden mashrabiya windows with hanging golden lanterns, cobblestone street with warm Eid festive lights, magic depth of field cinematic 8K, no text, no people'},
+  {id:'fireworks',n:'ألعاب نارية',e:'🎆',s:'احتفالي مذهل',g:'linear-gradient(135deg,#0a0a1a,#1a0a2e,#0a0a1a)',tc:'#ffffff',
+   p:'Spectacular Eid fireworks celebration at night, gold green white fireworks exploding over Arabian city skyline with illuminated minarets, city lights reflected in water, dramatic panoramic cinematic 8K photography, no text, no people'},
+  {id:'dawn',n:'فجر العيد',e:'🌅',s:'روحاني هادئ',g:'linear-gradient(135deg,#1a0a00,#4a2000,#cc5500)',tc:'#ffffff',
+   p:'Serene breathtaking Eid dawn sunrise, sky painted in pink gold orange hues over silhouetted Arabian landscape with minarets, dew-covered flowers in foreground, birds flying, divine rays of light through clouds, peaceful spiritual atmosphere, 8K golden hour, no text, no people'},
+  {id:'garden',n:'حديقة العيد',e:'🌸',s:'رومانسي طبيعي',g:'linear-gradient(135deg,#0a1a0a,#0d2d0d,#1a4a0a)',tc:'#fde68a',
+   p:'Stunning Eid celebration garden paradise, lush Arabian garden with blooming white jasmine and roses, palm trees with golden fairy lights, ornate marble fountain, butterflies and rose petals floating, soft dreamy golden hour bokeh, 8K dreamy photorealistic, no text, no people'},
+  {id:'family',n:'بيت العيد',e:'🏠',s:'عائلي دافئ',g:'linear-gradient(135deg,#1a0e00,#3d2200,#1a0e00)',tc:'#fde68a',
+   p:'Warm inviting traditional Arabian Eid majlis interior, rich colorful decorations, date palm ornaments, traditional Eid sweets and Arabic coffee on golden tray, embroidered cushions, soft warm indoor lighting, cozy festive atmosphere, 8K photorealistic, no text, no people'},
+  {id:'riyadh',n:'ليل الرياض',e:'🏙',s:'سعودي معاصر',g:'linear-gradient(135deg,#050510,#0a0a2a,#050510)',tc:'#ffffff',
+   p:'Stunning Riyadh night skyline panoramic, Kingdom Tower and modern Saudi skyscrapers illuminated with Eid celebration colors, fireworks in sky, aerial cinematic wide angle 8K, no text, no watermark, no people'},
+  {id:'kids',n:'عيد الأطفال',e:'🎈',s:'بهيج مفرح',g:'linear-gradient(135deg,#1a002a,#2a0050,#1a002a)',tc:'#fde68a',
+   p:'Joyful festive Eid children celebration scene, colorful lanterns and balloons floating, traditional Arabic sweets, warm golden light, vibrant festive decorations, cheerful Eid atmosphere, bright vivid colors, 8K photorealistic, no people, no text'},
+  {id:'makkah',n:'مكة المكرمة',e:'🕋',s:'روحاني مبارك',g:'linear-gradient(135deg,#0a0015,#15002a,#0a0015)',tc:'#fde68a',
+   p:'Majestic Grand Mosque illuminated at night, golden minarets with brilliant white lights, crescent moon above, spiritual divine atmosphere, dramatic rays of light from sky, ultra dramatic cinematic 8K sacred architecture, no text, no watermark, no people'},
+  {id:'couples',n:'لمّة العيد',e:'👫',s:'عاطفي ليلي',g:'linear-gradient(135deg,#020215,#050530,#020215)',tc:'#c084fc',
+   p:'Saudi couple silhouette from behind on luxury high rooftop terrace at night, glittering Riyadh cityscape behind them, colorful Eid fireworks and balloons in sky, romantic festive atmosphere, cinematic photography 8K, no faces, no text'},
+  {id:'trad',n:'تهنئة رجالية',e:'🧔',s:'فخمة راقية',g:'linear-gradient(135deg,#0f0f00,#2a2800,#0f0f00)',tc:'#fde68a',
+   p:'Elegant Saudi man silhouette from behind in white thobe and ghutrah, standing at luxurious decorated Eid venue entrance, illuminated palm trees with golden lights, traditional Eid celebration atmosphere, professional cinematic photography 8K, no face, no text'},
+  {id:'minimal',n:'مينيمال نظيف',e:'⬜',s:'بسيط فاخر',g:'linear-gradient(135deg,#0a0a0a,#1a1a1a,#0a0a0a)',tc:'#f5c842',
+   p:'Minimalist luxury dark Eid greeting design, single large glowing golden crescent moon and scattered stars on deep black space background, subtle Islamic geometric pattern border in gold, premium clean modern composition, ultra sharp 8K, no text'},
+  {id:'business',n:'تجاري احترافي',e:'💼',s:'للعلامات التجارية',g:'linear-gradient(135deg,#000a1a,#00142e,#000a1a)',tc:'#f5c842',
+   p:'Professional corporate Eid greeting background, elegant deep navy blue with intricate gold Islamic geometric patterns, premium Arabic arabesque ornamental borders, luxury brand aesthetic, cinematic 8K ultra detail, no text, no logo'},
+  {id:'dates',n:'معمول وتمر',e:'🍬',s:'تراثي شهي',g:'linear-gradient(135deg,#1a0800,#3d1800,#1a0800)',tc:'#fde68a',
+   p:'Luxurious Eid sweets arrangement, traditional Arabian mamoul cookies on ornate embossed golden tray, premium Medjool dates in gilded box, Arabic coffee dallah, warm candlelight, scattered rose petals, rich warm tones, professional food photography 8K macro, no text'},
+  {id:'girl',n:'تهنئة نسائية',e:'🌺',s:'ناعم رقيق',g:'linear-gradient(135deg,#1a001a,#300030,#1a001a)',tc:'#f9a8d4',
+   p:'Elegant feminine Eid scene, embroidered abaya fabric with golden thread detail close up, surrounded by floating white jasmine flowers and glowing golden lanterns, soft purple and gold magical bokeh light, dreamy cinematic 8K, no people faces, no text'},
+  {id:'stars',n:'ليل النجوم',e:'🌌',s:'كوني غامض',g:'linear-gradient(135deg,#000008,#000418,#000008)',tc:'#c4b5fd',
+   p:'Arabian desert night sky with Milky Way galaxy fully visible, golden Eid lanterns glowing on desert sand, traditional Bedouin tent silhouette, large crescent moon, thousands of stars reflected in desert pool, magical astrophotography 8K cinematic, no text'},
+  {id:'drive',n:'جولة العيد',e:'🚗',s:'سعودي عصري',g:'linear-gradient(135deg,#050510,#0a0a20,#050510)',tc:'#ffffff',
+   p:'View from inside luxury SUV sunroof at night, Saudi city skyline with Eid fireworks in sky, modern illuminated buildings, cinematic interior wide shot looking up through glass roof, 8K photorealistic, no text, no people'},
+];
+
+const GREET=[
+  'عيد مبارك وكل عام وأنتم بخير 🌙',
+  'تقبّل الله منا ومنكم صالح الأعمال',
+  'كل عام وأنتم بألف خير وصحة وسلامة',
+  'أعاده الله عليكم بالخير واليُمن والبركات',
+  'عيد سعيد وأيام مليئة بالفرح والهناء',
+  'بارك الله فيكم وجمعكم دائماً بخير',
+];
+
+const COLORS=[
+  {c:'#ffffff',l:'أبيض'},{c:'#fde68a',l:'ذهبي'},{c:'#f5c842',l:'عسلي'},
+  {c:'#c084fc',l:'بنفسجي'},{c:'#86efac',l:'أخضر'},{c:'#000000',l:'أسود'},
+];
+
+const FMT_DIMS={sq:[1024,1024],st:[768,1366],cd:[1366,768]};
+const LUX={
+  prem:'ultra high quality, award winning cinematic photography, 8K, photorealistic',
+  cls:'classic artistic style, warm film tones, traditional photography',
+  mod:'clean modern aesthetic, sharp contemporary minimalist luxury',
+  fest:'vibrant colorful joyful, bright festive celebration, vivid colors',
 };
 
-/* ================================================================
-   🗂️  PURE STATE MACHINE
-   Only `dispatch(type, payload?)` can change state.
-================================================================ */
-const STEPS = ['upload','setup','gen','result','err'];
-
-const initState = {
-  page:     'home',   // home | generate | library
-  step:     'upload', // upload | setup | gen | result | err
-  file:     null,
-  blobUrl:  null,
-  style:    'classic',
-  greeting: '',
-  name:     '',
-  result:   null,
-  errMsg:   '',
+/* ── STATE ── */
+const S={
+  th:null,name:'',greet:'',fmt:'sq',sty:'prem',
+  tc:'#ffffff',tsz:'md',
+  seed:null,lastUrl:null,
+  _img:null,_W:1024,_H:1024,
+  hist:JSON.parse(localStorage.getItem('sandak_v5')||'[]'),
 };
 
-let S = { ...initState };
-
-const REDUCERS = {
-  GO_PAGE:    (s,{page})        => ({...s, page}),
-  FILE_SET:   (s,{file,url})    => ({...s, file, blobUrl:url, step:'setup', result:null}),
-  FILE_CLEAR: (s)               => ({...s, file:null, blobUrl:null, step:'upload', result:null}),
-  STYLE_SET:  (s,{style})       => ({...s, style}),
-  GREET_SET:  (s,{v})           => ({...s, greeting:v}),
-  NAME_SET:   (s,{v})           => ({...s, name:v}),
-  GEN_START:  (s)               => ({...s, step:'gen', result:null, errMsg:''}),
-  GEN_OK:     (s,{url})         => ({...s, step:'result', result:url}),
-  GEN_FAIL:   (s,{msg})         => ({...s, step:'err', errMsg:msg}),
-  EDIT_BACK:  (s)               => ({...s, step:'setup', errMsg:''}),
-  RESET:      ()                => ({...initState}),
-};
-
-function dispatch(type, payload={}) {
-  const fn = REDUCERS[type];
-  if (!fn) return;
-  S = fn(S, payload);
-  render();
-}
-
-/* ================================================================
-   🎭  RENDER — reads S, updates DOM
-================================================================ */
-function render() {
-  // ── pages ──
-  ['home','generate','library'].forEach(id => {
-    const el = document.getElementById('pg-'+id);
-    if (el) el.classList.toggle('on', S.page === id);
-  });
-
-  // ── nav active ──
-  ['home','library'].forEach(id => {
-    const el = document.getElementById('nl-'+id);
-    if (el) el.classList.toggle('active', S.page === id);
-  });
-
-  if (S.page !== 'generate') return;
-
-  // ── generator panels ──
-  const panels = {upload:'ui-upload',setup:'ui-setup',gen:'ui-gen',result:'ui-result',err:'ui-err'};
-  Object.entries(panels).forEach(([k,id]) => {
-    const el = document.getElementById(id);
-    if (el) el.style.display = S.step === k ? '' : 'none';
-  });
-
-  // ── step bar ──
-  renderStepBar();
-
-  // ── preview ──
-  if (S.blobUrl) {
-    const p = document.getElementById('preview-img');
-    if (p && p.src !== S.blobUrl) p.src = S.blobUrl;
+/* ── STARS ── */
+(()=>{
+  const el=document.getElementById('stars');
+  for(let i=0;i<65;i++){
+    const s=document.createElement('div');s.className='s';
+    const sz=Math.random()*2+.8;
+    s.style.cssText='width:'+sz+'px;height:'+sz+'px;top:'+Math.random()*100+'%;left:'+Math.random()*100+'%;--d:'+(2+Math.random()*4)+'s;--dl:'+-Math.random()*6+'s';
+    el.appendChild(s);
   }
+})();
 
-  // ── inputs: only sync when not focused ──
-  syncEl('greeting-ta', S.greeting);
-  syncEl('name-in',     S.name);
-
-  // ── styles grid ──
-  if (S.step === 'setup') renderStyles();
-
-  // ── char counter ──
-  const cc = document.getElementById('greeting-count');
-  if (cc) {
-    cc.textContent = `${S.greeting.length} / 280`;
-    cc.classList.toggle('warn', S.greeting.length > 240);
-  }
-
-  // ── result image ──
-  if (S.result) {
-    const ri = document.getElementById('result-img');
-    if (ri && ri.src !== S.result) ri.src = S.result;
-  }
-
-  // ── error text ──
-  const em = document.getElementById('err-msg-txt');
-  if (em) em.textContent = S.errMsg || 'حدث خطأ غير متوقع.';
-
-  // ── scroll to top of generator ──
-  const main = document.getElementById('gen-main');
-  if (main) main.scrollIntoView({ behavior:'smooth', block:'start' });
-}
-
-function syncEl(id, val) {
-  const el = document.getElementById(id);
-  if (el && document.activeElement !== el && el.value !== val) el.value = val;
-}
-
-function renderStepBar() {
-  const bar = document.getElementById('step-bar');
-  if (!bar) return;
-  const order = ['upload','setup','gen','result'];
-  const labels = { upload:'ارفع الصورة', setup:'التفاصيل', gen:'التوليد', result:'النتيجة' };
-  const cur = S.step === 'err' ? 'setup' : S.step;
-  const curI = order.indexOf(cur);
-
-  bar.innerHTML = order.map((k,i) => {
-    const isDone = i < curI;
-    const isCur  = i === curI;
-    const dc = isDone ? 'done' : isCur ? 'cur' : 'idle';
-    const lc = isDone ? 'done' : isCur ? 'cur' : '';
-    const mark = isDone ? '✓' : i+1;
-    return `
-      ${i > 0 ? `<div class="sb-line${isDone ? ' done' : ''}"></div>` : ''}
-      <div class="sb-item">
-        <div class="sb-dot ${dc}">${mark}</div>
-        <span class="sb-lbl ${lc}">${labels[k]}</span>
-      </div>`;
-  }).join('');
-}
-
-function renderStyles() {
-  const g = document.getElementById('styles-grid');
-  if (!g || g.dataset.built) return; // only build once unless style changes
-  g.dataset.built = '1';
-  g.innerHTML = CFG.STYLES.map(st =>
-    `<button type="button" class="style-btn${S.style===st.id?' sel':''}"
-      onclick="dispatch('STYLE_SET',{style:'${st.id}'});document.getElementById('styles-grid').dataset.built='';renderStyles()">
-      <span class="style-emo">${st.e}</span>
-      <span class="style-name">${st.n}</span>
-    </button>`
-  ).join('');
-}
-
-/* ================================================================
-   📂  FILE HANDLING
-================================================================ */
-const MAX_BYTES = CFG.MAX_MB * 1024 * 1024;
-
-function handleFile(file) {
-  if (!file) return;
-  if (!file.type.startsWith('image/') && !/\.(heic|heif)$/i.test(file.name)) {
-    showToast('⚠️ يرجى اختيار ملف صورة (PNG, JPG, HEIC)', true); return;
-  }
-  if (file.size > MAX_BYTES) {
-    showToast(`⚠️ حجم الصورة ${(file.size/1024/1024).toFixed(1)}MB يتجاوز ${CFG.MAX_MB}MB`, true); return;
-  }
-  // revoke old
-  if (S.blobUrl && S.blobUrl.startsWith('blob:')) URL.revokeObjectURL(S.blobUrl);
-  const url = URL.createObjectURL(file);
-  dispatch('FILE_SET', { file, url });
-}
-
-document.getElementById('file-input').addEventListener('change', e => {
-  const f = e.target.files?.[0];
-  if (f) handleFile(f);
-});
-
-const dz = document.getElementById('drop-zone');
-dz.addEventListener('dragover',  e => { e.preventDefault(); dz.classList.add('drag'); });
-dz.addEventListener('dragleave', () => dz.classList.remove('drag'));
-dz.addEventListener('drop', e => {
-  e.preventDefault(); dz.classList.remove('drag');
-  const f = e.dataTransfer.files?.[0];
-  if (f) handleFile(f);
-});
-
-/* ================================================================
-   ⌨️  INPUT HANDLERS — direct mutation (no dispatch to avoid re-render)
-================================================================ */
-document.getElementById('greeting-ta').addEventListener('input', function() {
-  S.greeting = this.value;
-  // update char counter directly
-  const cc = document.getElementById('greeting-count');
-  if (cc) {
-    cc.textContent = `${this.value.length} / 280`;
-    cc.classList.toggle('warn', this.value.length > 240);
-  }
-});
-
-document.getElementById('name-in').addEventListener('input', function() {
-  S.name = this.value;
-});
-
-// Prevent Enter on single-line input from triggering anything
-document.getElementById('name-in').addEventListener('keydown', e => {
-  if (e.key === 'Enter') e.preventDefault();
-});
-
-/* ================================================================
-   🎛️  BUTTON WIRING
-================================================================ */
-document.getElementById('btn-reup').addEventListener('click', () => {
-  if (S.blobUrl?.startsWith('blob:')) URL.revokeObjectURL(S.blobUrl);
-  dispatch('FILE_CLEAR');
-  document.getElementById('file-input').value = '';
-});
-
-document.getElementById('btn-gen').addEventListener('click', () => {
-  if (!S.file) { showToast('⚠️ يرجى رفع صورة أولاً', true); return; }
-  // snapshot inputs before transition
-  S.greeting = document.getElementById('greeting-ta').value;
-  S.name      = document.getElementById('name-in').value;
-  dispatch('GEN_START');
-  generate();
-});
-
-document.getElementById('btn-dl').addEventListener('click', () => {
-  if (!S.result) return;
-  const a = document.createElement('a');
-  a.href = S.result;
-  a.download = `سندك-للعيد-${Date.now()}.jpg`;
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  showToast('✅ تم التنزيل بنجاح!');
-});
-
-document.getElementById('btn-regen').addEventListener('click', () => {
-  dispatch('GEN_START');
-  generate();
-});
-
-document.getElementById('btn-edit').addEventListener('click', () => {
-  dispatch('EDIT_BACK');
-  document.getElementById('styles-grid').removeAttribute('data-built');
-});
-
-document.getElementById('btn-new').addEventListener('click', () => {
-  if (S.blobUrl?.startsWith('blob:')) URL.revokeObjectURL(S.blobUrl);
-  dispatch('RESET');
-  document.getElementById('file-input').value = '';
-  document.getElementById('styles-grid').removeAttribute('data-built');
-});
-
-document.getElementById('btn-retry').addEventListener('click', () => {
-  dispatch('GEN_START');
-  generate();
-});
-
-document.getElementById('btn-err-back').addEventListener('click', () => {
-  dispatch('EDIT_BACK');
-  document.getElementById('styles-grid').removeAttribute('data-built');
-});
-
-/* ================================================================
-   🗺️  PAGE NAV
-================================================================ */
-function goPage(page) {
-  dispatch('GO_PAGE', { page });
-  window.scrollTo({ top:0, behavior:'smooth' });
-}
-
-/* ================================================================
-   🗜️  IMAGE COMPRESSION
-================================================================ */
-function compressImage(file) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    const tmp = URL.createObjectURL(file);
-    img.onload = () => {
-      URL.revokeObjectURL(tmp);
-      let {width: w, height: h} = img;
-      const M = CFG.COMPRESS_DIM;
-      if (w > M || h > M) {
-        if (w >= h) { h = Math.round(h/w*M); w = M; }
-        else        { w = Math.round(w/h*M); h = M; }
-      }
-      const c = document.createElement('canvas');
-      c.width = w; c.height = h;
-      c.getContext('2d').drawImage(img, 0, 0, w, h);
-      const b64 = c.toDataURL('image/jpeg', CFG.COMPRESS_Q);
-      console.log(`[COMPRESS] ${(file.size/1024/1024).toFixed(1)}MB → ~${Math.round(b64.length*.75/1024)}KB (${w}×${h})`);
-      resolve(b64);
+/* ── THEMES GRID ── */
+(()=>{
+  const g=document.getElementById('tg');
+  TH.forEach(t=>{
+    const d=document.createElement('div');d.className='tc';
+    d.innerHTML='<div class="tb" style="background:'+t.g+'"><span class="te">'+t.e+'</span><span class="tn">'+t.n+'</span><span class="ts">'+t.s+'</span></div><div class="tchk">✓</div>';
+    d.onclick=()=>{
+      document.querySelectorAll('.tc').forEach(c=>c.classList.remove('sel'));
+      d.classList.add('sel');S.th=t;
+      document.getElementById('bs1').disabled=false;
     };
-    img.onerror = () => { URL.revokeObjectURL(tmp); reject(new Error('فشل قراءة الصورة')); };
-    img.src = tmp;
+    g.appendChild(d);
+  });
+})();
+
+/* ── CHIPS ── */
+(()=>{
+  const c=document.getElementById('chips');
+  GREET.forEach(g=>{
+    const ch=document.createElement('div');ch.className='chip';ch.textContent=g;
+    ch.onclick=()=>{document.getElementById('igreet').value=g;};
+    c.appendChild(ch);
+  });
+})();
+
+/* ── COLORS ── */
+(()=>{
+  const r=document.getElementById('cr');
+  COLORS.forEach(({c,l})=>{
+    const sw=document.createElement('div');sw.className='cs'+(c==='#ffffff'?' act':'');
+    sw.style.background=c;sw.title=l;
+    sw.onclick=()=>{
+      document.querySelectorAll('.cs').forEach(x=>x.classList.remove('act'));
+      sw.classList.add('act');S.tc=c;
+    };
+    r.appendChild(sw);
+  });
+})();
+
+/* ── EXAMPLES STRIP ── */
+(()=>{
+  const t=document.getElementById('track');
+  [...TH,...TH].forEach(th=>{
+    const d=document.createElement('div');d.className='ex';d.style.background=th.g;
+    d.innerHTML='<div class="ol"><span>'+th.e+' '+th.n+'</span></div>';
+    t.appendChild(d);
+  });
+})();
+
+/* ── HISTORY ── */
+function saveHist(){
+  const cv=document.getElementById('rc');
+  try{
+    const d=cv.toDataURL('image/jpeg',.65);
+    S.hist.unshift({u:d,n:S.th?.n,t:Date.now()});
+    S.hist=S.hist.slice(0,6);
+    localStorage.setItem('sandak_v5',JSON.stringify(S.hist));
+  }catch(e){}
+  renderHist();
+}
+function renderHist(){
+  const g=document.getElementById('hgrid');
+  const t=document.getElementById('htitle');
+  g.innerHTML='';
+  if(!S.hist.length){t.classList.add('hidden');return;}
+  t.classList.remove('hidden');
+  S.hist.forEach(h=>{
+    const d=document.createElement('div');d.className='hi';
+    const img=document.createElement('img');img.src=h.u;img.alt=h.n||'تهنئة';
+    d.appendChild(img);d.title=h.n||'تهنئة';g.appendChild(d);
   });
 }
+renderHist();
 
-/* ================================================================
-   🤖  GENERATION
-================================================================ */
-function setGenSub(txt) {
-  const el = document.getElementById('gen-sub-txt');
-  if (el) el.textContent = txt;
+/* ── SCREENS ── */
+function showOnly(id){
+  ['s-home','s-create','s-gen','s-result','s-err'].forEach(x=>{
+    const e=document.getElementById(x);
+    e.style.display='none';e.classList.remove('hidden');
+  });
+  const s=document.getElementById(id);
+  s.style.display=(id==='s-gen')?'flex':'block';
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-
-async function generate() {
-  if (S.step !== 'gen') return;
-  try {
-    setGenSub('جاري تحضير وضغط الصورة... 🗜️');
-    const b64 = await compressImage(S.file);
-
-    setGenSub('جاري إرسال الصورة للذكاء الاصطناعي... 🚀');
-    const res = await fetch(CFG.API, {
-      method: 'POST',
-      headers: { 'Content-Type':'application/json' },
-      body: JSON.stringify({
-        imageBase64: b64,
-        imageType:  'image/jpeg',
-        style:       S.style,
-        greeting:    S.greeting,
-        name:        S.name,
-      })
-    });
-
-    if (!res.ok) {
-      const e = await res.json().catch(() => ({}));
-      throw new Error(e.error || `خطأ في الخادم (${res.status})`);
-    }
-
-    setGenSub('الذكاء الاصطناعي يرسم تهنئتك... ✨');
-    const data = await res.json();
-    const url = data.imageUrl || data.url || data.image || data.imageBase64;
-    if (!url) throw new Error('لم يُستلم رابط الصورة من الخادم');
-
-    dispatch('GEN_OK', { url });
-    showToast('🎉 تهنئتك جاهزة!');
-
-  } catch(e) {
-    console.error('[GEN]', e);
-    dispatch('GEN_FAIL', { msg: e.message || 'حدث خطأ. يرجى المحاولة مرة أخرى.' });
+function setStepper(n){
+  for(let i=1;i<=4;i++){
+    const c=document.getElementById('sc'+i);
+    const l=document.getElementById('sl'+i);
+    if(!c)continue;
+    c.classList.remove('active','done');c.textContent=i;
+    if(i<n){c.classList.add('done');c.textContent='✓';}
+    else if(i===n)c.classList.add('active');
+    if(l)l.classList.toggle('done',i<n);
   }
 }
 
-/* ================================================================
-   🍞  TOAST
-================================================================ */
-let toastTimer;
-function showToast(msg, isWarn=false) {
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.style.background = isWarn
-    ? 'rgba(251,146,60,.15)'  : 'rgba(52,211,153,.15)';
-  el.style.borderColor = isWarn
-    ? 'rgba(251,146,60,.3)'   : 'rgba(52,211,153,.3)';
-  el.style.color = isWarn ? '#fb923c' : 'var(--c-ok)';
-  el.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.remove('show'), 3200);
+/* ── NAV FUNCTIONS ── */
+function goCreate(){
+  showOnly('s-create');
+  document.getElementById('st1').classList.remove('hidden');
+  document.getElementById('st2').classList.add('hidden');
+  setStepper(1);
+}
+function goStep1(){
+  document.getElementById('st1').classList.remove('hidden');
+  document.getElementById('st2').classList.add('hidden');
+  setStepper(1);
+}
+function goStep2(){
+  if(!S.th)return;
+  document.getElementById('st1').classList.add('hidden');
+  document.getElementById('st2').classList.remove('hidden');
+  setStepper(2);window.scrollTo({top:0,behavior:'smooth'});
+}
+function setFmt(el){
+  document.querySelectorAll('.fmt').forEach(b=>b.classList.remove('act'));
+  el.classList.add('act');S.fmt=el.dataset.f;
+}
+function setSz(el){
+  document.querySelectorAll('.sz').forEach(b=>b.classList.remove('act'));
+  el.classList.add('act');S.tsz=el.dataset.s;
 }
 
-/* ================================================================
-   🚀  BOOT
-================================================================ */
-render();
+/* ── BUILD URL ── */
+function buildUrl(seed){
+  const [W,H]=FMT_DIMS[S.fmt]||[1024,1024];
+  const p=S.th.p+', '+(LUX[S.sty]||'')+', no text overlay, no watermark, no written words';
+  const url='https://image.pollinations.ai/prompt/'+encodeURIComponent(p)+'?width='+W+'&height='+H+'&model=flux&nologo=true&seed='+seed;
+  return{url,W,H};
+}
+
+/* ── GENERATE ── */
+let _gt=null,_pi=null;
+
+function generate(){
+  S.name=document.getElementById('iname').value.trim();
+  S.greet=document.getElementById('igreet').value.trim();
+  S.sty=document.getElementById('istyle').value;
+  S.seed=Math.floor(Math.random()*9999999);
+
+  showOnly('s-gen');setStepper(3);
+  document.getElementById('gbadge').textContent=S.th.e+' '+S.th.n;
+
+  const pb=document.getElementById('pb');
+  const gst=document.getElementById('gst');
+  const msgs=['⏳ جاري الإرسال...','🎨 رسم الخلفية...','✨ إضافة التفاصيل...','🌙 تحسين الإضاءة...','📸 الإنهاء...'];
+  let pct=0,mi=0;
+  if(_pi)clearInterval(_pi);
+  _pi=setInterval(()=>{
+    pct=Math.min(pct+Math.random()*4,87);
+    pb.style.width=pct+'%';
+    if(pct>(mi+1)*17&&mi<msgs.length-1){mi++;gst.textContent=msgs[mi];}
+  },600);
+
+  const{url,W,H}=buildUrl(S.seed);
+  S.lastUrl=url;S._W=W;S._H=H;
+
+  if(_gt)clearTimeout(_gt);
+  _gt=setTimeout(()=>{
+    clean();
+    showError('انتهت مهلة التوليد. يرجى تجربة ثيم آخر أو المحاولة لاحقاً.');
+  },120000);
+
+  const img=new Image();
+  img.crossOrigin='anonymous';
+  img.onload=()=>{
+    clean();pb.style.width='100%';
+    S._img=img;
+    setTimeout(()=>showResult(),350);
+  };
+  img.onerror=(e)=>{
+    clean();
+    // Retry once with different seed
+    if(!S._retried){
+      S._retried=true;
+      S.seed=Math.floor(Math.random()*9999999);
+      const{url:u2}=buildUrl(S.seed);
+      S.lastUrl=u2;
+      const img2=new Image();
+      img2.crossOrigin='anonymous';
+      img2.onload=()=>{clean();pb.style.width='100%';S._img=img2;setTimeout(()=>showResult(),350);};
+      img2.onerror=()=>{clean();showError('تعذّر تحميل الصورة. تأكد من اتصالك وأعد المحاولة.');};
+      img2.src=u2;
+      gst.textContent='⚡ إعادة المحاولة...';
+      return;
+    }
+    showError('تعذّر التوليد. يرجى التحقق من اتصالك بالإنترنت والمحاولة مجدداً.');
+  };
+  S._retried=false;
+  img.src=url;
+}
+
+function clean(){
+  if(_pi){clearInterval(_pi);_pi=null;}
+  if(_gt){clearTimeout(_gt);_gt=null;}
+}
+
+/* ── SHOW RESULT ── */
+function showResult(){
+  showOnly('s-result');setStepper(4);
+  drawCanvas(false);saveHist();
+}
+
+/* ── CANVAS ── */
+function drawCanvas(withOv){
+  const cv=document.getElementById('rc');
+  cv.width=S._W;cv.height=S._H;
+  const ctx=cv.getContext('2d');
+  if(!S._img)return;
+  ctx.drawImage(S._img,0,0,S._W,S._H);
+  if(!withOv)return;
+  const txt=(S.greet||'')+(S.name?' — '+S.name:'');
+  if(!txt.trim())return;
+
+  const szM={sm:.055,md:.07,lg:.09};
+  const bsz=Math.round(S._W*(szM[S.tsz]||.07));
+  const nsz=Math.round(bsz*.55);
+  const pad=Math.round(S._W*.05);
+  const zone=Math.round(S._H*.30);
+
+  const gr=ctx.createLinearGradient(0,S._H-zone,0,S._H);
+  gr.addColorStop(0,'rgba(0,0,0,0)');
+  gr.addColorStop(.4,'rgba(0,0,0,.6)');
+  gr.addColorStop(1,'rgba(0,0,0,.88)');
+  ctx.fillStyle=gr;ctx.fillRect(0,S._H-zone,S._W,zone);
+
+  ctx.textAlign='center';ctx.textBaseline='alphabetic';
+  ctx.shadowColor='rgba(0,0,0,.85)';ctx.shadowBlur=12;ctx.shadowOffsetX=2;ctx.shadowOffsetY=2;
+
+  if(S.greet){
+    ctx.font='900 '+bsz+'px Tajawal,Arial';
+    ctx.fillStyle=S.tc;
+    const words=S.greet.split(' ');
+    const lines=[];let cur='';
+    for(const w of words){
+      const test=cur?cur+' '+w:w;
+      if(ctx.measureText(test).width>S._W-pad*2&&cur){lines.push(cur);cur=w;}
+      else cur=test;
+    }
+    if(cur)lines.push(cur);
+    const lh=bsz*1.3;
+    const tot=lines.length*lh+(S.name?nsz*2:0);
+    let y=S._H-pad-tot+bsz;
+    lines.forEach(l=>{ctx.fillText(l,S._W/2,y);y+=lh;});
+    if(S.name){
+      ctx.font='700 '+nsz+'px Tajawal,Arial';
+      ctx.fillStyle='rgba(255,255,255,.72)';
+      ctx.fillText(S.name,S._W/2,y+5);
+    }
+  } else if(S.name){
+    ctx.font='700 '+nsz+'px Tajawal,Arial';
+    ctx.fillStyle=S.tc;
+    ctx.fillText(S.name,S._W/2,S._H-pad-8);
+  }
+  ctx.shadowColor='transparent';ctx.shadowBlur=0;
+}
+
+function applyText(){drawCanvas(true);}
+
+/* ── DOWNLOAD ── */
+function dlResult(){
+  const cv=document.getElementById('rc');
+  try{
+    const a=document.createElement('a');
+    a.download='سندك-للعيد-'+S.th.n+'-'+Date.now()+'.png';
+    a.href=cv.toDataURL('image/png',1);a.click();
+  }catch(e){
+    window.open(S.lastUrl,'_blank');
+    setTimeout(()=>alert('انقر بزر الفأرة الأيمن على الصورة ← "حفظ الصورة"'),300);
+  }
+}
+
+/* ── ACTIONS ── */
+function regen(){if(!S.th)return;S.seed=Math.floor(Math.random()*9999999);generate();}
+function newCard(){
+  goCreate();
+  document.getElementById('iname').value='';
+  document.getElementById('igreet').value='';
+  S.th=null;S.name='';S.greet='';
+  document.querySelectorAll('.tc').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('bs1').disabled=true;
+  goStep1();
+}
+function showError(msg){
+  clean();showOnly('s-err');
+  document.getElementById('emsg').textContent=msg;
+  setStepper(3);
+}
 </script>
 </body>
 </html>
