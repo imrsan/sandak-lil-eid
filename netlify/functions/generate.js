@@ -1,76 +1,56 @@
-// netlify/functions/generate.js
-// سندك للعيد — 10 مشاهد احتفالية لتهنئة العيد والرمضان
+// netlify/functions/generate.js — FIXED v2
+// الإصلاح الرئيسي: رفع الصورة إلى fal storage أولاً ثم استخدام الـ URL
 
 const EID_SCENES = {
-
-  // 1 - مسجد ليلي
   mosque: {
     name: 'أمام المسجد',
-    prompt: `Seamlessly composite the person from the uploaded photo standing in front of a grand illuminated mosque at night. The mosque glows with warm golden light, crescent moon and stars fill the deep blue sky, lanterns hang between minarets. The person stands naturally at the mosque entrance as if greeting Eid worshippers. Maintain the person's face, clothing and likeness exactly. Photorealistic, cinematic lighting, 8K quality. Eid al-Fitr celebration atmosphere.`,
-    negative: 'distorted face, wrong person, different outfit, blurry, low quality, cartoon',
+    prompt: 'A stunning photorealistic Eid al-Fitr greeting card scene. Grand illuminated mosque at night with golden glowing minarets, crescent moon and stars in deep blue sky, traditional Islamic lanterns hanging between minarets, warm golden atmospheric lighting. Celebratory Eid atmosphere, cinematic composition, 8K ultra-detailed.',
+    negative: 'ugly, blurry, low quality, cartoon, text, watermark, people, faces, deformed',
   },
-
-  // 2 - فوانيس رمضان
   lanterns: {
     name: 'فوانيس رمضان',
-    prompt: `Composite the person from the uploaded photo into a magical Ramadan lantern scene. Hundreds of glowing golden and copper fanoos lanterns float around them in a dark atmospheric alley. Warm amber light dances on their face. The person appears joyful, surrounded by this traditional Ramadan ambiance. Keep the person's exact appearance. Photorealistic, warm cinematic lighting.`,
-    negative: 'distorted face, blurry person, wrong appearance, low quality',
+    prompt: 'Magical Ramadan and Eid greeting scene. Hundreds of glowing golden and copper Arabic fanoos lanterns floating in a beautiful dark atmospheric alley, warm amber bokeh light, traditional architecture with ornate wooden mashrabiya windows, rose petals floating, cinematic warm glow, 8K photorealistic.',
+    negative: 'ugly, blurry, low quality, cartoon, people, faces, watermark, modern elements',
   },
-
-  // 3 - مائدة إفطار
   iftar: {
     name: 'مائدة الإفطار',
-    prompt: `Place the person from the uploaded photo at the head of a lavish Ramadan iftar table. The long table is beautifully spread with traditional Arabic dishes, dates, juices, and decorative flowers. Warm sunset light streams through ornate windows. The person sits graciously at the table, welcoming guests. Preserve their exact face and appearance. Photorealistic, warm golden hour lighting.`,
-    negative: 'distorted face, wrong person, blurry, low quality, modern fast food',
+    prompt: 'Lavish Ramadan iftar table greeting card, beautifully styled overhead view or elegant angle. Traditional Arabic dishes, golden dates on silver tray, Arabic coffee dallah, fresh juices, decorative flowers, ornate golden tableware, warm sunset light through ornate windows, lush fabrics, 8K cinematic.',
+    negative: 'ugly, blurry, people, faces, modern fast food, low quality, plastic',
   },
-
-  // 4 - هلال العيد
   crescent: {
     name: 'هلال العيد',
-    prompt: `Create a majestic Eid greeting card compositing the person from the uploaded photo. They stand on a hilltop beneath a giant glowing crescent moon surrounded by thousands of stars. Traditional Arabic patterns frame the scene. The person wears traditional Gulf thobe or abaya (matching their original clothing style). Golden sparkles and light rays emanate around them. Cinematic, dramatic, beautiful. Keep exact face likeness.`,
-    negative: 'distorted features, wrong face, blurry, low quality',
+    prompt: 'Majestic Eid greeting illustration. Giant glowing golden crescent moon over a silhouetted Arabian cityscape with minarets, thousands of twinkling stars, colorful Eid balloons and fireworks in background, golden sparkles raining down, deep indigo and gold sky gradient, cinematic dramatic composition, 8K.',
+    negative: 'ugly, blurry, low quality, cartoon, realistic people, watermark',
   },
-
-  // 5 - قصبة تراثية
   heritage: {
     name: 'الحارة التراثية',
-    prompt: `Composite the person from the uploaded photo into a beautiful traditional Arabian heritage quarter during Eid. Ancient stone architecture with wooden mashrabiya windows, decorated with colorful Eid lights and flags. Children play in the background, families celebrate. The person walks through the festive old town street. Warm evening golden light. Preserve their exact appearance and face.`,
-    negative: 'modern architecture, wrong person, distorted, blurry, low quality',
+    prompt: 'Beautiful traditional Arabian heritage old quarter during Eid celebration. Ancient stone architecture, wooden mashrabiya windows with hanging Eid lights and golden lanterns, children silhouettes playing, flags and banners, cobblestone streets, warm evening golden magic hour light, cinematic depth, 8K photorealistic.',
+    negative: 'ugly, modern architecture, blurry, low quality, people faces clearly visible',
   },
-
-  // 6 - حديقة الورود
   garden: {
     name: 'حديقة العيد',
-    prompt: `Place the person from the uploaded photo in a stunning Eid celebration garden. Lush Arabian garden with blooming jasmine, roses and palm trees. Colorful lights hang between the trees, ornate fountain in background. Soft evening light, butterflies and flower petals float in the air. The person stands elegantly surrounded by this paradise garden. Maintain their exact face and likeness. Dreamy, photorealistic.`,
-    negative: 'distorted face, wrong person, blurry, artificial looking, low quality',
+    prompt: 'Stunning Eid celebration garden paradise. Lush Arabian garden with blooming white jasmine, roses and palm trees, strings of warm golden fairy lights between trees, ornate marble fountain, butterfly and flower petals floating in air, soft dreamy bokeh, magic golden hour, 8K photorealistic luxurious.',
+    negative: 'ugly, blurry, low quality, people, faces, plastic flowers, artificial',
   },
-
-  // 7 - احتفال الألعاب النارية
   fireworks: {
-    name: 'احتفال الألعاب النارية',
-    prompt: `Composite the person from the uploaded photo into a spectacular Eid fireworks celebration scene. They stand on a rooftop or waterfront promenade as magnificent fireworks explode in the night sky above — gold, green, white bursts over a city skyline with minarets. The person celebrates joyfully, arms raised. Their face is clearly visible and unchanged. Dramatic cinematic shot, 8K quality.`,
-    negative: 'distorted face, wrong appearance, blurry, low quality, daytime',
+    name: 'احتفال الألعاب',
+    prompt: 'Spectacular Eid celebration fireworks night scene. Magnificent golden, green and white fireworks exploding over an Arabian city skyline with illuminated minarets reflected in water, crowd silhouettes celebrating below, smoke wisps, city lights bokeh, 8K cinematic dramatic wide shot.',
+    negative: 'ugly, blurry, faces clearly visible, low quality, daytime',
   },
-
-  // 8 - كعبة وحجاج
   makkah: {
     name: 'فجر العيد',
-    prompt: `Create an Eid Mubarak greeting compositing the person from the uploaded photo at Eid dawn. They stand in a beautiful location as the sun rises, painting the sky in shades of pink, gold and orange. A distant minaret silhouette is visible. Dew-covered flowers in the foreground. The person looks serene and blessed, dressed in traditional Eid attire matching their original clothing style. Keep their exact face. Photorealistic, spiritual atmosphere.`,
-    negative: 'distorted features, wrong person, low quality, dark, night',
+    prompt: 'Serene Eid dawn greeting scene. Breathtaking sunrise painting the sky in pink, gold and orange hues over a silhouetted Arabian landscape with minarets, dew-covered flowers in foreground, birds flying, rays of light breaking through clouds, peaceful spiritual atmosphere, 8K golden hour photorealistic.',
+    negative: 'ugly, blurry, people, faces, low quality, dark, night',
   },
-
-  // 9 - تهنئة ذهبية فاخرة
   golden: {
     name: 'تهنئة ذهبية',
-    prompt: `Create a luxury gold Eid greeting card featuring the person from the uploaded photo as the central figure. Opulent golden Arabic calligraphy "عيد مبارك" arches above them. They are surrounded by floating gold coins, pearl strings, roses, and geometric Islamic patterns all in gold and deep burgundy. The person appears regal and celebratory. Studio-quality portrait with rich textures. Maintain their exact face and likeness.`,
-    negative: 'distorted face, wrong person, blurry, low quality, cheap looking',
+    prompt: 'Opulent luxury gold Eid greeting card design. Rich golden Arabic geometric patterns and intricate Islamic arabesque, gold coins and ornaments, pearl strings, red and white roses on black velvet background, golden light rays, premium texture, glamorous and regal, 8K ultra-detailed studio photography.',
+    negative: 'ugly, blurry, low quality, cheap, people, faces, modern',
   },
-
-  // 10 - أسرة وعائلة
   family: {
     name: 'بيت العيد',
-    prompt: `Composite the person from the uploaded photo into a warm Eid family home setting. A beautifully decorated Arabian living room with Eid ornaments, date palms in pots, colorful lights. Traditional Eid sweets and kahwa on the table. The person sits comfortably as if welcoming Eid guests, warm smile. Soft indoor warm lighting, festive atmosphere. Keep their exact appearance and face clearly visible. Photorealistic.`,
-    negative: 'distorted face, wrong person, blurry, low quality, wrong facial features',
+    prompt: 'Warm inviting Eid family home interior setting. Beautifully decorated Arabian living majlis with Eid ornaments, colorful lights, date palm decorations, traditional Eid sweets and kahwa spread on ornate tray, cushions with golden embroidery, warm soft indoor lighting, cozy festive atmosphere, 8K photorealistic.',
+    negative: 'ugly, blurry, people, faces, low quality, cold lighting, modern minimalist',
   },
 };
 
@@ -88,6 +68,61 @@ function checkRateLimit(ip) {
   if (rec.count >= RATE_LIMIT) return false;
   rec.count++;
   return true;
+}
+
+// رفع الصورة إلى fal storage وإرجاع public URL
+async function uploadImageToFal(base64Data, mimeType, falKey) {
+  // إزالة data URL prefix إذا وجد
+  const base64Clean = base64Data.replace(/^data:[^;]+;base64,/, '');
+  const binaryStr = atob(base64Clean);
+  const bytes = new Uint8Array(binaryStr.length);
+  for (let i = 0; i < binaryStr.length; i++) {
+    bytes[i] = binaryStr.charCodeAt(i);
+  }
+
+  const ext = mimeType === 'image/png' ? 'png' : 'jpg';
+  const filename = 'eid-photo-' + Date.now() + '.' + ext;
+
+  // رفع إلى fal storage
+  const uploadRes = await fetch('https://rest.alpha.fal.ai/storage/upload/initiate', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Key ' + falKey,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ file_name: filename, content_type: mimeType }),
+  });
+
+  if (!uploadRes.ok) {
+    // fallback: try direct upload
+    const directRes = await fetch('https://fal.run/storage/upload', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Key ' + falKey,
+        'Content-Type': mimeType,
+        'X-Filename': filename,
+      },
+      body: bytes.buffer,
+    });
+    if (!directRes.ok) {
+      const errT = await directRes.text();
+      throw new Error('Upload failed: ' + directRes.status + ' ' + errT.slice(0,200));
+    }
+    const directData = await directRes.json();
+    return directData.url || directData.file_url;
+  }
+
+  const initData = await uploadRes.json();
+  
+  // رفع الملف إلى الـ presigned URL
+  const putRes = await fetch(initData.upload_url, {
+    method: 'PUT',
+    headers: { 'Content-Type': mimeType },
+    body: bytes.buffer,
+  });
+  if (!putRes.ok) throw new Error('PUT upload failed: ' + putRes.status);
+
+  return initData.file_url;
 }
 
 exports.handler = async (event) => {
@@ -115,30 +150,41 @@ exports.handler = async (event) => {
   try { body = JSON.parse(event.body || '{}'); }
   catch { return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'طلب غير صالح' }) }; }
 
-  const { imageBase64, style, greeting = '', name = '' } = body;
+  const { imageBase64, imageType = 'image/jpeg', style, greeting = '', name = '' } = body;
   if (!imageBase64) return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'لم يتم إرسال الصورة' }) };
-  if (imageBase64.length > 10_000_000) return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'الصورة كبيرة جداً' }) };
 
   const sceneKey = EID_SCENES[style] ? style : 'lanterns';
   const scene = EID_SCENES[sceneKey];
 
-  // Build final prompt with greeting and name
-  const greetingLine = greeting ? ' Arabic text overlay: "' + greeting.slice(0, 150) + '".' : '';
-  const nameLine = name ? ' Dedicated to: ' + name.slice(0, 40) + '.' : '';
-  const fullPrompt = scene.prompt + greetingLine + nameLine + ' Ultra high quality, photorealistic compositing, 8K resolution.';
+  // 1. رفع الصورة إلى fal storage
+  let imageUrl;
+  try {
+    imageUrl = await uploadImageToFal(imageBase64, imageType, FAL_KEY);
+  } catch (upErr) {
+    console.error('Upload error:', upErr.message);
+    return { statusCode: 500, headers: CORS, body: JSON.stringify({ error: 'فشل رفع الصورة. يرجى المحاولة مرة أخرى.' }) };
+  }
+
+  // 2. توليد الصورة باستخدام الـ URL
+  const greetingLine = greeting ? ' Text overlay to composite separately: "' + greeting.slice(0, 120) + '".' : '';
+  const nameLine = name ? ' Personalized for: ' + name.slice(0, 40) + '.' : '';
+  const fullPrompt = scene.prompt + greetingLine + nameLine;
 
   let falRes;
   try {
     falRes = await fetch('https://fal.run/fal-ai/fast-sdxl/image-to-image', {
       method: 'POST',
-      headers: { 'Authorization': 'Key ' + FAL_KEY, 'Content-Type': 'application/json' },
+      headers: {
+        'Authorization': 'Key ' + FAL_KEY,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
-        image_url: imageBase64,
+        image_url: imageUrl,
         prompt: fullPrompt,
-        negative_prompt: scene.negative + ', text errors, watermark, ugly, deformed',
-        strength: 0.72,
-        num_inference_steps: 35,
-        guidance_scale: 8.5,
+        negative_prompt: scene.negative + ', text errors, watermark, ugly, deformed, wrong anatomy',
+        strength: 0.75,
+        num_inference_steps: 30,
+        guidance_scale: 8.0,
         image_size: 'square_hd',
         seed: Math.floor(Math.random() * 9999999),
       }),
@@ -149,25 +195,28 @@ exports.handler = async (event) => {
 
   if (!falRes.ok) {
     const errText = await falRes.text().catch(() => '');
-    let userErr = 'حدث خطأ أثناء التوليد. يرجى المحاولة مرة أخرى.';
-    if (falRes.status === 402 || errText.includes('balance') || errText.includes('credit')) {
-      userErr = 'الخدمة مؤقتاً غير متاحة. يرجى المحاولة لاحقاً.';
+    console.error('fal.ai error:', falRes.status, errText.slice(0, 300));
+    let userErr = 'حدث خطأ أثناء التوليد. يرجى المحاولة مرة أخرى. (كود: ' + falRes.status + ')';
+    if (falRes.status === 402 || errText.includes('balance') || errText.includes('credit') || errText.includes('payment')) {
+      userErr = 'رصيد الخدمة نفد. يرجى التواصل مع المسؤول.';
+    } else if (falRes.status === 401 || falRes.status === 403) {
+      userErr = 'خطأ في مفتاح الخدمة. يرجى التواصل مع المسؤول.';
     } else if (falRes.status === 429) {
-      userErr = 'الخادم مشغول. يرجى الانتظار دقيقة.';
+      userErr = 'الخادم مشغول. يرجى الانتظار دقيقة ثم المحاولة.';
     }
-    return { statusCode: falRes.status, headers: CORS, body: JSON.stringify({ error: userErr }) };
+    return { statusCode: 200, headers: CORS, body: JSON.stringify({ error: userErr }) };
   }
 
   let result;
   try { result = await falRes.json(); }
   catch { return { statusCode: 502, headers: CORS, body: JSON.stringify({ error: 'استجابة غير متوقعة من الخادم' }) }; }
 
-  const imageUrl = result?.images?.[0]?.url || result?.image?.url || result?.url;
-  if (!imageUrl) return { statusCode: 502, headers: CORS, body: JSON.stringify({ error: 'لم يُستلم رابط الصورة' }) };
+  const outUrl = result?.images?.[0]?.url || result?.image?.url || result?.url;
+  if (!outUrl) return { statusCode: 502, headers: CORS, body: JSON.stringify({ error: 'لم يُستلم رابط الصورة' }) };
 
   return {
     statusCode: 200,
     headers: CORS,
-    body: JSON.stringify({ imageUrl, style: sceneKey, sceneName: scene.name }),
+    body: JSON.stringify({ imageUrl: outUrl, style: sceneKey, sceneName: scene.name }),
   };
 };
