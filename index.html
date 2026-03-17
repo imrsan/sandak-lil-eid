@@ -277,21 +277,30 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--t4);border-top:
 <div class="modal-bg" id="paywall">
   <div class="modal">
     <button class="mcls" onclick="hidePaywall()">✕</button>
-    <div class="micon">🎨</div>
+    <div class="micon">🎉</div>
     <div class="mtitle">احصل على المزيد</div>
-    <div class="msub">نفدت تهنئاتك المجانية — احصل على 5 تهنئات إضافية</div>
-    <div class="pbox">
-      <div class="pmain">15 ريال</div>
-      <div class="pdesc">دفعة واحدة · 5 تهنئات</div>
+    <div class="msub">نفدت تهنئاتك المجانية — اختر الباقة المناسبة</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+      <div id="plan1-box" onclick="selectPlan('1')" style="background:rgba(245,200,66,.1);border:2px solid var(--g);border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all .2s">
+        <div style="font-size:26px;font-weight:900;color:var(--g)">1 دينار</div>
+        <div style="font-size:22px;margin:4px 0">🎉</div>
+        <div style="font-size:13px;color:var(--t2);font-weight:700">5 دعوات</div>
+        <div style="font-size:10px;color:var(--v3);margin-top:5px;font-weight:700">✓ محدد</div>
+      </div>
+      <div id="plan2-box" onclick="selectPlan('2')" style="background:rgba(124,58,237,.08);border:2px solid var(--b2);border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all .2s">
+        <div style="font-size:26px;font-weight:900;color:var(--t)">2 دينار</div>
+        <div style="font-size:22px;margin:4px 0">🎊</div>
+        <div style="font-size:13px;color:var(--t2);font-weight:700">10 دعوات</div>
+        <div style="font-size:10px;color:#10b981;margin-top:5px;font-weight:700">الأوفر 💚</div>
+      </div>
     </div>
     <ul class="pfeat">
-      <li>✅ 5 تهنئات بجودة عالية</li>
       <li>✅ جميع الثيمات الـ 20</li>
-      <li>✅ إضافة صورتك الشخصية</li>
-      <li>✅ تحميل فوري</li>
+      <li>✅ تحميل فوري بجودة عالية</li>
+      <li>✅ دفع آمن عبر بوابة معتمدة</li>
     </ul>
-    <button class="paybtn" id="paybtn" onclick="startPayment()">💳 ادفع الآن — 15 ريال</button>
-    <div class="paymethods">🔒 مدى · Visa · Mastercard</div>
+    <button class="paybtn" id="paybtn" onclick="startPayment()">💳 ادفع الآن — 1 دينار</button>
+    <div class="paymethods">🔒 Visa · Mastercard · مدى</div>
     <div class="paymsg" id="paymsg"></div>
   </div>
 </div>
@@ -488,38 +497,60 @@ function newCard(){
 }
 function showErr(msg){clean();showOnly('se');document.getElementById('emsg').textContent=msg;setStepper(3);}
 
-// الدفع
+// الدفع — باقتان: 1 دينار/5 دعوات · 2 دينار/10 دعوات
+let _plan='1';
+function selectPlan(p){
+  _plan=p;
+  const b1=document.getElementById('plan1-box');
+  const b2=document.getElementById('plan2-box');
+  const btn=document.getElementById('paybtn');
+  if(p==='1'){
+    b1.style.border='2px solid var(--g)';b1.style.background='rgba(245,200,66,.1)';
+    b2.style.border='2px solid var(--b2)';b2.style.background='rgba(124,58,237,.08)';
+    btn.textContent='💳 ادفع الآن — 1 دينار';
+  } else {
+    b2.style.border='2px solid #10b981';b2.style.background='rgba(16,185,129,.1)';
+    b1.style.border='2px solid var(--b2)';b1.style.background='rgba(255,255,255,.03)';
+    btn.textContent='💳 ادفع الآن — 2 دينار';
+  }
+}
 async function startPayment(){
   const btn=document.getElementById('paybtn');
   const msg=document.getElementById('paymsg');
-  btn.disabled=true;btn.textContent='⏳ جاري التحويل لبوابة الدفع...';msg.textContent='';
+  btn.disabled=true;
+  btn.textContent='⏳ جاري التحويل لبوابة الدفع...';
+  msg.textContent='';
   try{
     const res=await fetch('/.netlify/functions/create-payment',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({redirectUrl:window.location.origin+'/?payment=success'})
+      body:JSON.stringify({plan:_plan,redirectUrl:window.location.origin+'/?payment=success&plan='+_plan})
     });
     const data=await res.json();
     if(data.paymentUrl){
       window.location.href=data.paymentUrl;
     } else {
       msg.textContent=data.error||'تعذّر فتح بوابة الدفع. يرجى المحاولة لاحقاً.';
-      btn.disabled=false;btn.textContent='💳 ادفع الآن — 15 ريال';
+      btn.disabled=false;
+      btn.textContent=_plan==='1'?'💳 ادفع الآن — 1 دينار':'💳 ادفع الآن — 2 دينار';
     }
   }catch(e){
-    msg.textContent='تعذّر الاتصال. تحقق من اتصالك وأعد المحاولة.';
-    btn.disabled=false;btn.textContent='💳 ادفع الآن — 15 ريال';
+    msg.textContent='تعذّر الاتصال. يرجى المحاولة مجدداً.';
+    btn.disabled=false;
+    btn.textContent=_plan==='1'?'💳 ادفع الآن — 1 دينار':'💳 ادفع الآن — 2 دينار';
   }
+}
 }
 
 // التحقق من إتمام الدفع
 (()=>{
   const p=new URLSearchParams(window.location.search);
   if(p.get('payment')==='success'){
-    S.credits.paid=(S.credits.paid||0)+5;
+    const planCredits=p.get('plan')==='2'?10:5;
+    S.credits.paid=(S.credits.paid||0)+planCredits;
     saveC();
     window.history.replaceState({},'','/');
-    setTimeout(()=>alert('✅ تم الدفع! أُضيفت 5 تهنئات لرصيدك.'),500);
+    setTimeout(()=>alert('✅ تم الدفع! أُضيفت '+planCredits+' دعوات لرصيدك.'),500);
   } else if(p.get('payment')==='error'){
     window.history.replaceState({},'','/');
     setTimeout(()=>alert('لم يتم الدفع. يمكنك المحاولة مجدداً.'),500);
