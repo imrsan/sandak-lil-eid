@@ -156,14 +156,14 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--t4);border-top:
 
 <!-- الرئيسية -->
 <div id="sh" class="screen">
-  <div class="badge">🎊 تجربتان مجانيتان · ثم 5 تهنئات بـ 2 دينار</div>
+  <div class="badge">🎊 تجربتان مجانيتان · ثم 5 تهنئات بـ 15 ريال</div>
   <h1><span class="l1">صمّم تهنئة العيد<br></span><span class="l2">بالذكاء الاصطناعي</span></h1>
   <p class="sub">20 ثيماً فاخراً · أضف صورتك الشخصية · واحصل على تهنئة احترافية جاهزة للمشاركة</p>
   <button class="hbtn" onclick="goCreate()">✦ ابدأ الآن</button>
   <div class="stats">
     <div class="stat"><div class="n">20</div><div class="l">ثيماً</div></div>
     <div class="stat"><div class="n">📸</div><div class="l">صورتك في التهنئة</div></div>
-    <div class="stat"><div class="n">2 JD</div><div class="l">5 تهنئات</div></div>
+    <div class="stat"><div class="n">15 ريال</div><div class="l">5 تهنئات</div></div>
     <div class="stat"><div class="n">AI</div><div class="l">ذكاء اصطناعي</div></div>
   </div>
   <div class="strip"><div class="track" id="track"></div></div>
@@ -257,7 +257,7 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--t4);border-top:
     </div>
     <div style="margin-top:16px;text-align:center;padding:14px;background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.15);border-radius:var(--r2)">
       <div style="font-size:13px;color:var(--t3);margin-bottom:8px">رصيدك: <strong id="cr-result" style="color:var(--g)">-</strong> تهنئة متبقية</div>
-      <button onclick="showPaywall()" style="padding:8px 20px;border-radius:50px;border:none;background:linear-gradient(135deg,var(--v2),var(--v1));color:#fff;font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;cursor:pointer">احصل على المزيد — 2 دينار</button>
+      <button onclick="showPaywall()" style="padding:8px 20px;border-radius:50px;border:none;background:linear-gradient(135deg,var(--v2),var(--v1));color:#fff;font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;cursor:pointer">احصل على المزيد — 15 ريال</button>
     </div>
   </div>
 </div>
@@ -281,7 +281,7 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--t4);border-top:
     <div class="mtitle">احصل على المزيد</div>
     <div class="msub">نفدت تهنئاتك المجانية — احصل على 5 تهنئات إضافية</div>
     <div class="pbox">
-      <div class="pmain">2 دينار</div>
+      <div class="pmain">15 ريال</div>
       <div class="pdesc">دفعة واحدة · 5 تهنئات</div>
     </div>
     <ul class="pfeat">
@@ -290,7 +290,7 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--t4);border-top:
       <li>✅ إضافة صورتك الشخصية</li>
       <li>✅ تحميل فوري</li>
     </ul>
-    <button class="paybtn" id="paybtn" onclick="startPayment()">💳 ادفع الآن — 2 دينار</button>
+    <button class="paybtn" id="paybtn" onclick="startPayment()">💳 ادفع الآن — 15 ريال</button>
     <div class="paymethods">🔒 مدى · Visa · Mastercard</div>
     <div class="paymsg" id="paymsg"></div>
   </div>
@@ -504,11 +504,11 @@ async function startPayment(){
       window.location.href=data.paymentUrl;
     } else {
       msg.textContent=data.error||'تعذّر فتح بوابة الدفع. يرجى المحاولة لاحقاً.';
-      btn.disabled=false;btn.textContent='💳 ادفع الآن — 2 دينار';
+      btn.disabled=false;btn.textContent='💳 ادفع الآن — 15 ريال';
     }
   }catch(e){
     msg.textContent='تعذّر الاتصال. تحقق من اتصالك وأعد المحاولة.';
-    btn.disabled=false;btn.textContent='💳 ادفع الآن — 2 دينار';
+    btn.disabled=false;btn.textContent='💳 ادفع الآن — 15 ريال';
   }
 }
 
