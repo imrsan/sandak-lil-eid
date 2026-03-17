@@ -1,93 +1,102 @@
 'use strict';
-const CORS={'Content-Type':'application/json','Access-Control-Allow-Origin':'*','Access-Control-Allow-Methods':'POST, OPTIONS','Access-Control-Allow-Headers':'Content-Type'};
+const CORS = {
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
 
-exports.handler = async(event) => {
-  if(event.httpMethod==='OPTIONS') return {statusCode:200,headers:CORS,body:''};
-  if(event.httpMethod!=='POST') return {statusCode:405,headers:CORS,body:''};
+// MyFatoorah Jordan endpoint
+const MF_BASE = 'https://jordan.myfatoorah.com';
+
+exports.handler = async (event) => {
+  if (event.httpMethod === 'OPTIONS') return { statusCode: 200, headers: CORS, body: '' };
+  if (event.httpMethod !== 'POST') return { statusCode: 405, headers: CORS, body: '' };
 
   const MF_KEY = process.env.MF_API_KEY;
-  if(!MF_KEY) return {statusCode:500,headers:CORS,body:JSON.stringify({error:'بوابة الدفع غير مهيأة'})};
+  if (!MF_KEY) {
+    console.error('MF_API_KEY not set');
+    return { statusCode: 200, headers: CORS, body: JSON.stringify({ error: 'تعذّر فتح بوابة الدفع. يرجى المحاولة لاحقاً.' }) };
+  }
 
   let body;
-  try{body=JSON.parse(event.body||'{}');}catch{return {statusCode:400,headers:CORS,body:JSON.stringify({error:'طلب غير صالح'})};}
+  try { body = JSON.parse(event.body || '{}'); }
+  catch { return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'طلب غير صالح' }) }; }
 
-  const {redirectUrl} = body;
-  const origin = redirectUrl || 'https://glittering-axolotl-47968b.netlify.app';
+  const redirectUrl = body.redirectUrl || 'https://glittering-axolotl-47968b.netlify.app/?payment=success';
 
   try {
-    // MyFatoorah - Initiate payment (v2 API)
-    const mfRes = await fetch('https://api.myfatoorah.com/v2/InitiatePayment', {
+    // الخطوة 1: الحصول على طرق الدفع المتاحة
+    const initRes = await fetch(MF_BASE + '/v2/InitiatePayment', {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + MF_KEY,
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
-      body: JSON.stringify({
-        InvoiceAmount: 2,
-        CurrencyIso: 'KWD',
-      }),
+      body: JSON.stringify({ InvoiceAmount: 2, CurrencyIso: 'JOD' }),
     });
 
-    if(!mfRes.ok){
-      const txt = await mfRes.text().catch(()=>'');
-      return {statusCode:200,headers:CORS,body:JSON.stringify({error:'خطأ في بوابة الدفع: '+mfRes.status})};
+    const initData = await initRes.json();
+
+    if (!initData.IsSuccess) {
+      console.error('MF InitiatePayment failed:', JSON.stringify(initData).slice(0, 300));
+      return { statusCode: 200, headers: CORS, body: JSON.stringify({ error: 'تعذّر فتح بوابة الدفع. يرجى المحاولة لاحقاً.' }) };
     }
 
-    const mfData = await mfRes.json();
-    const paymentMethods = mfData?.Data?.PaymentMethods;
-    if(!paymentMethods || paymentMethods.length===0){
-      return {statusCode:200,headers:CORS,body:JSON.stringify({error:'لا توجد طرق دفع متاحة'})};
+    const methods = initData.Data?.PaymentMethods || [];
+    if (!methods.length) {
+      return { statusCode: 200, headers: CORS, body: JSON.stringify({ error: 'لا توجد طرق دفع متاحة حالياً.' }) };
     }
 
-    // Use first available payment method
-    const methodId = paymentMethods[0].PaymentMethodId;
+    // اختيار أفضل طريقة دفع متاحة
+    const method = methods.find(m => m.PaymentMethodCode === 'kn') ||
+                   methods.find(m => m.PaymentMethodEn?.toLowerCase().includes('card')) ||
+                   methods[0];
 
-    // Execute payment
-    const execRes = await fetch('https://api.myfatoorah.com/v2/ExecutePayment', {
+    // الخطوة 2: تنفيذ الدفع
+    const execRes = await fetch(MF_BASE + '/v2/ExecutePayment', {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + MF_KEY,
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
       body: JSON.stringify({
-        PaymentMethodId: methodId,
-        CustomerName: 'Sandak Eid User',
-        DisplayCurrencyIso: 'KWD',
-        MobileCountryCode: '+965',
-        CustomerMobile: '00000000',
-        CustomerEmail: 'user@sandak-eid.com',
+        PaymentMethodId: method.PaymentMethodId,
+        CustomerName: 'Sandak Eid',
+        DisplayCurrencyIso: 'JOD',
+        MobileCountryCode: '+962',
+        CustomerMobile: '0790000000',
+        CustomerEmail: 'customer@sandakeid.com',
         InvoiceValue: 2,
-        CallBackUrl: origin + '/?payment=success',
-        ErrorUrl: origin + '/?payment=error',
+        CallBackUrl: redirectUrl,
+        ErrorUrl: redirectUrl.replace('success', 'error'),
         Language: 'ar',
-        CustomerReference: 'EID5-' + Date.now(),
-        CustomerCivilId: '',
-        UserDefinedField: 'sandak_5credits',
-        ExpiryDate: '',
-        InvoiceItems: [{
-          ItemName: 'سندك للعيد — 5 تهنئات',
-          Quantity: 1,
-          UnitPrice: 2,
-        }],
+        CustomerReference: 'sandak_' + Date.now(),
+        UserDefinedField: '5credits',
+        InvoiceItems: [{ ItemName: 'سندك للعيد — 5 تهنئات', Quantity: 1, UnitPrice: 2 }],
       }),
     });
-
-    if(!execRes.ok){
-      const txt = await execRes.text().catch(()=>'');
-      return {statusCode:200,headers:CORS,body:JSON.stringify({error:'فشل إنشاء طلب الدفع'})};
-    }
 
     const execData = await execRes.json();
-    const paymentUrl = execData?.Data?.PaymentURL;
-    const invoiceId = execData?.Data?.InvoiceId;
 
-    if(!paymentUrl){
-      return {statusCode:200,headers:CORS,body:JSON.stringify({error:'لم يُستلم رابط الدفع'})};
+    if (!execData.IsSuccess || !execData.Data?.PaymentURL) {
+      console.error('MF ExecutePayment failed:', JSON.stringify(execData).slice(0, 300));
+      return { statusCode: 200, headers: CORS, body: JSON.stringify({ error: 'تعذّر إنشاء رابط الدفع. يرجى المحاولة لاحقاً.' }) };
     }
 
-    return {statusCode:200,headers:CORS,body:JSON.stringify({paymentUrl,invoiceId})};
+    return {
+      statusCode: 200,
+      headers: CORS,
+      body: JSON.stringify({
+        paymentUrl: execData.Data.PaymentURL,
+        invoiceId: execData.Data.InvoiceId,
+      }),
+    };
 
-  } catch(err) {
-    return {statusCode:503,headers:CORS,body:JSON.stringify({error:'خطأ في الاتصال بـ MyFatoorah'})};
+  } catch (err) {
+    console.error('Payment error:', err.message);
+    return { statusCode: 200, headers: CORS, body: JSON.stringify({ error: 'تعذّر الاتصال ببوابة الدفع. يرجى المحاولة لاحقاً.' }) };
   }
 };
